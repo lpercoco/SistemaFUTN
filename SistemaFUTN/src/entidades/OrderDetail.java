@@ -1,56 +1,57 @@
 package entidades;
 
-public class DetalleEncargue {
-	private MaterialDeEstudio item;
-	private int cantidadCopias;
-	private boolean estado;//impreso o no impreso 
-	private double montoParcial;
-	private String observacion;
-	private boolean dobleFaz; //true-> dobleFaz false-> simpleFaz
-	private int nroAnillado;
+public class OrderDetail {
+	private Subject item;
+	private int numberOfCopies;
+	private boolean state;// print = true not print=false
+	private double parcialAmount;
+	private String observation; // observation=coment
+	private boolean duplex; //true-> duplex false-> simple
+	private int numberRinged;
 	
 	
 	
-	public MaterialDeEstudio getItem() {
+	public Subject getItem() {
 		return item;
 	}
-	public void setItem(MaterialDeEstudio item) {
+	public void setItem(Subject item) {
 		this.item = item;
 	}
-	public int getCantidadCopias() {
-		return cantidadCopias;
+	public int getNumberOfCopies() {
+		return numberOfCopies;
 	}
-	public void setCantidadCopias(int cantidadCopias) {
-		this.cantidadCopias = cantidadCopias;
+	public void setNumberOfCopies(int numberOfCopies) {
+		this.numberOfCopies = numberOfCopies;
 	}
-	public boolean isEstado() {
-		return estado;
+	public boolean isState() {
+		return state;
 	}
-	public void setEstado(boolean estado) {
-		this.estado = estado;
+	public void setState(boolean state) {
+		this.state = state;
 	}
-	public double getMontoParcial() {
-		return montoParcial;
+	public double getParcialAmount() {
+		return parcialAmount;
 	}
-	public void setMontoParcial(double montoParcial) {
-		this.montoParcial = montoParcial;
+	public void setParcialAmount(double parcialAmount) {
+		this.parcialAmount = parcialAmount;
 	}
-	public String getObservacion() {
-		return observacion;
+	public String getObservation() {
+		return observation;
 	}
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
+	public void setObservation(String observation) {
+		this.observation = observation;
 	}
-	public boolean isDobleFaz() {
-		return dobleFaz;
+	public boolean isDuplex() {
+		return duplex;
 	}
-	public void setDobleFaz(boolean dobleFaz) {
-		this.dobleFaz = dobleFaz;
+	public void setDuplex(boolean duplex) {
+		this.duplex = duplex;
 	}
-	public int getNroAnillado() {
-		return nroAnillado;
+	public int getNumberRinged() {
+		return numberRinged;
 	}
-	public void setNroAnillado(int nroAnillado) {
-		this.nroAnillado = nroAnillado;
+	public void setNumberRinged(int numberRinged) {
+		this.numberRinged = numberRinged;
 	}
+
 }

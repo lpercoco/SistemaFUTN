@@ -3,64 +3,65 @@ package entidades;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Encargue { //nombre correcto?
-	private int numero;
-	private Date fechaEncargue;
-	private Date fechaEstimadaEntrega;
-	private Date fechaEntrega;
-	private Date fechaDisponible;// fecha en que se imprimieron todo los MDE del encargue
-	private double montoTotal;
-	private Estudiante estudianteSolicitante; //cambiar nombre?
-	private ArrayList<DetalleEncargue> detalles;
+public class Order{ 
+	private int orderNumber;
+	private Date orderDate;
+	private Date estimatedDeliveryDate;
+	private Date deliveryDate;
+	private Date finishDate;// date en que se imprimieron todo los MDE del encargue
+	private double totalAmount;
+	private Student studentOrder;
+	private ArrayList<OrderDetail> details;
 	
 	
 	
-	public int getNumero() {
-		return numero;
+	public int getOrderNumber() {
+		return orderNumber;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
 	}
-	public Date getFechaEncargue() {
-		return fechaEncargue;
+	public Date getOrderDate() {
+		return orderDate;
 	}
-	public void setFechaEncargue(Date fechaEncargue) {
-		this.fechaEncargue = fechaEncargue;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
 	}
-	public Date getFechaEstimadaEntrega() {
-		return fechaEstimadaEntrega;
+	public Date getEstimatedDeliveryDate() {
+		return estimatedDeliveryDate;
 	}
-	public void setFechaEstimadaEntrega(Date fechaEstimadaEntrega) {
-		this.fechaEstimadaEntrega = fechaEstimadaEntrega;
+	public void setEstimatedDeliveryDate(Date estimatedDeliveryDate) {
+		this.estimatedDeliveryDate = estimatedDeliveryDate;
 	}
-	public Date getFechaEntrega() {
-		return fechaEntrega;
+	public Date getDeliveryDate() {
+		return deliveryDate;
 	}
-	public void setFechaEntrega(Date fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
-	public Date getFechaDisponible() {
-		return fechaDisponible;
+	public Date getFinishDate() {
+		return finishDate;
 	}
-	public void setFechaDisponible(Date fechaDisponible) {
-		this.fechaDisponible = fechaDisponible;
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
 	}
-	public double getMontoTotal() {
-		return montoTotal;
+	public double getTotalAmount() {
+		return totalAmount;
 	}
-	public void setMontoTotal(double montoTotal) {
-		this.montoTotal = montoTotal;
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
-	public Estudiante getEstudianteSolicitante() {
-		return estudianteSolicitante;
+	public Student getStudentOrder() {
+		return studentOrder;
 	}
-	public void setEstudianteSolicitante(Estudiante estudianteSolicitante) {
-		this.estudianteSolicitante = estudianteSolicitante;
+	public void setStudentOrder(Student studentOrder) {
+		this.studentOrder = studentOrder;
 	}
-	public ArrayList<DetalleEncargue> getDetalles() {
-		return detalles;
+	public ArrayList<OrderDetail> getDetails() {
+		return details;
 	}
-	public void setDetalles(ArrayList<DetalleEncargue> detalles) {
-		this.detalles = detalles;
+	public void setDetails(ArrayList<OrderDetail> details) {
+		this.details = details;
 	}
+	
 }

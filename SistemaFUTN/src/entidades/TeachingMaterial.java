@@ -1,37 +1,40 @@
 package entidades;
 
-public class MaterialDeEstudio {
-	private int codigo;
-	private int cantidadPaginas; // cantidad o numero?
-	private String titulo;
-	private String edicion;
+public class TeachingMaterial {
+	private int code;
+	private int numberPages; 
+	private String title;
+	private String edition;
 	private String editorial;
-	private String añoPublicacion; //sirve?
-	private String[] autores;
-	private tipoMaterialDeEstudio tipo; //esta bien?
-	public int getCodigo() {
-		return codigo;
+	private int publicationYear; //sirve?
+	private String[] authors;
+	//private tipoMaterialDeEstudio tipo; //esta bien?
+	
+	
+	
+	public int getCode() {
+		return code;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCode(int code) {
+		this.code = code;
 	}
-	public int getCantidadPaginas() {
-		return cantidadPaginas;
+	public int getNumberPages() {
+		return numberPages;
 	}
-	public void setCantidadPaginas(int cantidadPaginas) {
-		this.cantidadPaginas = cantidadPaginas;
+	public void setNumberPages(int numberPages) {
+		this.numberPages = numberPages;
 	}
-	public String getTitulo() {
-		return titulo;
+	public String getTitle() {
+		return title;
 	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getEdicion() {
-		return edicion;
+	public String getEdition() {
+		return edition;
 	}
-	public void setEdicion(String edicion) {
-		this.edicion = edicion;
+	public void setEdition(String edition) {
+		this.edition = edition;
 	}
 	public String getEditorial() {
 		return editorial;
@@ -39,24 +42,17 @@ public class MaterialDeEstudio {
 	public void setEditorial(String editorial) {
 		this.editorial = editorial;
 	}
-	public String getAñoPublicacion() {
-		return añoPublicacion;
+	public int getPublicationYear() {
+		return publicationYear;
 	}
-	public void setAñoPublicacion(String añoPublicacion) {
-		this.añoPublicacion = añoPublicacion;
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
 	}
-	public String[] getAutores() {
-		return autores;
+	public String[] getAuthors() {
+		return authors;
 	}
-	public void setAutores(String[] autores) {
-		this.autores = autores;
+	public void setAuthors(String[] authors) {
+		this.authors = authors;
 	}
-	public tipoMaterialDeEstudio getTipo() {
-		return tipo;
-	}
-	public void setTipo(tipoMaterialDeEstudio tipo) {
-		this.tipo = tipo;
-	}
-
 	
 }

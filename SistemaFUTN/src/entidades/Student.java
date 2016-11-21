@@ -1,5 +1,5 @@
 package entidades;
 
-public class Estudiante extends Usuario {
+public class Student extends User{
 
 }

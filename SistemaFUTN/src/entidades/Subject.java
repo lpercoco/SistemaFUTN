@@ -1,42 +1,36 @@
 package entidades;
 
-public class Asignatura {
-	private int codigo;
-	private String  nombre;
-	private int añoCursado;
-	private int añoPlan;
-	private int codigoArea; //Ver
+public class Subject {
+	private int code;
+	private String  name;
+	private int level;
+	private int planYear;
 	
 	
 	
-	public int getCodigo() {
-		return codigo;
+	public int getcode() {
+		return code;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setcode(int code) {
+		this.code = code;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getname() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setname(String name) {
+		this.name = name;
 	}
-	public int getAñoCursado() {
-		return añoCursado;
+	public int getlevel() {
+		return level;
 	}
-	public void setAñoCursado(int añoCursado) {
-		this.añoCursado = añoCursado;
+	public void setlevel(int level) {
+		this.level = level;
 	}
-	public int getAñoPlan() {
-		return añoPlan;
+	public int getplanYear() {
+		return planYear;
 	}
-	public void setAñoPlan(int añoPlan) {
-		this.añoPlan = añoPlan;
+	public void setplanYear(int planYear) {
+		this.planYear = planYear;
 	}
-	public int getCodigoArea() {
-		return codigoArea;
-	}
-	public void setCodigoArea(int codigoArea) {
-		this.codigoArea = codigoArea;
-	}
+
 }
