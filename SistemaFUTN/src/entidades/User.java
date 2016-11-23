@@ -1,7 +1,7 @@
 package entidades;
 
 public class User {
-	private int    legajo; //string o int?
+	private String legajo; 
 	private String firstName;
 	private String lastName;
 	private String adress;
@@ -12,10 +12,10 @@ public class User {
 	
 	
 	
-	public int getLegajo() {
+	public String getLegajo() {
 		return legajo;
 	}
-	public void setLegajo(int legajo) {
+	public void setLegajo(String legajo) {
 		this.legajo = legajo;
 	}
 	public String getFirstName() {

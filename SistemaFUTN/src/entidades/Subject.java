@@ -4,33 +4,33 @@ public class Subject {
 	private int code;
 	private String  name;
 	private int level;
-	private int planYear;
+	private String area;
 	
 	
 	
-	public int getcode() {
+	public int getCode() {
 		return code;
 	}
-	public void setcode(int code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getname() {
+	public String getName() {
 		return name;
 	}
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-	public int getlevel() {
+	public int getLevel() {
 		return level;
 	}
-	public void setlevel(int level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
-	public int getplanYear() {
-		return planYear;
+	public String getArea() {
+		return area;
 	}
-	public void setplanYear(int planYear) {
-		this.planYear = planYear;
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 }

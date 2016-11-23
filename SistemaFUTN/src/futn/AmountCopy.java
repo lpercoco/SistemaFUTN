@@ -2,7 +2,7 @@ package futn;
 
 import java.util.Date; // o .sql?
 
-public class amountCopy{
+public class AmountCopy{
 	private double duplexPrice;
 	private double simplePrice;
 	private Date beginDate;

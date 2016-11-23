@@ -7,17 +7,11 @@ public class TeachingMaterial {
 	private String edition;
 	private String editorial;
 	private int publicationYear; //sirve?
-	private String[] authors;
-	//private tipoMaterialDeEstudio tipo; //esta bien?
+	private String[] authors; //max 3 ??
+	private String typeMaterial; //convertir tipo en clase si los estudiantes pueden subir material
+	private Subject materialSubject;
 	
 	
-	
-	public int getCode() {
-		return code;
-	}
-	public void setCode(int code) {
-		this.code = code;
-	}
 	public int getNumberPages() {
 		return numberPages;
 	}
@@ -48,11 +42,29 @@ public class TeachingMaterial {
 	public void setPublicationYear(int publicationYear) {
 		this.publicationYear = publicationYear;
 	}
+	public String getTypeMaterial() {
+		return typeMaterial;
+	}
+	public void setTypeMaterial(String typeMaterial) {
+		this.typeMaterial = typeMaterial;
+	}
 	public String[] getAuthors() {
 		return authors;
 	}
 	public void setAuthors(String[] authors) {
 		this.authors = authors;
+	}
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
+	public Subject getMaterialSubject() {
+		return materialSubject;
+	}
+	public void setMaterialSubject(Subject materialSubject) {
+		this.materialSubject = materialSubject;
 	}
 	
 }

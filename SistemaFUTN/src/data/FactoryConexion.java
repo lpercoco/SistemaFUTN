@@ -7,7 +7,7 @@ public class FactoryConexion {
 	private String dbDriver="com.mysql.jdbc.Driver";
 	private String host="localhost";
 	private String port="3306";
-	private String user="usuariofutn";
+	private String user="userfutn";
 	private String pass="finaljava";
 	private String db="futnDB";
 	private String dbType="mysql";

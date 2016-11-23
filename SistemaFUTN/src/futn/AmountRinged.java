@@ -2,11 +2,11 @@ package futn;
 
 import java.util.Date; // o .sql?
 
-public class amountRinged {
+public class AmountRinged {
 	private int numberRinged;
 	private Date beginDate;
 	private Date endDate;
-	private double price;
+	private double ringedPrice;
 	
 	
 	
@@ -28,11 +28,11 @@ public class amountRinged {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public double getPrice() {
-		return price;
+	public double getRingedPrice() {
+		return ringedPrice;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setRingedPrice(double ringedPrice) {
+		this.ringedPrice = ringedPrice;
 	}
 	
 }
