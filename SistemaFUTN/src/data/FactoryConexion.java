@@ -7,7 +7,7 @@ public class FactoryConexion {
 	private String dbDriver="com.mysql.jdbc.Driver";
 	private String host="localhost";
 	private String port="3306";
-	private String user="userfutn";
+	private String user="userfutnDB";
 	private String pass="finaljava";
 	private String db="futnDB";
 	private String dbType="mysql";
@@ -32,13 +32,14 @@ public class FactoryConexion {
 		}
 		return instancia;
 	}
+	
 	public Connection getConn(){
 		try {
 			if(conn==null || conn.isClosed()){
-				conn = DriverManager.getConnection(
+				   conn = DriverManager.getConnection(
 						"jdbc:"+dbType+"://"+host+":"+port+"/"+
 						db+"?user="+user+"&password="+pass);
-				cantConn++;
+				cantConn++;	
 			}
 		} catch (SQLException e) {
 			new ApplicationException("Error al conectar a la DB",e);

@@ -16,7 +16,7 @@ public class UserData {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into users(legajo,firstName,lastName,adress,phone1,phone2,mail,credit)"+
+					"insert into users (legajo,firstName,lastName,adress,phone1,phone2,mail,credit)"+
 					" values(?,?,?,?,?,?,?,?)");
 						
 			stmt.setString(1,s.getLegajo());
@@ -116,7 +116,7 @@ public class UserData {
 	}
 	
 	
-	public void update(Student s){
+	public void update(Student s){ //separar en dos?
 		PreparedStatement stmt=null;
 		
 		try {
