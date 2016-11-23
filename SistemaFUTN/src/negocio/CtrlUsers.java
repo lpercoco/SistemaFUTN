@@ -11,6 +11,8 @@ public class CtrlUsers {
 		userData=new UserData();
 	}
 	
+	//faltan manejo de excepciones
+	
 	public void add(Student s){
 		userData.add(s);
 	}

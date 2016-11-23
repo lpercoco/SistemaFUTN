@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Student;
+import negocio.CtrlUsers;
 
 /**
  * Servlet implementation class UserCrud
@@ -36,6 +37,22 @@ public class UserCrud extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		CtrlUsers ctrlUser=new CtrlUsers();
+		
+		Student student=new Student();
+		
+		student.setLegajo(request.getParameter("legajo"));
+		student.setFirstName(request.getParameter("firstName"));
+		student.setLastName(request.getParameter("lastName"));
+		student.setMail(request.getParameter("mail"));
+		student.setPhone1(request.getParameter("phone1"));
+		student.setPhone2(request.getParameter("phone2"));
+		student.setCredit(Double.parseDouble(request.getParameter("credit")));
+		student.setAdress(request.getParameter("adress"));
+		
+		ctrlUser.add(student); //manejo de excepcion en controlador
+
+		
 		doGet(request, response);
 	}
 
