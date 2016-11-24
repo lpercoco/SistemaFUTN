@@ -116,19 +116,18 @@ public class UserData {
 	}
 	
 	
-	public void update(Student s){ //separar en dos?
+	public void update(Student s){ 
 		PreparedStatement stmt=null;
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update users set adress=?,phone1=?,phone2=?,mail=?,credit=?"+
+					"update users set adress=?,phone1=?,phone2=?,mail=?"+
 					" where legajo=?");
 
 			stmt.setString(1,s.getAdress());
 			stmt.setString(2,s.getPhone1());
 			stmt.setString(3,s.getPhone2());
 			stmt.setString(4,s.getMail());
-			stmt.setDouble(5,s.getCredit());
             stmt.executeUpdate();
 			
 		} catch (SQLException e) {
