@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Student;
 import negocio.CtrlUsers;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class UserAdd
@@ -50,7 +51,12 @@ public class UserAdd extends HttpServlet {
 		student.setCredit(Double.parseDouble(request.getParameter("credit")));
 		student.setAdress(request.getParameter("adress"));
 		
-		ctrlUser.add(student); //manejo de excepcion en controlador
+		try {
+			ctrlUser.add(student);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 		// si no hay error redirigir a pagina anterior
 		// si hay error  mostrar mensaje y?

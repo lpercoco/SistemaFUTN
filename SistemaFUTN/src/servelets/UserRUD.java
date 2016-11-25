@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Student;
 import negocio.CtrlUsers;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class UserRUD
@@ -46,7 +47,12 @@ public class UserRUD extends HttpServlet {
 		if(request.getParameter("read") != null){
 			Student sSearch= new Student();
 			sSearch.setLegajo(request.getParameter("Legajo"));
-			s=ctrlUser.getByLegajo(sSearch);
+			try {
+				s=ctrlUser.getByLegajo(sSearch);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(s!=null){
 			    request.getSession().setAttribute("student", s );
 			    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
@@ -56,7 +62,12 @@ public class UserRUD extends HttpServlet {
 		
 		if(request.getParameter("delete") != null){
 			s=(Student)(request.getSession().getAttribute("student"));
-			ctrlUser.delete(s);
+			try {
+				ctrlUser.delete(s);
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
 
 		}

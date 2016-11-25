@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Student;
 import negocio.CtrlUsers;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class AddCredit
@@ -44,10 +45,20 @@ public class AddCredit extends HttpServlet {
 		double total=0;
 		
 		sSearch.setLegajo(request.getParameter("Legajo"));
-		s=ctrl.getByLegajo(sSearch);
+		try {
+			s=ctrl.getByLegajo(sSearch);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		total=s.getCredit()+Double.parseDouble(request.getParameter("Credit"));
 		s.setCredit(total);
-		ctrl.update(s);
+		try {
+			ctrl.update(s);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	    request.getRequestDispatcher("AddCredit.jsp").forward(request, response); // a donde dirigir?
 
