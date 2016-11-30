@@ -1,8 +1,8 @@
 package futn;
 
-import java.util.Date; // o .sql?
+import java.sql.Date;
 
-public class AmountCopy{
+public class CopyPrice{
 	private double duplexPrice;
 	private double simplePrice;
 	private Date beginDate;

@@ -2,7 +2,7 @@ package futn;
 
 import java.util.Date; // o .sql?
 
-public class AmountRinged {
+public class RingedPrice {
 	private int numberRinged;
 	private Date beginDate;
 	private Date endDate;
