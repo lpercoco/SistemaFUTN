@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import futn.CopyPrice;
 import negocio.CtrlFutn;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class PriceChange
@@ -58,14 +59,26 @@ public class PriceChange extends HttpServlet {
 	    newCopyPrice.setBeginDate(dBegin);
 	    newCopyPrice.setDuplexPrice(Double.parseDouble(request.getParameter("Duplex")));
 	    newCopyPrice.setSimplePrice(Double.parseDouble(request.getParameter("Simple")));
-	    ctrl.add(newCopyPrice);
+	    
+	    try {
+			ctrl.add(newCopyPrice);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 	    //resta 1 dia a la fecha ingresada, la setea como fecha fin en el precio actual y lo actualiza en la db
 	    cal.setTime(dBegin);
 	    cal.add(Calendar.DAY_OF_MONTH,-1);
 	    dEnd=new Date(cal.getTime().getTime());
 	    actualCopyPrice.setEndDate(dEnd);
-	    ctrl.update(actualCopyPrice);
+	    
+	    try {
+			ctrl.update(actualCopyPrice);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 
 	    request.getRequestDispatcher("PriceChange.jsp").forward(request, response);
