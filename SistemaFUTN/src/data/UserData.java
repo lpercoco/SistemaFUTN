@@ -123,7 +123,6 @@ public class UserData {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
 					"update users set adress=?,phone1=?,phone2=?,mail=?,credit=?"+
 					" where legajo=?");
-
 			stmt.setString(1,s.getAdress());
 			stmt.setString(2,s.getPhone1());
 			stmt.setString(3,s.getPhone2());

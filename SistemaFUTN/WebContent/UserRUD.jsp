@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Modificar Datos de Usuarios Alumnos</title>
 </head>
 <body>
         
@@ -13,7 +13,7 @@
     <div class="container">
 
       <form class="form-signin" name="signin" action="UserRUD" method="post">
-        <h2 class="form-signin-heading">hola</h2>
+        <h2 class="form-signin-heading">Datos de Usuarios Alumnos</h2>
         <label for="inputLegajo" class="sr-only">Legajo</label>
         <input name="Legajo" id="inputLegajo" class="form-control" placeholder="" required="" autofocus="" type="">
 
@@ -28,7 +28,7 @@
      Legajo: <%if(s!=null && s.getLegajo()!=null) out.println(s.getLegajo());%> <br>
      First name: <%if(s!=null && s.getFirstName()!=null) out.println(s.getFirstName());%> <br>
      Last name: <%if(s!=null && s.getLastName()!=null) out.println(s.getLastName());%> <br> 
-    
+<%--     	<input name="legajo" type="text" value="${s.getLegajo()}"/> --%>
         <div class="container">
 
       <form class="form-signin" name="signin" action="UserRUD" method="post">
