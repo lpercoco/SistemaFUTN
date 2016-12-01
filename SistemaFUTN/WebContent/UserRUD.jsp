@@ -28,7 +28,6 @@
      Legajo: <%if(s!=null && s.getLegajo()!=null) out.println(s.getLegajo());%> <br>
      First name: <%if(s!=null && s.getFirstName()!=null) out.println(s.getFirstName());%> <br>
      Last name: <%if(s!=null && s.getLastName()!=null) out.println(s.getLastName());%> <br> 
-<%--     	<input name="legajo" type="text" value="${s.getLegajo()}"/> --%>
         <div class="container">
 
       <form class="form-signin" name="signin" action="UserRUD" method="post">
