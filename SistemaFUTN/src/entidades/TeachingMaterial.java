@@ -8,14 +8,14 @@ public class TeachingMaterial {
 	private String editorial;
 	private String author; 
 	private String description; 
-	private Subject materialSubject;
+	private Subject materialSubject; // esta bien?
+	private String publicationYear;
 	
-	
-	public int getNumberPages() {
+	public int getNumberOfPages() {
 		return numberOfPages;
 	}
-	public void setNumberPages(int numberPages) {
-		this.numberOfPages = numberPages;
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
 	}
 	public String getTitle() {
 		return title;
@@ -35,10 +35,10 @@ public class TeachingMaterial {
 	public void setEditorial(String editorial) {
 		this.editorial = editorial;
 	}
-	public String getAuthors() {
+	public String getAuthor() {
 		return author;
 	}
-	public void setAuthors(String author) {
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 	public int getCode() {
@@ -58,6 +58,12 @@ public class TeachingMaterial {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getPublicationYear() {
+		return publicationYear;
+	}
+	public void setPublicationYear(String publicationYear) {
+		this.publicationYear = publicationYear;
 	}
 	
 }

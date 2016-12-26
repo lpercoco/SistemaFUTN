@@ -49,5 +49,41 @@ public class SubjectData {
 		}
 		return subjects;
 	}
+	
+	public Subject getByName(Subject ms){
+		Subject s= new Subject();		
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select code,name,area,level from subjects where name=?");
+			stmt.setString(1, ms.getName());
+			rs= stmt.executeQuery();
+			if(rs!=null && rs.next()){
+				s.setArea(rs.getString("area"));
+				s.setCode(rs.getInt("code"));
+				s.setLevel(rs.getInt("level"));
+				s.setName(rs.getString("name"));
+			}
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+		return s;
+	}
 
 }

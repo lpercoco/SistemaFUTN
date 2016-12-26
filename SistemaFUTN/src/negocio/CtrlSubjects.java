@@ -12,8 +12,14 @@ public class CtrlSubjects {
 		data= new SubjectData();
 	}
 	
+	//faltan excepciones
+	
 	public ArrayList<Subject> getSubjects(){
 		return(data.getSubjects());
+	}
+	
+	public Subject getByName(Subject s){
+		return(data.getByName(s));
 	}
 
 }
