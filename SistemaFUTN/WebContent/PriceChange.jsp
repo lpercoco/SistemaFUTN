@@ -15,7 +15,7 @@
           CopyPrice actualCopyPrice=new CopyPrice();
 	      actualCopyPrice=ctrl.getActualCopyPrice();%>
 	      
-<!-- Poner precios actuales fuera o dentro del form?  -->	      
+<!-- quitar parte fechas, revisar si es necesario  el codigo en java  -->	      
 
 Begin date from actual price: <%out.println(actualCopyPrice.getBeginDate());%> <br><br>
 
@@ -24,19 +24,18 @@ Duplex copy:<%out.println(actualCopyPrice.getDuplexPrice());%> <br>
 
     <div class="container">
 
-      <form class="form-PriceChange" name="PriceChange" action="PriceChange" method="post">
-        <h2 class="form-PriceChange-heading"></h2>
+      <form name="PriceChangeForm" action="PriceChange" method="post">
         
-        <label for="inputSimple" class="sr-only">Simple</label>
-        <input type="number" name="Simple" id="inputSimple" class="form-control" step="0.01" min="0" value="0" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="simple" >Simple</label>
+        <input type="number" name="simple" id="simple" step="0.01" min="0" value="0"> <br>
         
-        <label for="inputDuplex" class="sr-only">Duplex</label>
-        <input type="number" name="Duplex" id="inputDuplex" class="form-control" step="0.01" min="0" value="0" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="duplex" >Duplex</label>
+        <input type="number" name="Duplex" id="duplex" class="form-control" step="0.01" min="0" value="0"> <br>
         
-        <label for="inputBeginDate" class="sr-only">Begin date for the future price:</label>  
-        <input type="date" name="BeginDate" placeholder="yyyy-mm-dd"> <br>
+        <label for="date" >Begin date for the future price:</label>  
+        <input type="date" name="date" placeholder="yyyy-mm-dd"> <br>
                
-        <input type="submit" name="save" value="Save">
+        <input type="submit" name="Save" value="Save">
        
       </form>
 

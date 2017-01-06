@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Update a new teaching material</title>
+<title>Add a new teaching material</title>
 
 <script src="http://code.jquery.com/jquery-1.7.js"
     type="text/javascript"></script>
@@ -59,34 +59,38 @@ $(document).ready(function() {
 </head>
 <body>
 
+<div class="container">
+
  <form name="AddTeachingMaterialForm" action="AddTeachingMaterial" method="post">
 
-   <label for="subject" class="sr-only">Subject</label> 
-   <input type="text" name="subject" id="subject"  /> </br>
+   <label for="subject" >Subject</label> 
+   <input type="text" name="subject" id="subject"  /><br>
    
-   <label for="title" class="sr-only">Title</label> 
-   <input type="text" name="title" /> </br>
+   <label for="title" >Title</label> 
+   <input type="text" name="title" /><br>
    
-   <label for="numberOfPages" class="sr-only">Number of pages</label> 
-   <input type="number" name="numberOfPages" min="1" step="1" value="1"/> </br>
+   <label for="numberOfPages" >Number of pages</label> 
+   <input type="number" name="numberOfPages" min="1" step="1" value="1"/><br>
       
-   <label for="editorial" class="sr-only">Editorial</label> 
-   <input type="text" name="editorial" /> </br>
+   <label for="editorial" >Editorial</label> 
+   <input type="text" name="editorial" /><br>
       
-   <label for="edition" class="sr-only">Edition</label> 
-   <input type="text" name="edition" /> </br>
+   <label for="edition" >Edition</label> 
+   <input type="text" name="edition" /><br>
       
-   <label for="description" class="sr-only">Description</label> 
-   <input type="text" name="description" /> </br>
+   <label for="description" >Description</label> 
+   <input type="text" name="description" /><br>
    
-   <label for="author" class="sr-only">Author</label> 
-   <input ype="text" name="author" /> </br>
+   <label for="author" >Author</label> 
+   <input ype="text" name="author" /><br>
    
-   <!-- id="author" maxlength="50"  -->
    
    <input type="submit" name="Add" value="Add">
    
  </form>
+
+</div> <!-- /container -->
+ 
 
 </body>
 </html>

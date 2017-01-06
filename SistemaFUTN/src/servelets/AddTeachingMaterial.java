@@ -55,11 +55,6 @@ public class AddTeachingMaterial extends HttpServlet {
         ms=new Subject();
 				
 		tm.setTitle(request.getParameter("title"));
-		
-		System.out.println(request.getParameter("title"));
-		System.out.println(request.getParameter("author"));
-		System.out.println(request.getParameter("numberOfPages"));
-		
 		tm.setAuthor(request.getParameter("author"));
 		tm.setDescription(request.getParameter("description"));
 		tm.setEdition(request.getParameter("edition"));

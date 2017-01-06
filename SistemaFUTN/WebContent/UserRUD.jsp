@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>User </title>
 </head>
 <body>
         
@@ -29,30 +29,30 @@
      First name: <%if(s!=null && s.getFirstName()!=null) out.println(s.getFirstName());%> <br>
      Last name: <%if(s!=null && s.getLastName()!=null) out.println(s.getLastName());%> <br> 
     
-        <div class="container">
+     <div class="container">
 
       <form class="form-signin" name="signin" action="UserRUD" method="post">
         <h2 class="form-signin-heading"></h2>
                    
-        <label for="inputAdress" class="sr-only">Adress</label>
-        <input name="adress" id="inputAdress" class="form-control" value="<%if(s!=null && s.getAdress()!=null) out.println(s.getAdress());%>" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="adress" class="sr-only">Adress</label>
+        <input type="text" name="adress" id="adress" value="<%if(s!=null && s.getAdress()!=null) out.println(s.getAdress());%>"> <br>
         
-        <label for="inputPhone1" class="sr-only">Phone1</label>
-        <input name="phone1" id="inputPhone1" class="form-control" value="<%if(s!=null && s.getPhone1()!=null) out.println(s.getPhone1());%>" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="phone1" class="sr-only">Phone1</label>
+        <input type="text" name="phone1" id="phone1" value="<%if(s!=null && s.getPhone1()!=null) out.println(s.getPhone1());%>"> <br>
         
-        <label for="inputPhone2" class="sr-only">Phone2</label>
-        <input name="phone2" id="inputPhone2" class="form-control" value="<%if(s!=null && s.getPhone2()!=null) out.println(s.getPhone2());%>" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="phone2" class="sr-only">Phone2</label>
+        <input type="text" name="phone2" id="phone2" value="<%if(s!=null && s.getPhone2()!=null) out.println(s.getPhone2());%>"> <br>
         
-        <label for="inputMail" class="sr-only">Mail</label>
-        <input name="Mail" id="inputMail" class="form-control" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="mail" class="sr-only">Mail</label>
+        <input type="text" name="Mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
         
-        <input type="submit" name="update" value="Update">
-        <input type="submit" name="delete" value="Delete">
+        <input type="submit" name="Update" value="Update">
+        <input type="submit" name="Delete" value="Delete">
         
        
       </form>
 
-    </div> <!-- /container -->
+     </div> <!-- /container -->
     
 </body>
 </html>
