@@ -12,12 +12,13 @@
      
     <div class="container">
 
-      <form class="form-signin" name="signin" action="UserRUD" method="post">
+      <form name="UserSearchForm" action="UserRUD" method="post">
+      
         <h2 class="form-signin-heading">hola</h2>
-        <label for="inputLegajo" class="sr-only">Legajo</label>
-        <input name="Legajo" id="inputLegajo" class="form-control" placeholder="" required="" autofocus="" type="">
+        <label for="legajo" >Legajo</label>
+        <input type="text" name="legajo" id="legajo" >
 
-        <input type="submit" name="read" value="Search">
+        <input type="submit" name="Search" value="Search">
         
       </form>
 
@@ -31,19 +32,18 @@
     
      <div class="container">
 
-      <form class="form-signin" name="signin" action="UserRUD" method="post">
-        <h2 class="form-signin-heading"></h2>
+      <form name="UserRudForm" action="UserRUD" method="post">
                    
-        <label for="adress" class="sr-only">Adress</label>
+        <label for="adress" >Adress</label>
         <input type="text" name="adress" id="adress" value="<%if(s!=null && s.getAdress()!=null) out.println(s.getAdress());%>"> <br>
         
-        <label for="phone1" class="sr-only">Phone1</label>
+        <label for="phone1" >Phone1</label>
         <input type="text" name="phone1" id="phone1" value="<%if(s!=null && s.getPhone1()!=null) out.println(s.getPhone1());%>"> <br>
         
-        <label for="phone2" class="sr-only">Phone2</label>
+        <label for="phone2" >Phone2</label>
         <input type="text" name="phone2" id="phone2" value="<%if(s!=null && s.getPhone2()!=null) out.println(s.getPhone2());%>"> <br>
         
-        <label for="mail" class="sr-only">Mail</label>
+        <label for="mail" >Mail</label>
         <input type="text" name="Mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
         
         <input type="submit" name="Update" value="Update">
