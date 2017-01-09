@@ -44,8 +44,7 @@ public class CtrlUsers {
 	}
 	
 	public void update(Student s) throws ApplicationException{
-		st=userData.getByLegajo(st);
-		if(st!=null){
+		if(s!=null){
 			userData.update(s);
 		}else{
 			throw new ApplicationException("There isnt a user with thah Legajo");

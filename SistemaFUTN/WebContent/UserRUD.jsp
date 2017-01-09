@@ -5,18 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>User </title>
+
 </head>
 <body>
         
      
     <div class="container">
 
+
       <form name="UserSearchForm" action="UserRUD" method="post">
       
         <h2 class="form-signin-heading">hola</h2>
         <label for="legajo" >Legajo</label>
         <input type="text" name="legajo" id="legajo" >
+
 
         <input type="submit" name="Search" value="Search">
         
@@ -29,8 +33,9 @@
      Legajo: <%if(s!=null && s.getLegajo()!=null) out.println(s.getLegajo());%> <br>
      First name: <%if(s!=null && s.getFirstName()!=null) out.println(s.getFirstName());%> <br>
      Last name: <%if(s!=null && s.getLastName()!=null) out.println(s.getLastName());%> <br> 
-    
+
      <div class="container">
+
 
       <form name="UserRudForm" action="UserRUD" method="post">
                    

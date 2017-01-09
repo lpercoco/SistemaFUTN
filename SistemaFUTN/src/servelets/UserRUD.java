@@ -42,7 +42,7 @@ public class UserRUD extends HttpServlet {
 		CtrlUsers ctrlUser=new CtrlUsers();
 		Student s= new Student();
 		
-		//request.getSession().removeAttribute("student");
+		
 		
 		if(request.getParameter("read") != null){
 			Student sSearch= new Student();
@@ -64,6 +64,23 @@ public class UserRUD extends HttpServlet {
 			s=(Student)(request.getSession().getAttribute("student"));
 			try {
 				ctrlUser.delete(s);
+				request.getSession().removeAttribute("student");
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
+
+		}
+		if(request.getParameter("update") != null){
+			s=(Student)(request.getSession().getAttribute("student"));
+			s.setMail(request.getParameter("Mail"));
+			s.setPhone1(request.getParameter("phone1"));
+			s.setPhone2(request.getParameter("phone2"));
+			s.setAdress(request.getParameter("adress"));
+			try {
+				ctrlUser.update(s);
+				request.getSession().removeAttribute("student");
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
