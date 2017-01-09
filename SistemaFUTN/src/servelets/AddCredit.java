@@ -44,14 +44,14 @@ public class AddCredit extends HttpServlet {
 		Student s=new Student();
 		double total=0;
 		
-		sSearch.setLegajo(request.getParameter("Legajo"));
+		sSearch.setLegajo(request.getParameter("legajo"));
 		try {
 			s=ctrl.getByLegajo(sSearch);
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		total=s.getCredit()+Double.parseDouble(request.getParameter("Credit"));
+		total=s.getCredit()+Double.parseDouble(request.getParameter("credit"));
 		s.setCredit(total);
 		try {
 			ctrl.update(s);

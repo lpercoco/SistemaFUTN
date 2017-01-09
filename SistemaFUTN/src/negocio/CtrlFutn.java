@@ -11,6 +11,8 @@ public class CtrlFutn {
 		fData=new FutnData();
 	}
 	
+	//falta validar que la fecha ingresada tenga el formato correcto
+	
 	//validar que la fecha de inicio sea mayor que la fecha de inicio del precio actual(que no tiene fecha fin todavia)
 	public void add(CopyPrice cp) throws ApplicationException{
 		CopyPrice cpAux=fData.getActualCopyPrice();

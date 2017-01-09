@@ -10,19 +10,19 @@
 
    <div class="container">
 
-      <form class="form-signin" name="signin" action="AddCredit" method="post">
-        <h2 class="form-signin-heading">Add credit</h2>
+      <form name="AddCreditForm" action="AddCredit" method="post">
+        <h2>Add credit</h2>
         
-        <label for="inputLegajo" class="sr-only">Legajo</label>
-        <input name="Legajo" id="inputLegajo" class="form-control" value="" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="legajo" >Legajo</label>
+        <input type="text" name="legajo" id="legajo"> <br>
         
-        <label for="inputCredit" class="sr-only">Credit</label>
-        <input name="Credit" id="inputCredit" class="form-control" value="" placeholder="" required="" autofocus="" type=""> <br>
+        <label for="credit" ">Credit</label>
+        <input type="number" name="credit" id="credit" step="1" min="10" value="10" > <br> <!-- minimo para agregar credito 10$? paso de 1$?  -->
 
         <input type="submit" name="Add" value="Add">
-        
+               
       </form>
-
+      
    </div> <!-- /container -->
 
 </body>

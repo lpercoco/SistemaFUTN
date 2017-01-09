@@ -53,12 +53,12 @@ public class PriceChange extends HttpServlet {
 	    actualCopyPrice=ctrl.getActualCopyPrice();
 	    
 	    //trae fecha ingresada
-	    dBegin=java.sql.Date.valueOf(request.getParameter("BeginDate"));
+	    dBegin=java.sql.Date.valueOf(request.getParameter("date"));
 	    
 	    //crea nuevo precio y lo agrega
 	    newCopyPrice.setBeginDate(dBegin);
-	    newCopyPrice.setDuplexPrice(Double.parseDouble(request.getParameter("Duplex")));
-	    newCopyPrice.setSimplePrice(Double.parseDouble(request.getParameter("Simple")));
+	    newCopyPrice.setDuplexPrice(Double.parseDouble(request.getParameter("duplex")));
+	    newCopyPrice.setSimplePrice(Double.parseDouble(request.getParameter("simple")));
 	    
 	    try {
 			ctrl.add(newCopyPrice);

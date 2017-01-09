@@ -2,21 +2,20 @@ package entidades;
 
 public class TeachingMaterial {
 	private int code;
-	private int numberPages; 
+	private int numberOfPages; 
 	private String title;
 	private String edition;
 	private String editorial;
-	private int publicationYear; //sirve?
-	private String[] authors; //max 3 ??
-	private String typeMaterial; //convertir tipo en clase si los estudiantes pueden subir material
-	private Subject materialSubject;
+	private String author; 
+	private String description; 
+	private Subject materialSubject; // esta bien?
+	private String publicationYear;
 	
-	
-	public int getNumberPages() {
-		return numberPages;
+	public int getNumberOfPages() {
+		return numberOfPages;
 	}
-	public void setNumberPages(int numberPages) {
-		this.numberPages = numberPages;
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
 	}
 	public String getTitle() {
 		return title;
@@ -36,23 +35,11 @@ public class TeachingMaterial {
 	public void setEditorial(String editorial) {
 		this.editorial = editorial;
 	}
-	public int getPublicationYear() {
-		return publicationYear;
+	public String getAuthor() {
+		return author;
 	}
-	public void setPublicationYear(int publicationYear) {
-		this.publicationYear = publicationYear;
-	}
-	public String getTypeMaterial() {
-		return typeMaterial;
-	}
-	public void setTypeMaterial(String typeMaterial) {
-		this.typeMaterial = typeMaterial;
-	}
-	public String[] getAuthors() {
-		return authors;
-	}
-	public void setAuthors(String[] authors) {
-		this.authors = authors;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	public int getCode() {
 		return code;
@@ -65,6 +52,18 @@ public class TeachingMaterial {
 	}
 	public void setMaterialSubject(Subject materialSubject) {
 		this.materialSubject = materialSubject;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getPublicationYear() {
+		return publicationYear;
+	}
+	public void setPublicationYear(String publicationYear) {
+		this.publicationYear = publicationYear;
 	}
 	
 }
