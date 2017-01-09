@@ -1,7 +1,22 @@
-# Sistema Final de Java
+# Sistema FUTN
 
-Sistema de gestion de apuntes de la facultad.
-* El alumno registrado podra realizar pedidos de impresion a la fotocopiadora de la facultad. Tambien podra descargar los apuntes desde la web.
-* El docente carga los aputes al sistema.
-* El alumno tiene un saldo para el pago de apuntes.
-* El becario maneja el sistema de pedido de impresiones, carga de saldo, alta de usuario alumnos.
+Estudiante
+*El alumno registrado podra realizar pedidos de impresion a la fotocopiadora de la facultad
+*Ver estado pedidos no retirados
+*Ver historial pedidos retirados
+*Consulta saldo
+*Modificacion de datos personales
+
+Becario
+*ABM estudiantes
+*Modificacion de precios
+*Agregar salgo a estudiantes
+*Ver listados pedidos pendientes
+*Cambiar estado pedidos 
+*Alta apuntes
+
+Cuestiones abiertas
+*Posibilidad de subir archivos para que los becarios y estudiantes puedan descargarlos 
+*Encargar apuntes no registrados 
+*Retirar pedidos de manera parcial 
+*Cambiar precio anillado
