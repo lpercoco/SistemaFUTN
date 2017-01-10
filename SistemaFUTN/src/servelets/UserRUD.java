@@ -23,14 +23,12 @@ public class UserRUD extends HttpServlet {
      */
     public UserRUD() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -41,16 +39,14 @@ public class UserRUD extends HttpServlet {
 
 		CtrlUsers ctrlUser=new CtrlUsers();
 		Student s= new Student();
-		
-		
-		
-		if(request.getParameter("read") != null){
+				
+		if(request.getParameter("search") != null){
 			Student sSearch= new Student();
-			sSearch.setLegajo(request.getParameter("Legajo"));
+			sSearch.setLegajo(request.getParameter("legajo"));
 			try {
 				s=ctrlUser.getByLegajo(sSearch);
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
+                //excepcion cuando no encuentra legajo
 				e.printStackTrace();
 			}
 			if(s!=null){
@@ -74,7 +70,7 @@ public class UserRUD extends HttpServlet {
 		}
 		if(request.getParameter("update") != null){
 			s=(Student)(request.getSession().getAttribute("student"));
-			s.setMail(request.getParameter("Mail"));
+			s.setMail(request.getParameter("mail"));
 			s.setPhone1(request.getParameter("phone1"));
 			s.setPhone2(request.getParameter("phone2"));
 			s.setAdress(request.getParameter("adress"));
@@ -82,10 +78,10 @@ public class UserRUD extends HttpServlet {
 				ctrlUser.update(s);
 				request.getSession().removeAttribute("student");
 			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
+				// excepcion no puede  actualizar
 				e.printStackTrace();
 			}
-		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
+		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response); //direccion al terminal
 
 		}
 		

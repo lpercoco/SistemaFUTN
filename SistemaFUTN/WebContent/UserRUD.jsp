@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>User </title>
+<title>Student personal information</title>
 
 </head>
 <body>
@@ -17,12 +17,12 @@
 
       <form name="UserSearchForm" action="UserRUD" method="post">
       
-        <h2 class="form-signin-heading">hola</h2>
+        <h2>Student personal information</h2>
+        
         <label for="legajo" >Legajo</label>
         <input type="text" name="legajo" id="legajo" >
-
-
-        <input type="submit" name="Search" value="Search">
+        
+        <input type="submit" name="search" value="Search">
         
       </form>
 
@@ -49,10 +49,10 @@
         <input type="text" name="phone2" id="phone2" value="<%if(s!=null && s.getPhone2()!=null) out.println(s.getPhone2());%>"> <br>
         
         <label for="mail" >Mail</label>
-        <input type="text" name="Mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
+        <input type="text" name="mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
         
-        <input type="submit" name="Update" value="Update">
-        <input type="submit" name="Delete" value="Delete">
+        <input type="submit" name="update" value="Update">
+        <input type="submit" name="delete" value="Delete">
         
        
       </form>

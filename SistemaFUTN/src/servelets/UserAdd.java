@@ -23,14 +23,12 @@ public class UserAdd extends HttpServlet {
      */
     public UserAdd() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -54,11 +52,10 @@ public class UserAdd extends HttpServlet {
 		try {
 			ctrlUser.add(student);
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		
-		// si no hay error redirigir a pagina anterior
+		// si no hay error redirigir a ?
 		// si hay error  mostrar mensaje y?
 		
 		doGet(request, response);

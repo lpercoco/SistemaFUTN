@@ -23,14 +23,12 @@ public class AddCredit extends HttpServlet {
      */
     public AddCredit() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -40,26 +38,29 @@ public class AddCredit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CtrlUsers ctrl=new CtrlUsers();
-		Student sSearch=new Student();
 		Student s=new Student();
 		double total=0;
 		
-		sSearch.setLegajo(request.getParameter("legajo"));
+		s.setLegajo(request.getParameter("legajo"));
+		
 		try {
-			s=ctrl.getByLegajo(sSearch);
+			s=ctrl.getByLegajo(s);
+			
+			total=s.getCredit()+Double.parseDouble(request.getParameter("credit"));
+			s.setCredit(total);
+			
+			try {
+				ctrl.update(s);
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				//que hacer en el caso de que no se pueda registrar en la actualizacion
+			}
+				
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			//que hacer en caso de no exista student con ese legajo
 		}
-		total=s.getCredit()+Double.parseDouble(request.getParameter("credit"));
-		s.setCredit(total);
-		try {
-			ctrl.update(s);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
+		
 	    request.getRequestDispatcher("AddCredit.jsp").forward(request, response); // a donde dirigir?
 
 		doGet(request, response);

@@ -16,8 +16,10 @@
         <label for="legajo" >Legajo</label>
         <input type="text" name="legajo" id="legajo"> <br>
         
+        <!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
+        
         <label for="credit" ">Credit</label>
-        <input type="number" name="credit" id="credit" step="1" min="10" value="10" > <br> <!-- minimo para agregar credito 10$? paso de 1$?  -->
+        <input type="number" name="credit" id="credit" step="1" min="0" value="0" > <br> <!-- minimo para agregar credito 10$? paso de 1$?  -->
 
         <input type="submit" name="Add" value="Add">
                
