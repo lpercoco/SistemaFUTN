@@ -78,7 +78,7 @@ public class UserRUD extends HttpServlet {
 				ctrlUser.update(s);
 				request.getSession().removeAttribute("student");
 			} catch (ApplicationException e) {
-				// excepcion no puede actualizar
+				// excepcion no puede  actualizar
 				e.printStackTrace();
 			}
 		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response); //direccion al terminal
