@@ -21,26 +21,18 @@ import negocio.CtrlUsers;
  */
 @WebServlet("/AddTeachingMaterial")
 public class AddTeachingMaterial extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	CtrlTeachingMaterial ctrlTM;
-	CtrlSubjects ctrlS;
-	TeachingMaterial tm;
-	Subject ms;
-       
+	private static final long serialVersionUID = 1L;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AddTeachingMaterial() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -49,10 +41,11 @@ public class AddTeachingMaterial extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ctrlTM=new CtrlTeachingMaterial();
-        ctrlS=new CtrlSubjects();
-        tm=new TeachingMaterial();
-        ms=new Subject();
+		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
+		CtrlSubjects ctrlS=new CtrlSubjects();
+		TeachingMaterial tm=new TeachingMaterial();
+		Subject ms=new Subject();
+		
 				
 		tm.setTitle(request.getParameter("title"));
 		tm.setAuthor(request.getParameter("author"));
@@ -64,11 +57,11 @@ public class AddTeachingMaterial extends HttpServlet {
 		
 	    ms.setName(request.getParameter("subject"));
 		
-		tm.setMaterialSubject(ctrlS.getByName(ms)); //esta bien? que pasa en caso de excepcion? 
+		tm.setMaterialSubject(ctrlS.getByName(ms)); //excepcion en caso de ingreso de subject inexistente 
 		
-		ctrlTM.add(tm);
+		ctrlTM.add(tm); //excepcion en caso de que no se pueda agregar?
 	
-	    request.getRequestDispatcher("AddTeachingMaterial.jsp").forward(request, response);
+	    request.getRequestDispatcher("AddTeachingMaterial.jsp").forward(request, response); //pagina donde se redirige 
 	}
 
 }

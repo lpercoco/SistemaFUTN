@@ -28,10 +28,8 @@ public class AjaxRequest extends HttpServlet {
     
 	public AjaxRequest() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -57,7 +55,6 @@ public class AjaxRequest extends HttpServlet {
         JSONArray arrayObj=new JSONArray();
         
         String query = request.getParameter("term");
-        //System.out.println(query); sirve?
         query = query.toLowerCase();
         for(int i=0; i<subjectNames.length; i++) {
             String subject = subjectNames[i].toLowerCase();
