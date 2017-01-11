@@ -3,6 +3,7 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entidades.TeachingMaterial;
 import utils.ApplicationException;
@@ -47,4 +48,11 @@ public class TeachingMaterialData {
 			}
 		}
 	}
+	
+	public ArrayList<TeachingMaterial> getTeachingMaterials(){
+		
+		
+		return null;	
+	}
+	
 }
