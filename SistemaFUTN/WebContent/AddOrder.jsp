@@ -1,3 +1,7 @@
+<%//@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entidades.TeachingMaterial"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -63,7 +67,7 @@ $(document).ready(function() {
 
    <div class="container">
    
-         <form name="SearchTeachingMaterialForm" action="SearchTeachingMaterial" method="get">
+         <form name="SearchTeachingMaterialForm" action="SearchTeachingMaterial" method="post">
          
                <label for="subject" >Subject</label>
                <input type="text" name="subject" id="subject"> <br>
@@ -78,7 +82,7 @@ $(document).ready(function() {
          </form>
    
    </div> <!-- /container -->
-   
+     
 
 </body>
 </html>

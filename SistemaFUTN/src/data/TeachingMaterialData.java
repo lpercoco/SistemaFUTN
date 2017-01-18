@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entidades.Student;
+import entidades.Subject;
 import entidades.TeachingMaterial;
 import utils.ApplicationException;
 
@@ -49,10 +51,64 @@ public class TeachingMaterialData {
 		}
 	}
 	
-	public ArrayList<TeachingMaterial> getTeachingMaterials(){
+	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch){
 		
+		Subject s=new Subject();
+		ArrayList<TeachingMaterial> tmArray=new ArrayList();
+			
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select TeachingMaterialCode,numberOfPages,title,edition,editorial,subjectCode,publicationYear,description,author"
+					+ " from teachingMaterials"
+					+ " where title like ?  ");
+			stmt.setString(1,"%"+tmSearch.getTitle()+"%"); 
+			//asi solo busca por titulo
+			//stmt.setInt(2,tmSearch.getMaterialSubject().getCode());
+			
+			rs= stmt.executeQuery();
+			while(rs!=null && rs.next()){
+				TeachingMaterial tm=new TeachingMaterial();
+
+				tm.setAuthor(rs.getString("author"));
+				tm.setDescription(rs.getString("description"));
+				tm.setEdition(rs.getString("edition"));
+				tm.setEditorial(rs.getString("editorial"));
+	
+				s.setCode(rs.getInt("subjectCode"));
+				//search subject?
+				tm.setMaterialSubject(s);
+				
+				tm.setNumberOfPages(rs.getInt("numberOfPages"));
+				tm.setPublicationYear(rs.getString("publicationYear"));
+				tm.setTitle(rs.getString("title"));
+				
+				tmArray.add(tm);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
 		
-		return null;	
+		//bien?
+		if(tmArray.size()==0){
+			return null;
+			}
+			else
+		return tmArray;	
 	}
 	
 }

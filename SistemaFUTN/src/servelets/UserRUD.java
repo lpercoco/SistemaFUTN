@@ -39,7 +39,9 @@ public class UserRUD extends HttpServlet {
 
 		CtrlUsers ctrlUser=new CtrlUsers();
 		Student s= new Student();
-				
+		
+		// hacer un servelet por aca boton?
+		
 		if(request.getParameter("search") != null){
 			Student sSearch= new Student();
 			sSearch.setLegajo(request.getParameter("legajo"));

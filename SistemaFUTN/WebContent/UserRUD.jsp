@@ -20,7 +20,7 @@
         <h2>Student personal information</h2>
         
         <label for="legajo" >Legajo</label>
-        <input type="text" name="legajo" id="legajo" >
+        <input type="text" name="legajo" id="legajo" required >
         
         <input type="submit" name="search" value="Search">
         
@@ -49,7 +49,7 @@
         <input type="text" name="phone2" id="phone2" value="<%if(s!=null && s.getPhone2()!=null) out.println(s.getPhone2());%>"> <br>
         
         <label for="mail" >Mail</label>
-        <input type="text" name="mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
+        <input type="email" name="mail" id="mail" value="<%if(s!=null && s.getMail()!=null) out.println(s.getMail());%>"> <br>
         
         <input type="submit" name="update" value="Update">
         <input type="submit" name="delete" value="Delete">

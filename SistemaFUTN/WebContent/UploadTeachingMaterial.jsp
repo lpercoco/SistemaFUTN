@@ -62,22 +62,24 @@ $(document).ready(function() {
  <form name="as400samplecode" action="" method="get">
 
    <label for="subject" class="sr-only">Subject</label> 
-   <input id="subject" maxlength="20" /> </br>
+   <input type="text" id="subject" required /> </br>
    
    <label for="title" class="sr-only">Title</label> 
-   <input id="title" maxlength="20" /> </br>
+   <input type="text" id="title" required /> </br>
    
    <label for="numberOfPages" class="sr-only">Number of pages</label> 
-   <input id="numberOfPages" maxlength="20" /> </br>
+   <input type="number" id="numberOfPages" step="1" min="1" value="1" required /> </br>
       
    <label for="editorial" class="sr-only">Editorial</label> 
-   <input id="editorial" maxlength="20" /> </br>
+   <input type="text" id="editorial" /> </br>
       
    <label for="edition" class="sr-only">Edition</label> 
-   <input id="edition" maxlength="20" /> </br>
+   <input type="text" id="edition" maxlength="20" /> </br>
       
    <label for="description" class="sr-only">Description</label> 
-   <input id="description" maxlength="20" /> </br>
+   <input type="text" id="description" required/> </br>
+   
+   <!-- falta carrera? -->
    
    
    <input type="submit" name="Add" value="Add">

@@ -64,13 +64,13 @@ $(document).ready(function() {
  <form name="AddTeachingMaterialForm" action="AddTeachingMaterial" method="post">
 
    <label for="subject" >Subject</label> 
-   <input type="text" name="subject" id="subject"  /><br>
+   <input type="text" name="subject" id="subject" required/><br>
    
    <label for="title" >Title</label> 
-   <input type="text" name="title" /><br>
+   <input type="text" name="title" required /><br>
    
    <label for="numberOfPages" >Number of pages</label> 
-   <input type="number" name="numberOfPages" min="1" step="1" value="1"/><br>
+   <input type="number" name="numberOfPages" min="1" step="1" value="1" required/><br>
       
    <label for="editorial" >Editorial</label> 
    <input type="text" name="editorial" /><br>
@@ -79,10 +79,15 @@ $(document).ready(function() {
    <input type="text" name="edition" /><br>
       
    <label for="description" >Description</label> 
-   <input type="text" name="description" /><br>
+   <input type="text" name="description" required/><br>
    
    <label for="author" >Author</label> 
-   <input ype="text" name="author" /><br>
+   <input ype="text" name="author" required/><br>
+   
+   <!-- falta carrera?  -->
+   
+   
+   
    
    
    <input type="submit" name="Add" value="Add">

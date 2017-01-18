@@ -1,6 +1,7 @@
 package servelets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import entidades.Subject;
 import entidades.TeachingMaterial;
@@ -33,20 +36,6 @@ public class SearchTeachingMaterial extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
-		TeachingMaterial tm=new TeachingMaterial();
-		Subject s=new Subject();
-		ArrayList <TeachingMaterial> tmArray=new ArrayList();
-		
-		
-		tm.setTitle(request.getParameter("title"));
-		s.setName(request.getParameter("subject")); //si o si ambos obligatorios?
-		tm.setMaterialSubject(s);
-		
-		
-		
-		
-		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -54,8 +43,20 @@ public class SearchTeachingMaterial extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
+		TeachingMaterial tm=new TeachingMaterial();
+		Subject s=new Subject();
+		ArrayList <TeachingMaterial> tmArray=new ArrayList();
+		
+		tm.setTitle(request.getParameter("title"));
+		s.setName(request.getParameter("subject")); //si o si ambos obligatorios?
+		tm.setMaterialSubject(s);
+		
+		tmArray=ctrlTM.getTeachingMaterials(tm);
+	    request.getSession().setAttribute("tmArray",tmArray);
+		
+	    request.getRequestDispatcher("AddOrder.jsp").forward(request, response);
+
 	}
 
 }
