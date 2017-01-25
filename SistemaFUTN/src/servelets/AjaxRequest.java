@@ -52,6 +52,7 @@ public class AjaxRequest extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "-1");
         
+        
         JSONArray arrayObj=new JSONArray();
         
         String query = request.getParameter("term");
@@ -66,7 +67,6 @@ public class AjaxRequest extends HttpServlet {
         out.println(arrayObj.toString());
         out.close();
         
-
 	}
 
 	/**

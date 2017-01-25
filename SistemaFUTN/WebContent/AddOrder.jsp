@@ -1,6 +1,4 @@
-<%//@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="entidades.TeachingMaterial"%>
-<%@page import="java.util.ArrayList"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,7 +23,12 @@
     cursor: default; 
     height: 200px; 
     overflow-y: scroll; 
-    overflow-x: hidden;}
+    overflow-x: hidden;
+    }
+    
+    table, th, td {
+    border: 1px solid black;
+}
 </STYLE>
  
 <script type="text/javascript">
@@ -70,19 +73,54 @@ $(document).ready(function() {
          <form name="SearchTeachingMaterialForm" action="SearchTeachingMaterial" method="post">
          
                <label for="subject" >Subject</label>
-               <input type="text" name="subject" id="subject"> <br>
+               <input type="text" name="subject" id="subject" required> <br>
                
-               <!-- ambos obligatorios? -->
                
                <label for="title" >Title</label>
-               <input type="text" name="title" id="title">      
+               <input type="text" name="title" id="title" required>      
               
-               <input type="submit" name="Search" value="Search">
+               <input type="submit" value="Search" >
                 
          </form>
    
    </div> <!-- /container -->
-     
+   
+
+
+   <form action="yourserlet" method="POST">
+                <table>
+                    <thead>
+                        <tr>
+                            <td width="10%">TITLE</td>
+                            <td width="10%">DESCRIPTION</td>
+                            <td width="10%">EDITION</td>
+                            <td width="10%">EDITORIAL</td>
+                            <td width="10%">AUTHOR</td>
+                            <td width="10%">PAGES</td>
+                            <td width="1%">SELECT</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+        <c:forEach items="${tmArray}" var="tm">  
+                 <tr>     
+                   <td align="left">${tm.title}</td>
+                   <td align="left">${tm.description}</td>
+                   <td align="left">${tm.edition}</td>
+                   <td align="left">${tm.editorial}</td>
+                   <td align="left">${tm.author}</td>
+                   <td align="left">${tm.numberOfPages}</td>
+                   <td align="center">  
+                   <input type="checkbox" name="checkboxgroup"  value="c:out value="${book.tostring()}"/></td>  
+                  </tr>  
+             </c:forEach>   
+      </tbody>
+                </table>
+                  <input type="submit" value="Add" >
+   </form>
+ 
 
 </body>
+
 </html>

@@ -62,12 +62,12 @@ public class TeachingMaterialData {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"select TeachingMaterialCode,numberOfPages,title,edition,editorial,subjectCode,publicationYear,description,author"
 					+ " from teachingMaterials"
-					+ " where title like ?  ");
-			stmt.setString(1,"%"+tmSearch.getTitle()+"%"); 
-			//asi solo busca por titulo
-			//stmt.setInt(2,tmSearch.getMaterialSubject().getCode());
+					+ " where title like ? and subjectCode=?");
+			stmt.setString(1,"%"+tmSearch.getTitle()+"%");
+			stmt.setInt(2,tmSearch.getMaterialSubject().getCode());
 			
 			rs= stmt.executeQuery();
+			
 			while(rs!=null && rs.next()){
 				TeachingMaterial tm=new TeachingMaterial();
 
@@ -101,14 +101,10 @@ public class TeachingMaterialData {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		//bien?
-		if(tmArray.size()==0){
-			return null;
-			}
-			else
+		}	
 		return tmArray;	
-	}
+	}	
 	
 }
+	
+
