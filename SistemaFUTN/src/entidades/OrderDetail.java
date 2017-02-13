@@ -1,20 +1,20 @@
 package entidades;
 
 public class OrderDetail {
-	private Subject item;
+	private TeachingMaterial item;
 	private int numberOfCopies;
 	private boolean state;// print = true not print=false
 	private double parcialAmount;
 	private String observation; // observation=coment
 	private boolean duplex; //true-> duplex false-> simple
-	private int numberRinged;
+	private int numberRinged; //?
 	
 	
 	
-	public Subject getItem() {
+	public TeachingMaterial getItem() {
 		return item;
 	}
-	public void setItem(Subject item) {
+	public void setItem(TeachingMaterial item) {
 		this.item = item;
 	}
 	public int getNumberOfCopies() {

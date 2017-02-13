@@ -87,7 +87,7 @@ $(document).ready(function() {
    
 
 
-   <form action="yourserlet" method="POST">
+   <form name="AddTMForm" action="AddTeachingMaterialToOrder" method="post">
                 <table>
                     <thead>
                         <tr>
@@ -112,15 +112,33 @@ $(document).ready(function() {
                    <td align="left">${tm.author}</td>
                    <td align="left">${tm.numberOfPages}</td>
                    <td align="center">  
-                   <input type="checkbox" name="checkboxgroup"  value="c:out value="${book.tostring()}"/></td>  
+                   <input type="checkbox" name="checkboxgroup"  value="${tm.code}" /> </td>  
                   </tr>  
              </c:forEach>   
       </tbody>
                 </table>
-                  <input type="submit" value="Add" >
+                <input type="submit" name="Add" value="Add to Order" >
    </form>
- 
-
+   
+      <form name="CheckOutForm" action="AddOrder" method="post">
+          <input type="submit" name="CheckOut" value="CheckOut" >
+      </form>
+   
+   
+    
 </body>
 
+<!--ABAJO DE ESTO SON PRUEBAS  -->
+
+        0
+        <c:forEach items="${tmCodes}" var="tc">
+         ${tc}<br>
+        </c:forEach>  
+        
+        <br>
+        1        
+        <c:forEach items="${items}" var="t">
+         ${t.title}
+        </c:forEach>
+              
 </html>

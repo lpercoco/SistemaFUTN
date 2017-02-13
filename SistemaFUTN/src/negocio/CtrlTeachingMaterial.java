@@ -21,4 +21,8 @@ public class CtrlTeachingMaterial {
 	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch){
 		return data.getTeachingMaterials(tmSearch);
 	}
+
+	public TeachingMaterial getTeachingMaterial(TeachingMaterial tm) {
+		return data.getTeachingMaterial(tm);
+	}
 }

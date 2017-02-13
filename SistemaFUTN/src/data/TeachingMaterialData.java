@@ -70,12 +70,14 @@ public class TeachingMaterialData {
 			
 			while(rs!=null && rs.next()){
 				TeachingMaterial tm=new TeachingMaterial();
-
+				
+				tm.setCode(rs.getInt("TeachingMaterialCode"));
 				tm.setAuthor(rs.getString("author"));
 				tm.setDescription(rs.getString("description"));
 				tm.setEdition(rs.getString("edition"));
 				tm.setEditorial(rs.getString("editorial"));
 	
+				//es necesario la parte de la materia? siendo obligatorios los dos campos
 				s.setCode(rs.getInt("subjectCode"));
 				//search subject?
 				tm.setMaterialSubject(s);
@@ -105,6 +107,59 @@ public class TeachingMaterialData {
 		return tmArray;	
 	}	
 	
+
+	public TeachingMaterial getTeachingMaterial(TeachingMaterial tmSearch){
+		Subject s=new Subject();
+		TeachingMaterial tm=new TeachingMaterial();
+
+
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select TeachingMaterialCode,numberOfPages,title,edition,editorial,subjectCode,publicationYear,description,author"
+					+ " from teachingMaterials"
+					+ " where TeachingMaterialCode=?");
+			stmt.setInt(1,tmSearch.getCode());
+			
+			rs= stmt.executeQuery();
+			
+			while(rs!=null && rs.next()){				
+				tm.setCode(rs.getInt("TeachingMaterialCode"));
+				tm.setAuthor(rs.getString("author"));
+				tm.setDescription(rs.getString("description"));
+				tm.setEdition(rs.getString("edition"));
+				tm.setEditorial(rs.getString("editorial"));
+	
+				//es necesario la parte de la materia? siendo obligatorios los dos campos
+				s.setCode(rs.getInt("subjectCode"));
+				//search subject?
+				tm.setMaterialSubject(s);
+				
+				tm.setNumberOfPages(rs.getInt("numberOfPages"));
+				tm.setPublicationYear(rs.getString("publicationYear"));
+				tm.setTitle(rs.getString("title"));			
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}	
+		return tm;	
+	}	
+
 }
 	
 
