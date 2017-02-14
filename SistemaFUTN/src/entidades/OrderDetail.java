@@ -7,7 +7,6 @@ public class OrderDetail {
 	private double parcialAmount;
 	private String observation; // observation=coment
 	private boolean duplex; //true-> duplex false-> simple
-	private int numberRinged; //?
 	
 	
 	
@@ -47,11 +46,4 @@ public class OrderDetail {
 	public void setDuplex(boolean duplex) {
 		this.duplex = duplex;
 	}
-	public int getNumberRinged() {
-		return numberRinged;
-	}
-	public void setNumberRinged(int numberRinged) {
-		this.numberRinged = numberRinged;
-	}
-
 }

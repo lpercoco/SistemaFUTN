@@ -91,13 +91,16 @@ $(document).ready(function() {
                 <table>
                     <thead>
                         <tr>
+                            <td width="1%">SELECT</td>
                             <td width="10%">TITLE</td>
                             <td width="10%">DESCRIPTION</td>
                             <td width="10%">EDITION</td>
                             <td width="10%">EDITORIAL</td>
                             <td width="10%">AUTHOR</td>
                             <td width="10%">PAGES</td>
-                            <td width="1%">SELECT</td>
+                            <td width="5%">QUANTITY</td>
+                            <td width="1%">DUPLEX</td>
+                            <td width="1%">SIMPLE</td>
                         </tr>
                     </thead>
 
@@ -105,14 +108,16 @@ $(document).ready(function() {
 
         <c:forEach items="${tmArray}" var="tm">  
                  <tr>     
+                   <td align="center"><input type="checkbox" name="checkboxgroup"  value="${tm.code}" /> </td>
                    <td align="left">${tm.title}</td>
                    <td align="left">${tm.description}</td>
                    <td align="left">${tm.edition}</td>
                    <td align="left">${tm.editorial}</td>
                    <td align="left">${tm.author}</td>
                    <td align="left">${tm.numberOfPages}</td>
-                   <td align="center">  
-                   <input type="checkbox" name="checkboxgroup"  value="${tm.code}" /> </td>  
+                   <td align="left"><input type="number" name="qty${tm.code}" value="1" step="1" min="1"></td>
+                   <td align="left"><input type="radio" name="duplex${tm.code}" value="true" checked></td>
+                   <td align="left"><input type="radio" name="duplex${tm.code}" value="false"></td>
                   </tr>  
              </c:forEach>   
       </tbody>
@@ -123,22 +128,6 @@ $(document).ready(function() {
       <form name="CheckOutForm" action="AddOrder" method="post">
           <input type="submit" name="CheckOut" value="CheckOut" >
       </form>
-   
-   
     
-</body>
-
-<!--ABAJO DE ESTO SON PRUEBAS  -->
-
-        0
-        <c:forEach items="${tmCodes}" var="tc">
-         ${tc}<br>
-        </c:forEach>  
-        
-        <br>
-        1        
-        <c:forEach items="${items}" var="t">
-         ${t.title}
-        </c:forEach>
-              
+</body>        
 </html>
