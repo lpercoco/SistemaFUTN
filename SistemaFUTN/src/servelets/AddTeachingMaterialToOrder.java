@@ -41,6 +41,9 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//falta exepcion  add to cart vacio
+		
 		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
 		CtrlTeachingMaterial ctrl = new CtrlTeachingMaterial();
 		
@@ -63,11 +66,13 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	      	od.setNumberOfCopies(Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]))); //excepcion?
 	      	od.setDuplex( Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]))); //exp?
 	    	od.setItem(ctrl.getTeachingMaterial(tm));//excepcion?	
+	    	od.setState(false);
+	    	od.setParcialAmount();
 	    	
 	    	orderDetails.add(od);
 	  		}
        
        request.getSession().setAttribute("orderDetails", orderDetails);
-	   request.getRequestDispatcher("AddOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
+	   request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
 	}
 }

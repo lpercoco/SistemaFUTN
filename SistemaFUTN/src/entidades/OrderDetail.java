@@ -5,7 +5,6 @@ public class OrderDetail {
 	private int numberOfCopies;
 	private boolean state;// print = true not print=false
 	private double parcialAmount;
-	private String observation; // observation=coment
 	private boolean duplex; //true-> duplex false-> simple
 	
 	
@@ -31,14 +30,14 @@ public class OrderDetail {
 	public double getParcialAmount() {
 		return parcialAmount;
 	}
-	public void setParcialAmount(double parcialAmount) {
-		this.parcialAmount = parcialAmount;
-	}
-	public String getObservation() {
-		return observation;
-	}
-	public void setObservation(String observation) {
-		this.observation = observation;
+	public void setParcialAmount() {
+		double aux=0;
+		if(this.duplex){
+			aux=this.numberOfCopies*this.item.getNumberOfPages();// * valor precio duplex
+		}else{
+			aux=this.numberOfCopies*this.item.getNumberOfPages();// * valor precio  simple
+		}
+		this.parcialAmount=aux;
 	}
 	public boolean isDuplex() {
 		return duplex;

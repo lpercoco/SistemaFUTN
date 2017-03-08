@@ -61,7 +61,7 @@ public class SearchTeachingMaterial extends HttpServlet {
 		
 		request.getSession().setAttribute("tmArray",tmArray);
 		
-	    request.getRequestDispatcher("AddOrder.jsp").forward(request, response);
+	    request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response);
 
 	}
 
