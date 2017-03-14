@@ -72,9 +72,6 @@ $(document).ready(function() {
    <label for="numberOfPages" >Number of pages</label> 
    <input type="number" name="numberOfPages" min="1" step="1" value="1" required/><br>
       
-   <label for="editorial" >Editorial</label> 
-   <input type="text" name="editorial" /><br>
-      
    <label for="edition" >Edition</label> 
    <input type="text" name="edition" /><br>
       

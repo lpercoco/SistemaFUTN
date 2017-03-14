@@ -19,12 +19,11 @@ public class TeachingMaterialData {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into teachingMaterials (title,numberOfPages,editorial,edition,author,publicationYear,description,subjectCode)"+
+					"insert into teachingMaterials (title,numberOfPages,edition,author,publicationYear,description,subjectCode)"+
 					" values(?,?,?,?,?,?,?,?)");
 						
 			stmt.setString(1,tm.getTitle());
 			stmt.setInt(2,tm.getNumberOfPages());
-			stmt.setString(3,tm.getEditorial());
 			stmt.setString(4,tm.getEdition());
 			stmt.setString(5,tm.getAuthor());
 			stmt.setString(6,tm.getPublicationYear());
@@ -60,7 +59,7 @@ public class TeachingMaterialData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select TeachingMaterialCode,numberOfPages,title,edition,editorial,subjectCode,publicationYear,description,author"
+					"select TeachingMaterialCode,numberOfPages,title,edition,subjectCode,publicationYear,description,author"
 					+ " from teachingMaterials"
 					+ " where title like ? and subjectCode=?");
 			stmt.setString(1,"%"+tmSearch.getTitle()+"%");
@@ -75,7 +74,6 @@ public class TeachingMaterialData {
 				tm.setAuthor(rs.getString("author"));
 				tm.setDescription(rs.getString("description"));
 				tm.setEdition(rs.getString("edition"));
-				tm.setEditorial(rs.getString("editorial"));
 	
 				//es necesario la parte de la materia? siendo obligatorios los dos campos
 				s.setCode(rs.getInt("subjectCode"));
@@ -117,7 +115,7 @@ public class TeachingMaterialData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select TeachingMaterialCode,numberOfPages,title,edition,editorial,subjectCode,publicationYear,description,author"
+					"select TeachingMaterialCode,numberOfPages,title,edition,subjectCode,publicationYear,description,author"
 					+ " from teachingMaterials"
 					+ " where TeachingMaterialCode=?");
 			stmt.setInt(1,tmSearch.getCode());
@@ -129,7 +127,6 @@ public class TeachingMaterialData {
 				tm.setAuthor(rs.getString("author"));
 				tm.setDescription(rs.getString("description"));
 				tm.setEdition(rs.getString("edition"));
-				tm.setEditorial(rs.getString("editorial"));
 	
 				//es necesario la parte de la materia? siendo obligatorios los dos campos
 				s.setCode(rs.getInt("subjectCode"));

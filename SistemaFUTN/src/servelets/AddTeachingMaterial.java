@@ -48,7 +48,6 @@ public class AddTeachingMaterial extends HttpServlet {
 		tm.setAuthor(request.getParameter("author"));
 		tm.setDescription(request.getParameter("description"));
 		tm.setEdition(request.getParameter("edition"));
-		tm.setEditorial(request.getParameter("editorial"));
 		tm.setNumberOfPages(Integer.parseInt(request.getParameter("numberOfPages")));
 		tm.setPublicationYear(request.getParameter("PublicationYear"));
 		

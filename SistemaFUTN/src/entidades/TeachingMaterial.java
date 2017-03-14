@@ -5,7 +5,6 @@ public class TeachingMaterial {
 	private int numberOfPages; 
 	private String title;
 	private String edition;
-	private String editorial;
 	private String author; 
 	private String description; 
 	private Subject materialSubject; // esta bien?
@@ -28,12 +27,6 @@ public class TeachingMaterial {
 	}
 	public void setEdition(String edition) {
 		this.edition = edition;
-	}
-	public String getEditorial() {
-		return editorial;
-	}
-	public void setEditorial(String editorial) {
-		this.editorial = editorial;
 	}
 	public String getAuthor() {
 		return author;

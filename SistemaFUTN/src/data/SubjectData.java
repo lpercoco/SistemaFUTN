@@ -19,14 +19,14 @@ public class SubjectData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select code,name,level,area from subjects");
+					"select subjectCode,subjectName,subjectLevel,subjectArea from subjects");
 			rs= stmt.executeQuery();
 			while(rs!=null && rs.next()){
 				Subject s=new Subject();
-				s.setCode(rs.getInt("code"));
-				s.setName(rs.getString("name"));
-				s.setLevel(rs.getInt("level"));
-				s.setArea(rs.getString("area"));
+				s.setCode(rs.getInt("subjectCode"));
+				s.setName(rs.getString("subjectName"));
+				s.setLevel(rs.getInt("subjectLevel"));
+				s.setArea(rs.getString("subjectArea"));
 				
 				subjects.add(s);
 			}
@@ -57,14 +57,14 @@ public class SubjectData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select code,name,area,level from subjects where name=?");
+					"select subjectCode,subjectName,subjectArea,subjectLevel from subjects where subjectName=?");
 			stmt.setString(1, ms.getName());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
-				s.setArea(rs.getString("area"));
-				s.setCode(rs.getInt("code"));
-				s.setLevel(rs.getInt("level"));
-				s.setName(rs.getString("name"));
+				s.setArea(rs.getString("subjectArea"));
+				s.setCode(rs.getInt("subjectCode"));
+				s.setLevel(rs.getInt("subjectLevel"));
+				s.setName(rs.getString("subjectName"));
 			}
 			 
 		} catch (SQLException e) {

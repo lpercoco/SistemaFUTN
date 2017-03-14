@@ -8,11 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>New order</title>
 
-<script src="http://code.jquery.com/jquery-1.7.js"
-    type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
+
+
 <script
     src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
     type="text/javascript"></script>
+
 <link
     href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
     rel="stylesheet" type="text/css" />
@@ -30,6 +36,28 @@
     border: 1px solid black;
 }
 </STYLE>
+
+<script>
+
+$(document).ready(function() {
+    
+    $('#form').validate({
+        rules: {
+            subject: {
+                require_from_group: [1, '.group']
+            },
+            title: {
+                require_from_group: [1, '.group']
+            }
+        },
+        groups: {
+            mygroup: "subject title"
+        }
+    });
+    
+});
+
+</script>
  
 <script type="text/javascript">
 $(document).ready(function() {
@@ -62,7 +90,7 @@ $(document).ready(function() {
 });
     
 </script>
-
+   
 </head>
 <body>
 
@@ -70,14 +98,14 @@ $(document).ready(function() {
 
    <div class="container">
    
-         <form name="SearchTeachingMaterialForm" action="SearchTeachingMaterial" method="post">
+         <form name="SearchTeachingMaterialForm" id="form" action="SearchTeachingMaterial" method="post">
          
                <label for="subject" >Subject</label>
-               <input type="text" name="subject" id="subject" required> <br>
+               <input type="text" class="group" name="subject" id="subject"> <br>
                
                
                <label for="title" >Title</label>
-               <input type="text" name="title" id="title" required>      
+               <input type="text" class="group" name="title" id="title">      
               
                <input type="submit" value="Search" >
                 
@@ -95,7 +123,6 @@ $(document).ready(function() {
                             <td width="10%">TITLE</td>
                             <td width="10%">DESCRIPTION</td>
                             <td width="10%">EDITION</td>
-                            <td width="10%">EDITORIAL</td>
                             <td width="10%">AUTHOR</td>
                             <td width="10%">PAGES</td>
                             <td width="5%">QUANTITY</td>
@@ -112,7 +139,6 @@ $(document).ready(function() {
                    <td align="left">${tm.title}</td>
                    <td align="left">${tm.description}</td>
                    <td align="left">${tm.edition}</td>
-                   <td align="left">${tm.editorial}</td>
                    <td align="left">${tm.author}</td>
                    <td align="left">${tm.numberOfPages}</td>
                    <td align="left"><input type="number" name="qty${tm.code}" value="1" step="1" min="1"></td>
