@@ -120,6 +120,8 @@ $(document).ready(function() {
                     <thead>
                         <tr>
                             <td width="1%">SELECT</td>
+                            <td width="10%">AREA</td>
+                            <td width="10%">SUBJECT</td>                            
                             <td width="10%">TITLE</td>
                             <td width="10%">DESCRIPTION</td>
                             <td width="10%">EDITION</td>
@@ -136,6 +138,8 @@ $(document).ready(function() {
         <c:forEach items="${tmArray}" var="tm">  
                  <tr>     
                    <td align="center"><input type="checkbox" name="checkboxgroup"  value="${tm.code}" /> </td>
+                   <td align="left">${tm.materialSubject.area}</td>
+                   <td align="left">${tm.materialSubject.name}</td>
                    <td align="left">${tm.title}</td>
                    <td align="left">${tm.description}</td>
                    <td align="left">${tm.edition}</td>

@@ -42,24 +42,22 @@ public class SearchTeachingMaterial extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
-		CtrlSubjects ctrlS=new CtrlSubjects();
 		
-		TeachingMaterial tm=new TeachingMaterial();
-		Subject s=new Subject();
-		ArrayList <TeachingMaterial> tmArray=new ArrayList();
+		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
+		CtrlSubjects ctrlSubject=new CtrlSubjects();
 		
-		tm.setTitle(request.getParameter("title"));
-		s.setName(request.getParameter("subject")); //ambos obligatorios
+		TeachingMaterial teachingMaterialSearch=new TeachingMaterial();
+		Subject subjectSearch=new Subject();
+		ArrayList <TeachingMaterial> teachingMaterialArray=new ArrayList();
 		
-		//falta traes informacion de la materia en el caso de que
-		//no sea un campo obligatorio( ideal no obligatorio) es para simplificar jsp
+		teachingMaterialSearch.setTitle(request.getParameter("title"));
+		subjectSearch.setName(request.getParameter("subject")); 
 		
-		tm.setMaterialSubject(ctrlS.getByName(s));
+		teachingMaterialSearch.setMaterialSubject(ctrlSubject.getByName(subjectSearch));
 		
-		tmArray=ctrlTM.getTeachingMaterials(tm);
+		teachingMaterialArray=ctrlTeachingMaterial.getTeachingMaterials(teachingMaterialSearch);
 		
-		request.getSession().setAttribute("tmArray",tmArray);
+		request.getSession().setAttribute("tmArray",teachingMaterialArray);
 		
 	    request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response);
 

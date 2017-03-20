@@ -4,10 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import entidades.Student;
 import entidades.Subject;
 import entidades.TeachingMaterial;
+import negocio.CtrlSubjects;
 import utils.ApplicationException;
 
 public class TeachingMaterialData {
@@ -51,38 +53,47 @@ public class TeachingMaterialData {
 	}
 	
 	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch){
-		
-		Subject s=new Subject();
+				
 		ArrayList<TeachingMaterial> tmArray=new ArrayList();
-			
+		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select TeachingMaterialCode,numberOfPages,title,edition,subjectCode,publicationYear,description,author"
-					+ " from teachingMaterials"
-					+ " where title like ? and subjectCode=?");
-			stmt.setString(1,"%"+tmSearch.getTitle()+"%");
-			stmt.setInt(2,tmSearch.getMaterialSubject().getCode());
+			String querry="select tm.teachingMaterialCode,tm.numberOfPages,tm.title,tm.edition,tm.subjectCode,tm.publicationYear,tm.description,tm.author,s.subjectName,s.subjectArea,s.subjectLevel"
+					       + " from teachingMaterials tm"
+					       + " inner join subjects s on s.subjectCode=tm.subjectCode";
+			
+			if(tmSearch.getTitle().equals("")){
+				stmt=FactoryConexion.getInstancia().getConn().prepareStatement(querry+" where tm.subjectCode=?");
+				stmt.setInt(1,tmSearch.getMaterialSubject().getCode());
+			}else{
+				stmt=FactoryConexion.getInstancia().getConn().prepareStatement(querry+" where (tm.title like ?) or (tm.title like ? and tm.subjectCode=?)");
+				stmt.setString(1,"%"+tmSearch.getTitle()+"%");
+				stmt.setString(2,"%"+tmSearch.getTitle()+"%");
+				stmt.setInt(3,tmSearch.getMaterialSubject().getCode());
+			}
+			//Es correcto del lado de diseño?
 			
 			rs= stmt.executeQuery();
 			
 			while(rs!=null && rs.next()){
 				TeachingMaterial tm=new TeachingMaterial();
+				Subject s=new Subject();
+
+				tm.setCode(rs.getInt("tm.teachingMaterialCode"));
+				tm.setAuthor(rs.getString("tm.author"));
+				tm.setDescription(rs.getString("tm.description"));
+				tm.setEdition(rs.getString("tm.edition"));			
+				tm.setNumberOfPages(rs.getInt("tm.numberOfPages"));
+				tm.setPublicationYear(rs.getString("tm.publicationYear"));
+				tm.setTitle(rs.getString("tm.title"));
 				
-				tm.setCode(rs.getInt("TeachingMaterialCode"));
-				tm.setAuthor(rs.getString("author"));
-				tm.setDescription(rs.getString("description"));
-				tm.setEdition(rs.getString("edition"));
-	
-				//es necesario la parte de la materia? siendo obligatorios los dos campos
-				s.setCode(rs.getInt("subjectCode"));
-				//search subject?
+				s.setCode(rs.getInt("tm.subjectCode"));
+				s.setArea(rs.getString("s.subjectArea"));
+				s.setLevel(rs.getInt("s.subjectLevel"));
+				s.setName(rs.getString("s.subjectName"));
+				
 				tm.setMaterialSubject(s);
-				
-				tm.setNumberOfPages(rs.getInt("numberOfPages"));
-				tm.setPublicationYear(rs.getString("publicationYear"));
-				tm.setTitle(rs.getString("title"));
 				
 				tmArray.add(tm);
 			}
@@ -107,6 +118,9 @@ public class TeachingMaterialData {
 	
 
 	public TeachingMaterial getTeachingMaterial(TeachingMaterial tmSearch){
+		
+		CtrlSubjects ctrlsubject=new CtrlSubjects();
+		
 		Subject s=new Subject();
 		TeachingMaterial tm=new TeachingMaterial();
 
@@ -128,10 +142,9 @@ public class TeachingMaterialData {
 				tm.setDescription(rs.getString("description"));
 				tm.setEdition(rs.getString("edition"));
 	
-				//es necesario la parte de la materia? siendo obligatorios los dos campos
 				s.setCode(rs.getInt("subjectCode"));
-				//search subject?
-				tm.setMaterialSubject(s);
+				tm.setMaterialSubject(ctrlsubject.getbyCode(s)); //forma correcta? respeta patrones diseño?
+
 				
 				tm.setNumberOfPages(rs.getInt("numberOfPages"));
 				tm.setPublicationYear(rs.getString("publicationYear"));

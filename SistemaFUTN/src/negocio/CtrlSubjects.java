@@ -22,4 +22,8 @@ public class CtrlSubjects {
 		return(data.getByName(s));
 	}
 
+	public Subject getbyCode(Subject s) {
+		return (data.getbyCode(s));
+	}
+
 }
