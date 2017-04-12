@@ -12,67 +12,72 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.OrderDetail;
 import entidades.TeachingMaterial;
+import futn.CopyPrice;
+import negocio.CtrlFutn;
 import negocio.CtrlTeachingMaterial;
 
-/**
- * Servlet implementation class AddTeachingMaterialToOrder
- */
 @WebServlet("/AddTeachingMaterialToOrder")
 public class AddTeachingMaterialToOrder extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-      
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public AddTeachingMaterialToOrder() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//falta exepcion  add to cart vacio
-		
-		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
-		CtrlTeachingMaterial ctrl = new CtrlTeachingMaterial();
+		CtrlTeachingMaterial ctrlTM = new CtrlTeachingMaterial();
+		CtrlFutn ctrlFutn = new CtrlFutn();
 		
 		ArrayList<OrderDetail> orderDetails=null;
-		Object objOrderDetails=request.getSession().getAttribute("orderDetails");
+		OrderDetail orderDetail;
+		CopyPrice copyPrice;
 		
+		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
+		Object objOrderDetails=request.getSession().getAttribute("orderDetails");
+		Object objCopyPrice=request.getSession().getAttribute("copyPrice");
+		
+		//si no existen orderDetails en la session, crea el nuevo array
+		//luego los guarda en la session
 		if(objOrderDetails!=null){
 			orderDetails=(ArrayList<OrderDetail>) objOrderDetails;
 		}else{
 			orderDetails=new ArrayList<OrderDetail>();
 		}
 		
+	    
+		//si no existe copyPrice en la session, lo pide y lo guarda en la session
+		if(objCopyPrice!=null){
+			copyPrice=(CopyPrice) objCopyPrice;
+		}else{
+			copyPrice=ctrlFutn.getActualCopyPrice();
+			request.getSession().setAttribute("copyPrice",copyPrice);
+		}
 		
-	    for (int i = 0; i < tmCodesArray.length; i++) {   
-	    	OrderDetail od=new OrderDetail();
+		//crea cada uno de los nuevos orderdetails y los agrega al array
+		//refactor?
+	    for (int i = 0; i < tmCodesArray.length; i++) {   	    	
 	    	TeachingMaterial tm=new TeachingMaterial();
+	    	int quantity;
+	    	boolean duplex;
 	    	
-	      	tm.setCode(Integer.parseInt(tmCodesArray[i]));
+	    	tm=ctrlTM.getTeachingMaterial(new TeachingMaterial(tmCodesArray[i]));
 	      	
-	      	od.setNumberOfCopies(Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]))); //excepcion?
-	      	od.setDuplex( Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]))); //exp?
-	    	od.setItem(ctrl.getTeachingMaterial(tm));//excepcion?	
-	    	od.setState(false);
-	    	od.setParcialAmount();
-	    	
-	    	orderDetails.add(od);
+	    	quantity=Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]));
+	        duplex=Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]));
+	    		    	
+	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice);
+	        
+	    	orderDetails.add(orderDetail);
 	  		}
        
        request.getSession().setAttribute("orderDetails", orderDetails);
+       
+       
 	   request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
 	}
 }

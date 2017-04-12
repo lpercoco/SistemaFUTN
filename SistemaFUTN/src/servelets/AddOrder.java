@@ -25,8 +25,6 @@ import negocio.CtrlOrders;
  */
 @WebServlet("/AddOrder")
 public class AddOrder extends HttpServlet {
-	String[] tmCodes;
-	String[] prueba;
 	
 	private static final long serialVersionUID = 1L;
        
@@ -49,18 +47,18 @@ public class AddOrder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			    
-		Order o=new Order();
 		CtrlOrders ctrl=new CtrlOrders();
+		ArrayList<OrderDetail> orderDetails= new ArrayList<OrderDetail>();
 		
-		//o.setStudentOrder((Student)request.getSession().getAttribute("studentOnline")); 
-		o.setDetails((ArrayList<OrderDetail>) request.getSession().getAttribute("orderDetails"));
-		o.setTotalAmount();
+		orderDetails=(ArrayList<OrderDetail>) request.getSession().getAttribute("orderDetails");
+		
+        //falta enviar como parametro estudiante
+		//setea valores de la orden y regista en la bd
+		ctrl.newOrder(orderDetails);
 		
 		//eliminar datos de la session
 		request.getSession().setAttribute("orderDetails",null);
-
-		//registrar orden en la base de datos
-		ctrl.addOrder(o);
+		request.getSession().setAttribute("copyPrice", null);
 		
 		request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // orden registrada pantalla
 	}

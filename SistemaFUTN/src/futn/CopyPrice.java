@@ -2,13 +2,16 @@ package futn;
 
 import java.sql.Date;
 
+import data.FutnData;
+
 public class CopyPrice{
 	private double duplexPrice;
 	private double simplePrice;
-	private Date beginDate;
-	private Date endDate;
-	
-	
+	private Date beginDate;//eliminar 
+	private Date endDate;//eliminar 
+
+	public CopyPrice(){
+	}
 
 	public double getDuplexPrice() {
 		return duplexPrice;

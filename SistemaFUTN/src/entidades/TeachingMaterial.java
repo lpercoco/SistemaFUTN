@@ -10,6 +10,11 @@ public class TeachingMaterial {
 	private Subject materialSubject; // esta bien?
 	private String publicationYear;
 	
+	public TeachingMaterial(String string) {
+		this.code=Integer.valueOf(string);
+	}
+	public TeachingMaterial() {
+	}
 	public int getNumberOfPages() {
 		return numberOfPages;
 	}

@@ -20,10 +20,8 @@ public class Order{
 		return orderState;
 	}
 	
+	//cambiar nombre por actualizar?
 	public void setOrderState() {
-
-		this.orderState=true;
-		
 		for (int i = 0; i < details.size(); i++) {
 			if(!details.get(i).isState()){
 				this.orderState=false;
@@ -89,6 +87,10 @@ public class Order{
 	
 	public void setDetails(ArrayList<OrderDetail> details) {
 		this.details = details;
+	}
+
+	public void setOrderState(boolean b) {
+		this.orderState=b;
 	}
 	
 }

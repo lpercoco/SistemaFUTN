@@ -1,5 +1,7 @@
 package entidades;
 
+import futn.CopyPrice;
+
 public class OrderDetail {
 	private TeachingMaterial item;
 	private int numberOfCopies;
@@ -7,6 +9,14 @@ public class OrderDetail {
 	private double parcialAmount;
 	private boolean duplex; //true-> duplex false-> simple
 	
+	
+	
+	public OrderDetail(TeachingMaterial tm, int quantity, boolean duplex2, CopyPrice copyPrice) {
+		this.item=tm;
+		this.duplex=duplex2;
+		this.state=false;
+		this.setParcialAmount(copyPrice);
+	}
 	
 	
 	public TeachingMaterial getItem() {
@@ -30,12 +40,13 @@ public class OrderDetail {
 	public double getParcialAmount() {
 		return parcialAmount;
 	}
-	public void setParcialAmount() {
+	public void setParcialAmount(CopyPrice copyPrice) {
 		double aux=0;
+				
 		if(this.duplex){
-			aux=this.numberOfCopies*this.item.getNumberOfPages();// * valor precio duplex
+			aux=this.numberOfCopies*this.item.getNumberOfPages();//*copyPrice.getDuplexPrice(); 
 		}else{
-			aux=this.numberOfCopies*this.item.getNumberOfPages();// * valor precio  simple
+			aux=this.numberOfCopies*this.item.getNumberOfPages();//*copyPrice.getSimplePrice(); 
 		}
 		this.parcialAmount=aux;
 	}
