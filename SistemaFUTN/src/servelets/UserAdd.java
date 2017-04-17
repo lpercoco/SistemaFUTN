@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidades.Student;
+import entidades.User;
 import negocio.CtrlUsers;
 import utils.ApplicationException;
 
@@ -38,7 +38,7 @@ public class UserAdd extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		CtrlUsers ctrlUser=new CtrlUsers();
 		
-		Student student=new Student();
+		User student=new User();
 		
 		student.setLegajo(request.getParameter("legajo"));
 		student.setFirstName(request.getParameter("firstName"));
@@ -48,6 +48,7 @@ public class UserAdd extends HttpServlet {
 		student.setPhone2(request.getParameter("phone2"));
 		student.setCredit(Double.parseDouble(request.getParameter("credit")));
 		student.setAdress(request.getParameter("adress"));
+		student.setPassword(request.getParameter("password"));
 		
 		try {
 			ctrlUser.add(student);

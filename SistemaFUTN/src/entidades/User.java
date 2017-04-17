@@ -8,7 +8,9 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String mail;
-	
+	private String password;
+	private double credit;
+	private boolean scholar;
 	
 	
 	
@@ -53,6 +55,24 @@ public class User {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	public double getCredit() {
+		return credit;
+	}
+	public void setCredit(double credit) {
+		this.credit = credit;
+	}
+	public boolean isScholar() {
+		return scholar;
+	}
+	public void setScholar(boolean scholar) {
+		this.scholar = scholar;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

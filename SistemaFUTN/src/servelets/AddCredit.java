@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidades.Student;
+import entidades.User;
 import negocio.CtrlUsers;
 import utils.ApplicationException;
 
@@ -38,7 +38,7 @@ public class AddCredit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CtrlUsers ctrl=new CtrlUsers();
-		Student s=new Student();
+		User s=new User();
 		double total=0;
 		
 		s.setLegajo(request.getParameter("legajo"));

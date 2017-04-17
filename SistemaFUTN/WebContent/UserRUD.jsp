@@ -1,4 +1,4 @@
-<%@page import="entidades.Student"%>
+<%@page import="entidades.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +28,7 @@
 
     </div> <!-- /container -->
     
-    <% Student s=(Student)session.getAttribute("student");%>
+    <% User s=(User)session.getAttribute("student");%>
   
      Legajo: <%if(s!=null && s.getLegajo()!=null) out.println(s.getLegajo());%> <br>
      First name: <%if(s!=null && s.getFirstName()!=null) out.println(s.getFirstName());%> <br>
