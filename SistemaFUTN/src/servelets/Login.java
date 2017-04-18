@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.User;
+import negocio.CtrlUsers;
+import utils.ApplicationException;
+
 /**
  * Servlet implementation class Login
  */
@@ -34,7 +38,26 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		CtrlUsers ctrl= new CtrlUsers();
+		User u=new User();
+		User user;
+		
+		u.setLegajo(request.getParameter("legajoLogin"));
+		u.setPassword(request.getParameter("passwordLogin"));
+		
+		try {
+			user=ctrl.validateLogin(u);
+			
+			
+			
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			//si es contraseña incorrecta volver a mostrar pagina login con mensaje
+			//si no existe usuario con ese legajo mostrar mensaje ir a facultar a registrarse
+		}
+		
+
+		
 		doGet(request, response);
 	}
 

@@ -29,7 +29,7 @@
 
 	<div class="container">
 
-		<form class="form-signin" action="Login">
+		<form class="form-signin" action="Login" method="post">
 
 			<h2 class="form-signin-heading">Please sign in</h2>
 

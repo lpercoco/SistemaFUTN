@@ -54,10 +54,10 @@ public class UserAdd extends HttpServlet {
 			ctrlUser.add(student);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			//mostrar mensaje de de error usuario ya registrado
 		} 
 		
-		// si no hay error redirigir a ?
-		// si hay error  mostrar mensaje y?
+		// si no hay error redirigir a home
 		
 		doGet(request, response);
 	}

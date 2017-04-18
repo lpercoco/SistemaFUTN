@@ -8,7 +8,7 @@ import utils.ApplicationException;
 
 public class UserData {
 	
-	//ver que onda con el password
+	//ver que onda con el password al guardar nuevo estudiante
 	
 	
 	public void add(User u){
@@ -18,8 +18,8 @@ public class UserData {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into users (legajo,firstName,lastName,adress,phone1,phone2,mail,credit,password,scholar)"+
-					" values(?,?,?,?,?,?,?,?,?,0)");
+			"insert into users (legajo,firstName,lastName,adress,phone1,phone2,mail,credit,password,scholar)"+
+			" values(?,?,?,?,?,?,?,?,?,0)");
 						
 			stmt.setString(1,u.getLegajo());
 			stmt.setString(2,u.getFirstName());
@@ -85,7 +85,9 @@ public class UserData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select legajo,firstName,lastName,adress,phone1,phone2,mail,credit,scholar,password from users where legajo=?");
+					"select legajo,firstName,lastName,adress,phone1,phone2,mail,"
+					+"credit,scholar,password"
+					+"from users where legajo=?");
 			stmt.setString(1, u.getLegajo());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
@@ -98,7 +100,8 @@ public class UserData {
 				user.setMail(rs.getString("mail"));	
 				user.setCredit(rs.getDouble("credit"));
 				user.setScholar(rs.getBoolean("scholar"));
-				user.setPassword(rs.getString("password")); //es necesario?
+				user.setPassword(rs.getString("password")); //es necesario para la validacion?
+				                                            //es correcto?
 			}
 			 
 		} catch (SQLException e) {
@@ -122,6 +125,7 @@ public class UserData {
 	
 	
 	//hacer un metodo para agregar credito aparte?
+	//ver caso cambio de contraseña
 	public void update(User u){ 
 		PreparedStatement stmt=null;
 		
