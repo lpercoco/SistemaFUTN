@@ -87,7 +87,7 @@ public class UserData {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"select legajo,firstName,lastName,adress,phone1,phone2,mail,"
 					+"credit,scholar,password"
-					+"from users where legajo=?");
+					+" from users where legajo=?");
 			stmt.setString(1, u.getLegajo());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){

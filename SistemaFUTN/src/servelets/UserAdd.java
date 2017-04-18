@@ -57,6 +57,7 @@ public class UserAdd extends HttpServlet {
 			//mostrar mensaje de de error usuario ya registrado
 		} 
 		
+		//mostrar cartel usuario registrado
 		// si no hay error redirigir a home
 		
 		doGet(request, response);

@@ -48,7 +48,10 @@ public class Login extends HttpServlet {
 		try {
 			user=ctrl.validateLogin(u);
 			
-			
+		    request.getSession().setAttribute("userAuthenticated", user);
+
+		    request.getRequestDispatcher("home.jsp").forward(request, response);
+
 			
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -56,9 +59,7 @@ public class Login extends HttpServlet {
 			//si no existe usuario con ese legajo mostrar mensaje ir a facultar a registrarse
 		}
 		
-
 		
-		doGet(request, response);
 	}
 
 }
