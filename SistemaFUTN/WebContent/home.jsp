@@ -11,10 +11,12 @@
 <body>
 
 
-<%User user=(User)request.getAttribute("userAuthenticated");%>
 
-<% out.println("impreso por java"); %>
-<% out.println(user.getAdress()); %>
+
+<% out.println("impreso por java"); //prueba %>
+
+<% User user=(User)session.getAttribute("userAuthenticated"); //prueba%> 
+
 
 <p> esto es un parrafo de prueba </p>
 

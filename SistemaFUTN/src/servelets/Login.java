@@ -48,9 +48,9 @@ public class Login extends HttpServlet {
 		try {
 			user=ctrl.validateLogin(u);
 			
-		    request.getSession().setAttribute("userAuthenticated", user);
+		    request.getSession().setAttribute("userAuthenticated",user);
 
-		    request.getRequestDispatcher("home.jsp").forward(request, response);
+			request.getRequestDispatcher("home.jsp").forward(request, response); 
 
 			
 		} catch (ApplicationException e) {
