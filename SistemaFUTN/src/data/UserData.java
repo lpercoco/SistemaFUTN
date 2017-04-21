@@ -8,25 +8,28 @@ import utils.ApplicationException;
 
 public class UserData {
 	
+	//ver que onda con el password al guardar nuevo estudiante
 	
-	public void add(Student s){
+	
+	public void add(User u){
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
 		
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into users (legajo,firstName,lastName,adress,phone1,phone2,mail,credit)"+
-					" values(?,?,?,?,?,?,?,?)");
+			"insert into users (legajo,firstName,lastName,adress,phone1,phone2,mail,credit,password,scholar)"+
+			" values(?,?,?,?,?,?,?,?,?,0)");
 						
-			stmt.setString(1,s.getLegajo());
-			stmt.setString(2,s.getFirstName());
-			stmt.setString(3,s.getLastName());
-			stmt.setString(4,s.getAdress());
-			stmt.setString(5,s.getPhone1());
-			stmt.setString(6,s.getPhone2());
-			stmt.setString(7,s.getMail());
-			stmt.setDouble(8,s.getCredit());
+			stmt.setString(1,u.getLegajo());
+			stmt.setString(2,u.getFirstName());
+			stmt.setString(3,u.getLastName());
+			stmt.setString(4,u.getAdress());
+			stmt.setString(5,u.getPhone1());
+			stmt.setString(6,u.getPhone2());
+			stmt.setString(7,u.getMail());
+			stmt.setDouble(8,u.getCredit());
+			stmt.setString(9, u.getPassword());
 			stmt.execute();
 			
 			
@@ -49,13 +52,13 @@ public class UserData {
 	
 	
 	
-	public void delete(Student s){
+	public void delete(User u){
 		PreparedStatement stmt=null;
 		
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"delete from users where legajo=?");
-			stmt.setString(1, s.getLegajo());
+			stmt.setString(1, u.getLegajo());
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,26 +77,31 @@ public class UserData {
 	}
 
 	
-	public Student getByLegajo(Student s){
-		Student stu= new Student();
+	public User getByLegajo(User u){
+		User user= new User();
 		
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select legajo,firstName,lastName,adress,phone1,phone2,mail,credit from users where legajo=?");
-			stmt.setString(1, s.getLegajo());
+					"select legajo,firstName,lastName,adress,phone1,phone2,mail,"
+					+"credit,scholar,password"
+					+" from users where legajo=?");
+			stmt.setString(1, u.getLegajo());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
-				stu.setLegajo(rs.getString("legajo"));
-				stu.setFirstName(rs.getString("firstName"));
-				stu.setLastName(rs.getString("lastName"));
-				stu.setAdress(rs.getString("adress"));
-				stu.setPhone1(rs.getString("phone1"));
-				stu.setPhone2(rs.getString("phone2"));
-				stu.setMail(rs.getString("mail"));	
-				stu.setCredit(rs.getDouble("credit"));
+				user.setLegajo(rs.getString("legajo"));
+				user.setFirstName(rs.getString("firstName"));
+				user.setLastName(rs.getString("lastName"));
+				user.setAdress(rs.getString("adress"));
+				user.setPhone1(rs.getString("phone1"));
+				user.setPhone2(rs.getString("phone2"));
+				user.setMail(rs.getString("mail"));	
+				user.setCredit(rs.getDouble("credit"));
+				user.setScholar(rs.getBoolean("scholar"));
+				user.setPassword(rs.getString("password")); //es necesario para la validacion?
+				                                            //es correcto?
 			}
 			 
 		} catch (SQLException e) {
@@ -112,23 +120,26 @@ public class UserData {
 				e.printStackTrace();
 			}
 		}
-		return stu;
+		return user;
 	}
 	
 	
-	public void update(Student s){ 
+	//hacer un metodo para agregar credito aparte?
+	//ver caso cambio de contraseña
+	public void update(User u){ 
 		PreparedStatement stmt=null;
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update users set adress=?,phone1=?,phone2=?,mail=?,credit=?"+
+					"update users set adress=?,phone1=?,phone2=?,mail=?,credit=,password=?"+
 					" where legajo=?");
-			stmt.setString(1,s.getAdress());
-			stmt.setString(2,s.getPhone1());
-			stmt.setString(3,s.getPhone2());
-			stmt.setString(4,s.getMail());
-			stmt.setDouble(5,s.getCredit());
-			stmt.setString(6,s.getLegajo());
+			stmt.setString(1,u.getAdress());
+			stmt.setString(2,u.getPhone1());
+			stmt.setString(3,u.getPhone2());
+			stmt.setString(4,u.getMail());
+			stmt.setDouble(5,u.getCredit());
+			stmt.setString(6,u.getLegajo());
+			stmt.setString(7,u.getPassword());
             stmt.executeUpdate();
 			
 		} catch (SQLException e) {

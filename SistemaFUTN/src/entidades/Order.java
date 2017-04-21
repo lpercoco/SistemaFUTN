@@ -13,6 +13,7 @@ public class Order{
 	private Date finishDate;// date en que se imprimieron todo los MDE del encargue
 	private double totalAmount;
 	private boolean orderState;
+	private User studentOrder;
 	private ArrayList<OrderDetail> details;
 	
 	
@@ -30,8 +31,6 @@ public class Order{
 		}
 		
 	}
-
-	private Student studentOrder;
 	
 	public int getOrderNumber() {
 		return orderNumber;
@@ -72,12 +71,12 @@ public class Order{
 		}
 		this.totalAmount=aux;
 	}
-	
-	public Student getStudentOrder() {
+
+	public User getStudentOrder() {
 		return studentOrder;
 	}
 	
-	public void setStudentOrder(Student studentOrder) {
+	public void setStudentOrder(User studentOrder) {
 		this.studentOrder = studentOrder;
 	}
 	

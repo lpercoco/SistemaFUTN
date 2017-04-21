@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entidades.Student;
 import entidades.Subject;
 import utils.ApplicationException;
 
