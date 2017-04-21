@@ -12,23 +12,25 @@ import negocio.CtrlUsers;
 import utils.ApplicationException;
 
 /**
- * Servlet implementation class AddCredit
+ * Servlet implementation class Login
  */
-@WebServlet("/AddCredit")
-public class AddCredit extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddCredit() {
+    public Login() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -36,34 +38,28 @@ public class AddCredit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CtrlUsers ctrl= new CtrlUsers();
+		User u=new User();
+		User user;
 		
-		CtrlUsers ctrl=new CtrlUsers();
-		User s=new User();
-		double total=0;
-		
-		s.setLegajo(request.getParameter("legajo"));
+		u.setLegajo(request.getParameter("legajoLogin"));
+		u.setPassword(request.getParameter("passwordLogin"));
 		
 		try {
-			s=ctrl.getByLegajo(s);
+			user=ctrl.validateLogin(u);
 			
-			total=s.getCredit()+Double.parseDouble(request.getParameter("credit"));
-			s.setCredit(total);
+		    request.getSession().setAttribute("userAuthenticated",user);
+
+			request.getRequestDispatcher("home.jsp").forward(request, response); 
+
 			
-			try {
-				ctrl.update(s);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				//que hacer en el caso de que no se pueda registrar en la actualizacion
-			}
-				
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			//que hacer en caso de no exista student con ese legajo
+			//si es contraseña incorrecta volver a mostrar pagina login con mensaje
+			//si no existe usuario con ese legajo mostrar mensaje ir a facultar a registrarse
 		}
 		
-	    request.getRequestDispatcher("AddCredit.jsp").forward(request, response); // a donde dirigir?
-
-		doGet(request, response);
+		
 	}
 
 }

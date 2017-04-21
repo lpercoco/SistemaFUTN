@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidades.Student;
+import entidades.User;
 import negocio.CtrlUsers;
 import utils.ApplicationException;
 
@@ -38,10 +38,10 @@ public class UserRUD extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		CtrlUsers ctrlUser=new CtrlUsers();
-		Student s= new Student();
+		User s= new User();
 				
 		if(request.getParameter("search") != null){
-			Student sSearch= new Student();
+			User sSearch= new User();
 			sSearch.setLegajo(request.getParameter("legajo"));
 			try {
 				s=ctrlUser.getByLegajo(sSearch);
@@ -50,17 +50,17 @@ public class UserRUD extends HttpServlet {
 				e.printStackTrace();
 			}
 			if(s!=null){
-			    request.getSession().setAttribute("student", s );
+			    request.getSession().setAttribute("User", s );
 			    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
 			}	
 		}
 		
 		
 		if(request.getParameter("delete") != null){
-			s=(Student)(request.getSession().getAttribute("student"));
+			s=(User)(request.getSession().getAttribute("User"));
 			try {
 				ctrlUser.delete(s);
-				request.getSession().removeAttribute("student");
+				request.getSession().removeAttribute("User");
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -69,14 +69,14 @@ public class UserRUD extends HttpServlet {
 
 		}
 		if(request.getParameter("update") != null){
-			s=(Student)(request.getSession().getAttribute("student"));
+			s=(User)(request.getSession().getAttribute("User"));
 			s.setMail(request.getParameter("mail"));
 			s.setPhone1(request.getParameter("phone1"));
 			s.setPhone2(request.getParameter("phone2"));
 			s.setAdress(request.getParameter("adress"));
 			try {
 				ctrlUser.update(s);
-				request.getSession().removeAttribute("student");
+				request.getSession().removeAttribute("User");
 			} catch (ApplicationException e) {
 				// excepcion no puede  actualizar
 				e.printStackTrace();

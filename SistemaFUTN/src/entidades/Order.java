@@ -10,7 +10,7 @@ public class Order{
 	private Date deliveryDate;
 	private Date finishDate;// date en que se imprimieron todo los MDE del encargue
 	private double totalAmount;
-	private Student studentOrder;
+	private User studentOrder;
 	private ArrayList<OrderDetail> details;
 	
 	
@@ -51,10 +51,10 @@ public class Order{
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-	public Student getStudentOrder() {
+	public User getStudentOrder() {
 		return studentOrder;
 	}
-	public void setStudentOrder(Student studentOrder) {
+	public void setStudentOrder(User studentOrder) {
 		this.studentOrder = studentOrder;
 	}
 	public ArrayList<OrderDetail> getDetails() {

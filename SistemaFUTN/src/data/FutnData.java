@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import entidades.Student;
 import futn.CopyPrice;
 import utils.ApplicationException;
 
