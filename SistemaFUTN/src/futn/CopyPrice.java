@@ -6,10 +6,8 @@ public class CopyPrice{
 	private double duplexPrice;
 	private double simplePrice;
 	private Date beginDate;
-	private Date endDate;
 	
 	
-
 	public double getDuplexPrice() {
 		return duplexPrice;
 	}
@@ -27,12 +25,6 @@ public class CopyPrice{
 	}
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 	
 }

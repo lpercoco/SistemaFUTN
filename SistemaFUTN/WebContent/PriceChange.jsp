@@ -41,7 +41,7 @@
 		CopyPrice actualCopyPrice = ctrl.getActualCopyPrice();
 	%>
 
-	<!-- quitar parte fechas, revisar si es necesario  el codigo en java  -->
+	<!-- realizar validacion front end de que haya cambiado los precios-->
 
 <div class="container">
 
@@ -61,12 +61,12 @@
 
             <div class="form-group">
 			<label for="simple">Simple</label>
-			<input type="number" name="simple" id="simple" step="0.01" min="0" value="0"> 
+			<input type="number" name="simple" id="simple" step="0.01" min="0" value="<%=actualCopyPrice.getSimplePrice()%>">
             </div>
             
             <div class="form-group">
 			<label for="duplex">Duplex</label>
-			<input type="number" name="Duplex" id="duplex" step="0.01" min="0"value="0">
+			<input type="number" name="duplex" id="duplex" step="0.01" min="0" value="<%=actualCopyPrice.getDuplexPrice()%>">
 			</div>
 				
 		    <input type="submit" name="Save" value="Save" class="btn btn-lg btn-primary btn-block">
