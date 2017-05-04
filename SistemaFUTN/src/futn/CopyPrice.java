@@ -7,12 +7,8 @@ import data.FutnData;
 public class CopyPrice{
 	private double duplexPrice;
 	private double simplePrice;
-	private Date beginDate;//eliminar 
-	private Date endDate;//eliminar 
-
-	public CopyPrice(){
-	}
-
+	private Date beginDate;
+	
 	public double getDuplexPrice() {
 		return duplexPrice;
 	}
@@ -30,12 +26,6 @@ public class CopyPrice{
 	}
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
-	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 	
 }

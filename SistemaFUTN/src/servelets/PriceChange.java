@@ -43,47 +43,21 @@ public class PriceChange extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CtrlFutn ctrl=new CtrlFutn();
 	    CopyPrice newCopyPrice=new CopyPrice();
-	    CopyPrice actualCopyPrice=new CopyPrice();
-    	Calendar cal = Calendar.getInstance();
-	    Date dBegin;
-	    Date dEnd;
 
-	    //faltan validaciones
-	    
-	    actualCopyPrice=ctrl.getActualCopyPrice();
-	    
-	    //trae fecha ingresada
-	    dBegin=java.sql.Date.valueOf(request.getParameter("date"));
-	    
-	    //crea nuevo precio y lo agrega
-	    newCopyPrice.setBeginDate(dBegin);
+	    //setea precios ingresados
 	    newCopyPrice.setDuplexPrice(Double.parseDouble(request.getParameter("duplex")));
 	    newCopyPrice.setSimplePrice(Double.parseDouble(request.getParameter("simple")));
 	    
+	    //registra nuevo precio copias
 	    try {
 			ctrl.add(newCopyPrice);
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-	    //resta 1 dia a la fecha ingresada, la setea como fecha fin en el precio actual y lo actualiza en la db
-	    cal.setTime(dBegin);
-	    cal.add(Calendar.DAY_OF_MONTH,-1);
-	    dEnd=new Date(cal.getTime().getTime());
-	    actualCopyPrice.setEndDate(dEnd);
-	    
-	    try {
-			ctrl.update(actualCopyPrice);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
+
+			//pagina muestra mensaje error
+			
+		}    
 
 	    request.getRequestDispatcher("PriceChange.jsp").forward(request, response);
-
-		doGet(request, response);
 	}
 
 }
