@@ -18,6 +18,7 @@ import entidades.Order;
 import entidades.OrderDetail;
 import entidades.User;
 import negocio.CtrlOrders;
+import utils.ApplicationException;
 
 
 /**
@@ -49,12 +50,26 @@ public class AddOrder extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			    
 		CtrlOrders ctrl=new CtrlOrders();
 		ArrayList<OrderDetail> orderDetails= new ArrayList<OrderDetail>();
+		User student;
 		
 		orderDetails=(ArrayList<OrderDetail>) request.getSession().getAttribute("orderDetails");
+		student= (User)request.getSession().getAttribute("userAuthenticated");
 		
-        //falta enviar como parametro estudiante
-		//setea valores de la orden y regista en la bd
-		ctrl.newOrder(orderDetails);
+		//si quiere entrar al jsp de addteachingmaterialtoorder no estando logiado
+		//mostrar mensaje y/o login
+		
+		//validar cada vez que agrega un apunte si le alcanza el credito????
+		
+
+		try {
+			ctrl.newOrder(orderDetails,student);
+		} catch (ApplicationException e) {
+
+			//si no esta logiado, muestra mensaje y login
+			//si no tiene items, muestra mensaje 
+			
+			e.printStackTrace();
+		}
 		
 		//eliminar datos de la session
 		request.getSession().setAttribute("orderDetails",null);
