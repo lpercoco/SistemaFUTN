@@ -1,7 +1,6 @@
 <%@page import="entidades.User"%>
 
-<% User user=(User)request.getSession().getAttribute("userAuthenticated");
-//<%=(user.getFirstName()+" "+user.getLastName())%>%>
+<% User user=(User)request.getSession().getAttribute("userAuthenticated");%>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
