@@ -61,15 +61,15 @@
 
             <div class="form-group">
 			<label for="simple">Simple</label>
-			<input type="number" name="simple" id="simple" step="0.01" min="0" value="<%=actualCopyPrice.getSimplePrice()%>">
+			<input type="number" name="simple" id="simple" step="0.01" min="0" value="<%=actualCopyPrice.getSimplePrice()%>" required autofocus>
             </div>
             
             <div class="form-group">
 			<label for="duplex">Duplex</label>
-			<input type="number" name="duplex" id="duplex" step="0.01" min="0" value="<%=actualCopyPrice.getDuplexPrice()%>">
+			<input type="number" name="duplex" id="duplex" step="0.01" min="0" value="<%=actualCopyPrice.getDuplexPrice()%>" required>
 			</div>
 				
-		    <input type="submit" name="Save" value="Save" class="btn btn-lg btn-primary btn-block">
+		    <input type="submit" name="Save" value="Save" class="btn btn-primary">
 
 		</form>
 

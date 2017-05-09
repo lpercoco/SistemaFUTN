@@ -31,21 +31,26 @@
 
 	<div class="container">
 
-		<form class="form-signin" action="Login" method="post">
+		<div class="jumbotron">
+			<h1>FUTN</h1>
+			<p>UTN FRRO copy center</p>
+		</div>
 
-			<h2 class="form-signin-heading">Please sign in</h2>
 
-			<label for="legajoLogin" class="sr-only">Legajo</label>
-			<input type="text" name="legajoLogin" class="form-control" placeholder="Legajo" required autofocus> 
-			
-			<label for="passwordLogin" class="sr-only">Password</label>
-			<input type="password" name="passwordLogin" class="form-control" placeholder="Password" required>
-						
-			<input type="submit" name="login" class="btn btn-lg btn-primary btn-block">
+		<div class="login-body">
+			<form class="form-signin" action="Login" method="post">
+
+				<h2 class="form-signin-heading">Please sign in</h2>
+
+				<label for="legajoLogin" class="sr-only">Legajo</label>
+				<input type="text" name="legajoLogin" class="form-control" placeholder="Legajo" required autofocus> 
+				<label for="passwordLogin" class="sr-only">Password</label>
+				<input type="password" name="passwordLogin" class="form-control" placeholder="Password" required> 
+				<input type="submit" name="login" class="btn btn-lg btn-primary btn-block">
+			</form>
+		</div>
 		
-		</form>
-		
-</div>
+	</div>
 
 </body>
 </html>
