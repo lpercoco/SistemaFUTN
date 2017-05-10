@@ -2,7 +2,7 @@
 
 <% User user=(User)request.getSession().getAttribute("userAuthenticated");%>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+ <nav class="navbar navbar-inverse navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="MainLayout.jsp">FUTN</a>
@@ -23,5 +23,5 @@
 			</div>
 		</div>
 	</div>
-</nav>
+</nav> 
 

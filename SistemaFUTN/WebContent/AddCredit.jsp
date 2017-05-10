@@ -1,39 +1,58 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>FUTN</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>FUTN-Add credit</title>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-<div class="container">
+</head>
 
-	<form name="AddCreditForm" action="AddCredit" method="post">
+<body>
 
-		<h2 class="form-heading">Add credit to a student</h2>
+	<jsp:include page="/includes/Header.jsp"></jsp:include>
 
-		<div class="form-group">
-			<label for="legajo" class="sr-only">Legajo</label> <input
-				type="text" name="legajo" id="legajo" placeholder="legajo" required autofocus>
+	<div class="container">
+
+		<div class="row row-offcanvas row-offcanvas-right active">
+
+			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+
+			<div class="col-12 col-md-9">
+
+				<div>
+					<form name="AddCreditForm" action="AddCredit" method="post">
+
+						<h2 class="form-heading">Add credit to a student</h2>
+
+						<div class="form-group">
+							<label for="legajo" class="sr-only">Legajo</label> <input
+								type="text" name="legajo" id="legajo" placeholder="legajo"
+								required autofocus>
+						</div>
+
+						<!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
+
+						<div class="form-group">
+							<label for="credit" class="sr-only">Credit</label> <input
+								type="number" name="credit" id="credit" step="1" min="0"
+								placeholder="credit to add" required>
+							<!-- minimo para agregar credito 10$? paso de 1$?  -->
+						</div>
+
+						<input class="btn btn-primary" type="submit" name="Add"
+							value="Add">
+
+					</form>
+				</div>
+			</div>
+
 		</div>
 
-		<!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
+		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 
-		<div class="form-group">
-			<label for="credit" class="sr-only">Credit</label> <input
-				type="number" name="credit" id="credit" step="1" min="0"
-				placeholder="credit to add" required>
-			<!-- minimo para agregar credito 10$? paso de 1$?  -->
-		</div>
-
-		<input class="btn btn-primary" type="submit"
-			name="Add" value="Add">
-
-	</form>
-
-</div>
-<!-- /container -->
+	</div>
+	<!-- /container -->
+	
+</body>
+</html>
