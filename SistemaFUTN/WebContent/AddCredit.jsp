@@ -1,31 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add credit to a student</title>
+<meta charset="utf-8">
+
+<title>FUTN-Add credit</title>
+
+<jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
+
 </head>
+
 <body>
 
-   <div class="container">
+	<jsp:include page="/includes/Header.jsp"></jsp:include>
 
-      <form name="AddCreditForm" action="AddCredit" method="post">
-        <h2>Add credit</h2>
-        
-        <label for="legajo" >Legajo</label>
-        <input type="text" name="legajo" id="legajo" required> <br>
-        
-        <!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
-        
-        <label for="credit" ">Credit</label>
-        <input type="number" name="credit" id="credit" step="1" min="0" value="0"  required> <br>
+	<div class="container">
 
-        <input type="submit" name="Add" value="Add">
-               
-      </form>
-      
-   </div> <!-- /container -->
+		<div class="row row-offcanvas row-offcanvas-right active">
+
+			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+
+			<div class="col-12 col-md-9">
+
+				<form name="AddCreditForm" action="AddCredit" method="post">
+
+					<h2 class="form-heading">Add credit to a student</h2>
+
+					<div class="form-group">
+						<label for="legajo" class="sr-only">Legajo</label> <input
+							type="text" name="legajo" id="legajo" placeholder="legajo"
+							required autofocus>
+					</div>
+
+					<!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
+
+					<div class="form-group">
+						<label for="credit" class="sr-only">Credit</label> <input
+							type="number" name="credit" id="credit" step="1" min="0"
+							placeholder="credit to add" required>
+						<!-- minimo para agregar credito 10$? paso de 1$?  -->
+					</div>
+
+					<input class="btn btn-primary" type="submit" name="Add" value="Add">
+
+				</form>
+			</div>
+		</div>
+
+		<jsp:include page="/includes/Footer.jsp"></jsp:include>
+
+	</div>
+	<!-- /container -->
 
 </body>
 </html>

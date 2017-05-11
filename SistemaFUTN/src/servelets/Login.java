@@ -50,7 +50,7 @@ public class Login extends HttpServlet {
 			
 		    request.getSession().setAttribute("userAuthenticated",user);
 
-			request.getRequestDispatcher("home.jsp").forward(request, response); 
+			request.getRequestDispatcher("/Home.jsp").forward(request, response); 
 
 			
 		} catch (ApplicationException e) {

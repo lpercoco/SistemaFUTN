@@ -56,7 +56,7 @@ public class SubjectData {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select subjectCode,subjectName,subjectArea,subjectLevel from subjects where subjectName=?");
+					"select subjectCode,subjectName,subjectLevel,subjectArea from subjects where subjectName=?");
 			stmt.setString(1, ms.getName());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
