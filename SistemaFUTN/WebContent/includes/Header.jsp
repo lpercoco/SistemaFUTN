@@ -5,7 +5,7 @@
  <nav class="navbar navbar-inverse navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">FUTN</a> <!-- va al home -->
+			<a class="navbar-brand" href="Home.jsp">FUTN</a> <!-- va al home -->
 		</div>
 		<div>
 			<div class="navbar-right">

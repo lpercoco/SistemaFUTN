@@ -75,7 +75,7 @@ public class AddOrder extends HttpServlet {
 		request.getSession().setAttribute("orderDetails",null);
 		request.getSession().setAttribute("copyPrice", null);
 		
-		request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // orden registrada pantalla
+		request.getRequestDispatcher("Home.jsp").forward(request, response); // orden registrada pantalla
 	}
 
 }

@@ -1,8 +1,10 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@page import="entidades.OrderDetail"%>
 <%@page import="entidades.User"%>
 <%
 	User user = (User) request.getSession().getAttribute("userAuthenticated");
 %>
-<!-- se puede evitar lo de arriba?  -->
 
 
 <div id="sidebar" class="col-6 col-md-3 sidebar-offcanvas">
@@ -14,15 +16,27 @@
 		<%
 			if (user.isScholar()) {
 		%>
-		<a class="list-group-item" href="../PriceChange.jsp">Copy price
-			change</a> <a class="list-group-item" href="../UserAdd.jsp">Add a new
-			student</a> <a class="list-group-item" href="../AddTeachingMaterial.jsp">Add
+		<!-- si es admin --> 
+		<a class="list-group-item" href="PriceChange.jsp">Copy price
+			change</a> <a class="list-group-item" href="UserAdd.jsp">Add a new
+			student</a> <a class="list-group-item" href="AddTeachingMaterial.jsp">Add
 			a new teaching material</a> <a class="list-group-item"
-			href="../AddCredit.jsp">Add credit to a student</a>
+			href="AddCredit.jsp">Add credit to a student</a>
+		<%
+			}else {
+		%>
+	    <!-- si no es admin  -->
+	         	
+	      <a class="list-group-item" href="AddTeachingMaterialToOrder.jsp">Make an order</a>	      
+	      <a class="list-group-item" href="#">Profile</a> <!-- student crud -->
+	    
+	    <c:if test="{orderDetails.length()>0}">
+	      <a class="list-group-item" href="Cart.jsp">Cart</a>   	
+		</c:if>  
 		<%
 			}
 		%>
-		<%
+		<% 
 			}
 		%>
 		<a class="list-group-item" href="#">Se muestra siempre</a>

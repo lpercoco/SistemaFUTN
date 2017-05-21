@@ -44,9 +44,9 @@ public class OrderDetail {
 		double aux=0;
 				
 		if(this.duplex){
-			aux=this.numberOfCopies*this.item.getNumberOfPages();//*copyPrice.getDuplexPrice(); 
+			aux=this.numberOfCopies*this.item.getNumberOfPages()*copyPrice.getDuplexPrice(); 
 		}else{
-			aux=this.numberOfCopies*this.item.getNumberOfPages();//*copyPrice.getSimplePrice(); 
+			aux=this.numberOfCopies*this.item.getNumberOfPages()*copyPrice.getSimplePrice(); 
 		}
 		this.parcialAmount=aux;
 	}
