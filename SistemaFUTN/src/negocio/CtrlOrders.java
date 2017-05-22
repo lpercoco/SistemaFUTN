@@ -43,4 +43,13 @@ public class CtrlOrders {
 		this.addOrder(order);
 	}
 
+	public ArrayList<OrderDetail> cancelItem(ArrayList<OrderDetail> orderDetails, int odNumber) {
+		for (int i = 0; i < orderDetails.size(); i++) {
+			if(orderDetails.get(i).getOrderDetailNumber()==odNumber){
+				orderDetails.remove(i);
+			}	
+		}
+		return orderDetails;
+	}
+
 }

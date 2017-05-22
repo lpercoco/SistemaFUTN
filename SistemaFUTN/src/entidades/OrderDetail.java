@@ -4,6 +4,7 @@ import futn.CopyPrice;
 
 public class OrderDetail {
 	private TeachingMaterial item;
+	private int orderDetailNumber;
 	private int numberOfCopies;
 	private boolean state;// print = true not print=false
 	private double parcialAmount;
@@ -11,12 +12,13 @@ public class OrderDetail {
 	
 	
 	
-	public OrderDetail(TeachingMaterial tm, int quantity, boolean duplex2, CopyPrice copyPrice) {
+	public OrderDetail(TeachingMaterial tm, int quantity, boolean duplex2, CopyPrice copyPrice, int odNumber) {
 		this.setItem(tm);
 		this.setNumberOfCopies(quantity);
 		this.setDuplex(duplex2);
 		this.setState(false);
 		this.setParcialAmount(copyPrice);
+		this.setOrderDetailNumber(odNumber);
 	}
 	
 	
@@ -56,5 +58,15 @@ public class OrderDetail {
 	}
 	public void setDuplex(boolean duplex) {
 		this.duplex = duplex;
+	}
+
+
+	public int getOrderDetailNumber() {
+		return orderDetailNumber;
+	}
+
+
+	public void setOrderDetailNumber(int orderDetailNumber) {
+		this.orderDetailNumber = orderDetailNumber;
 	}
 }

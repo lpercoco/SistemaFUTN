@@ -65,15 +65,16 @@ public class OrderData {
 
 			for(int i=0;i<o.getDetails().size();i++){
 				stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-						"insert into orderDetails (orderNumber,teachingMaterialCode,numberOfCopies,state,parcialAmount,duplex)"+
-						" values(?,?,?,?,?,?)");
+						"insert into orderDetails (orderNumber,orderDetailNumber,teachingMaterialCode,numberOfCopies,state,parcialAmount,duplex)"+
+						" values(?,?,?,?,?,?,?)");
 							
 				stmt.setInt(1,o.getOrderNumber());
-				stmt.setInt(2, od.get(i).getItem().getCode());
-				stmt.setInt(3, od.get(i).getNumberOfCopies());
-				stmt.setBoolean(4, od.get(i).isState());
-				stmt.setDouble(5,od.get(i).getParcialAmount());
-				stmt.setBoolean(6, od.get(i).isDuplex());
+				stmt.setInt(2, od.get(i).getOrderDetailNumber());
+				stmt.setInt(3, od.get(i).getItem().getCode());
+				stmt.setInt(4, od.get(i).getNumberOfCopies());
+				stmt.setBoolean(5, od.get(i).isState());
+				stmt.setDouble(6,od.get(i).getParcialAmount());
+				stmt.setBoolean(7, od.get(i).isDuplex());
 				stmt.execute();	
 			};
 			

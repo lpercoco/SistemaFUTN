@@ -48,7 +48,7 @@
 									<form name="CancelItemForm" action="CancelItem" method="post">
 										
 										<div class="form-group">
-										<input type="hidden" name="orderDetailToDelate" value="${od}" />
+										<input type="hidden" name="orderDetailToDelate" value="${od.orderDetailNumber}" />
 										</div>
 										
 										<div class="form-group">

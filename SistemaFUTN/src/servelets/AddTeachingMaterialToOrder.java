@@ -30,6 +30,8 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int odnumber;
+		
 		CtrlTeachingMaterial ctrlTM = new CtrlTeachingMaterial();
 		CtrlFutn ctrlFutn = new CtrlFutn();
 		
@@ -45,8 +47,10 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 		//luego los guarda en la session
 		if(objOrderDetails!=null){
 			orderDetails=(ArrayList<OrderDetail>) objOrderDetails;
+			odnumber=orderDetails.size();
 		}else{
 			orderDetails=new ArrayList<OrderDetail>();
+			odnumber=0;
 		}
 		
 	    
@@ -57,6 +61,7 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 			copyPrice=ctrlFutn.getActualCopyPrice();
 			request.getSession().setAttribute("copyPrice",copyPrice);
 		}
+		
 		
 		//crea cada uno de los nuevos orderdetails y los agrega al array
 		//refactor?
@@ -69,8 +74,10 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	      	
 	    	quantity=Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]));
 	        duplex=Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]));
-	    		    	
-	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice);
+	    	
+	        odnumber++;
+	        
+	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice,odnumber);
 	        
 	    	orderDetails.add(orderDetail);
 	  		}
