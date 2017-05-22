@@ -21,13 +21,13 @@ public class OrderData {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into orders (totalAmount,orderState,orderDate,estimatedDeliveryDate)"+
-					" values(?,?,CURRENT_DATE,DATE_ADD(CURRENT_DATE, INTERVAL ? DAY))",Statement.RETURN_GENERATED_KEYS);
+					"insert into orders (totalAmount,orderState,orderDate,estimatedDeliveryDate,studentLegajo)"+
+					" values(?,?,CURRENT_DATE,DATE_ADD(CURRENT_DATE, INTERVAL ? DAY),?)",Statement.RETURN_GENERATED_KEYS);
 									
 			stmt.setDouble(1, o.getTotalAmount());
-			//stmt.setString(, o.getStudentOrder().getLegajo());
 			stmt.setBoolean(2, o.isOrderState());
 			stmt.setInt(3, 3); //  fijo o calculable?
+			stmt.setString(4, o.getStudentOrder().getLegajo());
 
 			stmt.execute();
 			
