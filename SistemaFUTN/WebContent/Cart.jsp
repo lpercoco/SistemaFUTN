@@ -1,4 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -46,16 +48,17 @@
 								<td align="left">${od.parcialAmount}</td>
 								<td align="left">
 									<form name="CancelItemForm" action="CancelItem" method="post">
-										
+
 										<div class="form-group">
-										<input type="hidden" name="orderDetailToDelate" value="${od.orderDetailNumber}" />
+											<input type="hidden" name="orderDetailToDelate"
+												value="${od.orderDetailNumber}" />
 										</div>
-										
+
 										<div class="form-group">
-										<input type="submit" class="btn btn-primary"
-											name="Cancel order" value="cancelOrder">
-									    </div>
-									    
+											<input type="submit" class="btn btn-primary"
+												name="Cancel order" value="cancelOrder">
+										</div>
+
 									</form>
 								</td>
 							</tr>
@@ -63,15 +66,25 @@
 					</tbody>
 				</table>
 
-				<form name="CancelForm" action="CancelOrder" method="post">
-					<input type="submit" class="btn btn-primary" name="Cancel order"
-						value="Cancel order">
-				</form>
+				<c:if test = "${fn:length(orderDetails) gt 0}">
+					<div class="row">
 
-				<form name="CheckOutForm" action="AddOrder" method="post">
-					<input type="submit" class="btn btn-primary" name="CheckOut"
-						value="CheckOut">
-				</form>
+						<div class="form-group col-xs-6">
+							<form action="AddTeachingMaterialToOrder.jsp" method="get">
+								<input type="submit" class="btn btn-primary" value="Add other"
+									name="Submit" />
+							</form>
+						</div>
+
+						<div class="form-group col-xs-6">
+							<form name="CheckOutForm" action="AddOrder" method="post">
+								<input type="submit" class="btn btn-primary" name="CheckOut"
+									value="CheckOut">
+							</form>
+						</div>
+
+					</div>
+				</c:if>
 
 			</div>
 		</div>

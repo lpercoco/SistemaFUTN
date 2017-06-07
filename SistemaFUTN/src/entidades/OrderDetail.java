@@ -12,13 +12,12 @@ public class OrderDetail {
 	
 	
 	
-	public OrderDetail(TeachingMaterial tm, int quantity, boolean duplex2, CopyPrice copyPrice, int odNumber) {
+	public OrderDetail(TeachingMaterial tm, int quantity, boolean duplex2, CopyPrice copyPrice) {
 		this.setItem(tm);
 		this.setNumberOfCopies(quantity);
 		this.setDuplex(duplex2);
 		this.setState(false);
 		this.setParcialAmount(copyPrice);
-		this.setOrderDetailNumber(odNumber);
 	}
 	
 	

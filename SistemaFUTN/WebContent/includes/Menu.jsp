@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@page import="entidades.OrderDetail"%>
 <%@page import="entidades.User"%>
@@ -27,10 +28,10 @@
 		%>
 	    <!-- si no es admin  -->
 	         	
-	      <a class="list-group-item" href="AddTeachingMaterialToOrder.jsp">Make an order</a>	      
+	      <a class="list-group-item" href="AddTeachingMaterialToOrder.jsp">Add teaching material to order</a>	      
 	      <a class="list-group-item" href="#">Profile</a> <!-- student crud -->
 	    
-	    <c:if test="{orderDetails.length()>0}">
+		<c:if test = "${fn:length(orderDetails) gt 0}">
 	      <a class="list-group-item" href="Cart.jsp">Cart</a>   	
 		</c:if>  
 		<%

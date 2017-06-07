@@ -1,4 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -174,19 +176,35 @@
 						</form>
 				</c:if>
 
-						<form name="CheckOutForm" action="AddOrder" method="post">
-							<input type="submit" class="btn btn-primary" name="CheckOut"
-								value="CheckOut">
-						</form>
-					</div>
-					
+				<c:if test = "${fn:length(orderDetails) gt 0}">
+					<div class="row">
 
+						<div class="form-group col-xs-6">
+							<form action="Cart.jsp" method="get">
+								<input type="submit" class="btn btn-primary" value="Cart"
+									name="Submit" />
+							</form>
+						</div>
+
+
+						<div class="form-group col-xs-6">
+							<form name="CheckOutForm" action="AddOrder" method="post">
+								<input type="submit" class="btn btn-primary" name="CheckOut"
+									value="CheckOut">
+							</form>
+						</div>
+					</div>
+				</c:if>
+				
 			</div>
 
-			<jsp:include page="/includes/Footer.jsp"></jsp:include>
 
 		</div>
+
+		<jsp:include page="/includes/Footer.jsp"></jsp:include>
+
 	</div>
+
 
 </body>
 </html>

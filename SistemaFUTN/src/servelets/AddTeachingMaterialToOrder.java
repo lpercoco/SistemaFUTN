@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.OrderDetail;
 import entidades.TeachingMaterial;
+import entidades.User;
 import futn.CopyPrice;
 import negocio.CtrlFutn;
 import negocio.CtrlTeachingMaterial;
@@ -42,6 +43,8 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
 		Object objOrderDetails=request.getSession().getAttribute("orderDetails");
 		Object objCopyPrice=request.getSession().getAttribute("copyPrice");
+		User student= (User)request.getSession().getAttribute("userAuthenticated");
+
 		
 		//si no existen orderDetails en la session, crea el nuevo array
 		//luego los guarda en la session
@@ -75,16 +78,21 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	    	quantity=Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]));
 	        duplex=Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]));
 	    	
-	        odnumber++;
 	        
-	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice,odnumber);
+	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice);
+
+	        
+	        odnumber++;
+	        orderDetail.setOrderDetailNumber(odnumber);
 	        
 	    	orderDetails.add(orderDetail);
-	  		}
-       
+	  		
+	    
+	   request.getSession().setAttribute("tmArray",null);
        request.getSession().setAttribute("orderDetails", orderDetails);
        
        
 	   request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
+	}
 	}
 }
