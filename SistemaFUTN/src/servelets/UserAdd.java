@@ -36,6 +36,10 @@ public class UserAdd extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlUsers ctrlUser=new CtrlUsers();
 		
 		User student=new User();

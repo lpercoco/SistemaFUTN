@@ -40,7 +40,7 @@
 
 					<tbody>
 
-						<c:forEach items="${orderDetails}" var="od">
+						<c:forEach items="${order.details}" var="od">
 							<tr>
 								<td align="left">${od.item.title}</td>
 								<td align="left">${od.numberOfCopies}</td>
@@ -63,10 +63,18 @@
 								</td>
 							</tr>
 						</c:forEach>
+						    <tr>
+						    <!-- esto esta mal -->
+						        <td>TOTAL</td>
+						        <td></td>
+						        <td></td>
+						        <td align="left">${order.totalAmount}</td>
+						        <td></td> 
+						    </tr>
 					</tbody>
 				</table>
 
-				<c:if test = "${fn:length(orderDetails) gt 0}">
+				<c:if test = "${fn:length(order.details) gt 0}">
 					<div class="row">
 
 						<div class="form-group col-xs-6">

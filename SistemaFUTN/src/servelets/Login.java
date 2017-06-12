@@ -38,6 +38,10 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlUsers ctrl= new CtrlUsers();
 		User u=new User();
 		User user;

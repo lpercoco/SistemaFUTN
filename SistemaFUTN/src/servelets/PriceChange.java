@@ -41,6 +41,10 @@ public class PriceChange extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlFutn ctrl=new CtrlFutn();
 	    CopyPrice newCopyPrice=new CopyPrice();
 

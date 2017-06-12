@@ -31,7 +31,7 @@
 	      <a class="list-group-item" href="AddTeachingMaterialToOrder.jsp">Add teaching material to order</a>	      
 	      <a class="list-group-item" href="#">Profile</a> <!-- student crud -->
 	    
-		<c:if test = "${fn:length(orderDetails) gt 0}">
+		<c:if test = "${fn:length(order.details) gt 0}">
 	      <a class="list-group-item" href="Cart.jsp">Cart</a>   	
 		</c:if>  
 		<%

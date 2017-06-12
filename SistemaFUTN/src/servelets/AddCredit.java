@@ -37,6 +37,9 @@ public class AddCredit extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);	
+
 		CtrlUsers ctrl=new CtrlUsers();
 		User s=new User();
 		double total=0;

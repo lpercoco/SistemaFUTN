@@ -19,37 +19,44 @@ public class CtrlOrders {
 		data.add(o);
 	}
 
-	public void newOrder(ArrayList<OrderDetail> orderDetails, User student) throws ApplicationException{       
-		Order order=new Order();
-		
-		if(student!=null && student.isScholar()==false){
-			//user  is validate and is a student
-			
-			if(orderDetails!=null){
-				//array have orderdetails
-			
-				order.setDetails(orderDetails);
-				order.setTotalAmount();
-				order.setOrderState(false);
-				order.setStudentOrder(student);
-				
-			}else{
-				throw new ApplicationException("New order without teaching materials added");
+	public Order cancelItem(Order order, OrderDetail od) {
+
+		for (int i = 0; i < order.getDetails().size(); i++) {
+			if(order.getDetails().get(i).equals(od)){
+				order.totalAmountUpdateCancel(order.getDetails().get(i));
+				order.getStudentOrder().creditUpdateCancel(od);
+				order.getDetails().remove(i);
 			}
-		}else{
-			throw new ApplicationException("Student is not logged in");
+			order.updateOrderDetailsNumbers();
 		}
+		return order;
+	}
+
+	
+	public Order setOrderDetail(Order order, OrderDetail od) throws ApplicationException {
+
+		double aux=order.getTotalAmount() + od.getParcialAmount();
 		
-		this.addOrder(order);
+		if(order.getStudentOrder().getCredit()>=aux){
+			order.setDetail(od);
+			return order;
+		}else{
+			throw new ApplicationException("Insufficient credit for add items from this search");
+		}		
 	}
 
-	public ArrayList<OrderDetail> cancelItem(ArrayList<OrderDetail> orderDetails, int odNumber) {
-		for (int i = 0; i < orderDetails.size(); i++) {
-			if(orderDetails.get(i).getOrderDetailNumber()==odNumber){
-				orderDetails.remove(i);
-			}	
+	public OrderDetail getOrderDetail(Order o, int odNumber) {
+
+		ArrayList<OrderDetail> details = o.getDetails();
+		OrderDetail od=null;
+		
+		for (int i=0; i < details.size() ; i++) {	
+			if(details.get(i).getOrderDetailNumber()==odNumber){
+			  od=details.get(i);
+			  break;
+			}
 		}
-		return orderDetails;
+		return od;
 	}
-
+		
 }

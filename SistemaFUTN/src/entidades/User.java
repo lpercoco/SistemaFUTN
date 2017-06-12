@@ -74,5 +74,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public void creditUpdateAdd(OrderDetail od) {
+
+		this.credit=this.getCredit()-od.getParcialAmount();
+		
+	}
+	public void creditUpdateCancel(OrderDetail od) {
+
+		this.credit=this.getCredit()+od.getParcialAmount();
+		
+	}
 	
 }

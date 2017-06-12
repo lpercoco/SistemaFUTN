@@ -1,3 +1,5 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -25,7 +27,16 @@
 					<p>UTN FRRO copy center</p>
 				</div>
 
+				<c:if test="${message !=null}">
+
+					<div class="alert alert-success">
+						<c:out value="${message}" />
+					</div>
+
+				</c:if>
+
 			</div>
+
 		</div>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>

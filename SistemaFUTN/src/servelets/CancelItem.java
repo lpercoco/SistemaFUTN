@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Order;
 import entidades.OrderDetail;
 import negocio.CtrlOrders;
 
@@ -40,14 +41,23 @@ public class CancelItem extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		CtrlOrders ctrl=new CtrlOrders();
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
 		
-		ArrayList<OrderDetail> orderDetails=(ArrayList<OrderDetail>) request.getSession().getAttribute("orderDetails");
+		CtrlOrders ctrl=new CtrlOrders();
+		OrderDetail od;
+		
+		Order order= (Order)request.getSession().getAttribute("order");
+		
 		int odNumber= Integer.parseInt(request.getParameter("orderDetailToDelate"));
 		
-		orderDetails=ctrl.cancelItem(orderDetails,odNumber);
+		od=ctrl.getOrderDetail(order,odNumber);
+		
+		order=ctrl.cancelItem(order,od);
 
-		request.getSession().setAttribute("orderDetails",orderDetails);
+		request.getSession().setAttribute("order",order);
+		request.getSession().setAttribute("orderDetailToDelate",null);
+
 
 		request.getRequestDispatcher("Cart.jsp").forward(request, response); 
 	}

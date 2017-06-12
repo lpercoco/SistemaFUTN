@@ -131,15 +131,15 @@ public class UserData {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update users set adress=?,phone1=?,phone2=?,mail=?,credit=,password=?"+
-					" where legajo=?");
+			"update users set adress=?,phone1=?,phone2=?,mail=? ,credit=?, password=? where legajo=?");
+			
 			stmt.setString(1,u.getAdress());
 			stmt.setString(2,u.getPhone1());
 			stmt.setString(3,u.getPhone2());
 			stmt.setString(4,u.getMail());
 			stmt.setDouble(5,u.getCredit());
-			stmt.setString(6,u.getLegajo());
-			stmt.setString(7,u.getPassword());
+			stmt.setString(6,u.getPassword());
+			stmt.setString(7,u.getLegajo());
             stmt.executeUpdate();
 			
 		} catch (SQLException e) {

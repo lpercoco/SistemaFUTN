@@ -39,6 +39,9 @@ public class AddTeachingMaterial extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
 		CtrlSubjects ctrlS=new CtrlSubjects();
 		TeachingMaterial tm=new TeachingMaterial();

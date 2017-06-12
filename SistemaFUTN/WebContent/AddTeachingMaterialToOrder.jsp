@@ -175,8 +175,24 @@
 								value="Add to Order">
 						</form>
 				</c:if>
+				
+				<c:if test = "${exceptionMessage !=null}">
+				 
+				   <div class="alert alert-warning">
+                      <c:out value="${exceptionMessage}" />
+                   </div>
+				 
+				</c:if>
+				
+				<c:if test = "${message !=null}">
+				 
+				   <div class="alert alert-success">
+                      <c:out value="${message}" />
+                   </div>
+				 
+				</c:if>
 
-				<c:if test = "${fn:length(orderDetails) gt 0}">
+				<c:if test = "${fn:length(order.details) gt 0}">
 					<div class="row">
 
 						<div class="form-group col-xs-6">

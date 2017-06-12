@@ -37,6 +37,9 @@ public class UserRUD extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlUsers ctrlUser=new CtrlUsers();
 
 		// hacer un servelet por aca boton?

@@ -64,6 +64,15 @@ public class OrderDetail {
 		return orderDetailNumber;
 	}
 
+	public boolean equals(OrderDetail od){
+		
+		if(this.getOrderDetailNumber()==od.getOrderDetailNumber()){
+			return true;
+		}else{
+			return false;
+		}		
+		
+	}
 
 	public void setOrderDetailNumber(int orderDetailNumber) {
 		this.orderDetailNumber = orderDetailNumber;

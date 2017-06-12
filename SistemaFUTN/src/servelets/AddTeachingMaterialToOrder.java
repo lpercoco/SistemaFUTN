@@ -10,53 +10,63 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Order;
 import entidades.OrderDetail;
 import entidades.TeachingMaterial;
 import entidades.User;
 import futn.CopyPrice;
 import negocio.CtrlFutn;
+import negocio.CtrlOrders;
 import negocio.CtrlTeachingMaterial;
+import utils.ApplicationException;
 
 @WebServlet("/AddTeachingMaterialToOrder")
 public class AddTeachingMaterialToOrder extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 
-    public AddTeachingMaterialToOrder() {
-        super();
-    }
-    
+	public AddTeachingMaterialToOrder() {
+		super();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int odnumber;
+
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
 		
 		CtrlTeachingMaterial ctrlTM = new CtrlTeachingMaterial();
 		CtrlFutn ctrlFutn = new CtrlFutn();
-		
-		ArrayList<OrderDetail> orderDetails=null;
+		CtrlOrders ctrlOrders = new CtrlOrders();
+
 		OrderDetail orderDetail;
 		CopyPrice copyPrice;
-		
-		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
-		Object objOrderDetails=request.getSession().getAttribute("orderDetails");
-		Object objCopyPrice=request.getSession().getAttribute("copyPrice");
-		User student= (User)request.getSession().getAttribute("userAuthenticated");
+		Order order;
+		User student;
 
-		
-		//si no existen orderDetails en la session, crea el nuevo array
+		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
+		Object objOrder=request.getSession().getAttribute("order");
+		Object objCopyPrice=request.getSession().getAttribute("copyPrice");
+
+		request.getSession().setAttribute("exceptionMessage",null);
+		request.getSession().setAttribute("message",null);	
+
+
+		//si no existe una orden en la session, instancia una nueva y la setea
 		//luego los guarda en la session
-		if(objOrderDetails!=null){
-			orderDetails=(ArrayList<OrderDetail>) objOrderDetails;
-			odnumber=orderDetails.size();
+		if(objOrder!=null){
+			order=(Order) objOrder;			
 		}else{
-			orderDetails=new ArrayList<OrderDetail>();
-			odnumber=0;
+			student= (User)request.getSession().getAttribute("userAuthenticated");
+			//considerar caso que no este logiado¿?
+			order= new Order(student);
+			request.getSession().setAttribute("order",order);
 		}
-		
-	    
+
+
 		//si no existe copyPrice en la session, lo pide y lo guarda en la session
 		if(objCopyPrice!=null){
 			copyPrice=(CopyPrice) objCopyPrice;
@@ -64,35 +74,44 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 			copyPrice=ctrlFutn.getActualCopyPrice();
 			request.getSession().setAttribute("copyPrice",copyPrice);
 		}
-		
-		
-		//crea cada uno de los nuevos orderdetails y los agrega al array
-		//refactor?
-	    for (int i = 0; i < tmCodesArray.length; i++) {   	    	
-	    	TeachingMaterial tm=new TeachingMaterial();
-	    	int quantity;
-	    	boolean duplex;
-	    	
-	    	tm=ctrlTM.getTeachingMaterial(new TeachingMaterial(tmCodesArray[i]));
-	      	
-	    	quantity=Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]));
-	        duplex=Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]));
-	    	
-	        
-	        orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice);
 
-	        
-	        odnumber++;
-	        orderDetail.setOrderDetailNumber(odnumber);
-	        
-	    	orderDetails.add(orderDetail);
-	  		
-	    
-	   request.getSession().setAttribute("tmArray",null);
-       request.getSession().setAttribute("orderDetails", orderDetails);
-       
-       
-	   request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
-	}
+
+		//crea cada uno de los nuevos orderdetails, valida que sea suficiente el credito
+		//y lo agrega a la orden
+		try {
+
+			for (int i = 0; i < tmCodesArray.length; i++) {   	    	
+				TeachingMaterial tm=new TeachingMaterial();
+				int quantity;
+				boolean duplex;
+
+				tm=ctrlTM.getTeachingMaterial(new TeachingMaterial(tmCodesArray[i]));
+
+				quantity=Integer.parseInt(request.getParameter("qty"+tmCodesArray[i]));
+				duplex=Boolean.parseBoolean(request.getParameter("duplex"+tmCodesArray[i]));
+
+				orderDetail = new OrderDetail(tm,quantity,duplex,copyPrice);
+
+
+				order=ctrlOrders.setOrderDetail(order,orderDetail);
+
+			}
+			//si alcanzo el credito y pudo agregar todos los apuntes
+			//guarda la orden en la session
+			request.getSession().setAttribute("order",order);
+			request.getSession().setAttribute("message","Items added successfully");	
+
+		} catch (ApplicationException e) {
+			//se lanza en el caso de que algun apunte supere el credito disponible
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());	
+
+		}finally {
+
+			request.getSession().setAttribute("tmArray",null);
+
+			request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	
+
+		}
+
 	}
 }

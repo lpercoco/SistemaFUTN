@@ -43,12 +43,19 @@ public class SearchTeachingMaterial extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
+		
 		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
 		CtrlSubjects ctrlSubject=new CtrlSubjects();
 		
 		TeachingMaterial teachingMaterialSearch=new TeachingMaterial();
 		Subject subjectSearch=new Subject();
 		ArrayList <TeachingMaterial> teachingMaterialArray=new ArrayList();
+		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);	
+
 		
 		teachingMaterialSearch.setTitle(request.getParameter("title"));
 		subjectSearch.setName(request.getParameter("subject")); 

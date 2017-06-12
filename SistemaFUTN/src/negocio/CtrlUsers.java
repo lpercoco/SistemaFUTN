@@ -1,6 +1,7 @@
 package negocio;
 
 import data.UserData;
+import entidades.Order;
 import entidades.User;
 import utils.ApplicationException;
 
@@ -86,6 +87,11 @@ public class CtrlUsers {
 		}
 				
 	}
-	 
 
+	public void makePayment(Order order) {
+		
+		userData.update(order.getStudentOrder());
+	
+	}
+	 
 }

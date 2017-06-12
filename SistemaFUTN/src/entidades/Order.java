@@ -17,6 +17,23 @@ public class Order{
 	private ArrayList<OrderDetail> details;
 	
 	
+	
+	public Order(User student) {
+		this.setStudentOrder(student);
+		this.setOrderState(false);
+		this.setTotalAmount(0);
+		this.details = new ArrayList<OrderDetail>();
+	}
+
+	private void setTotalAmount(int i) {
+		this.totalAmount=i;
+		
+	}
+
+	public int getAmountOfDetails(){
+		return this.getDetails().size();
+	}
+	
 	public boolean isOrderState() {
 		return orderState;
 	}
@@ -64,14 +81,6 @@ public class Order{
 		return totalAmount;
 	}
 	
-	public void setTotalAmount() {
-		double aux=0;
-		for (int i = 0; i<this.details.size(); i++) {
-			aux=aux+this.details.get(i).getParcialAmount();
-		}
-		this.totalAmount=aux;
-	}
-
 	public User getStudentOrder() {
 		return studentOrder;
 	}
@@ -83,13 +92,47 @@ public class Order{
 	public ArrayList<OrderDetail> getDetails() {
 		return details;
 	}
+	public void setDetail(OrderDetail od){
+		int newOrderDetailNumber=this.getAmountOfDetails()+1;
+		
+		od.setOrderDetailNumber(newOrderDetailNumber);
+		this.details.add(od);
+		this.totalAmountUpdateAdd(od);
+		this.studentOrder.creditUpdateAdd(od);
+	}
 	
+	public void totalAmountUpdateAdd(OrderDetail od) {
+		this.totalAmount=this.getTotalAmount()+od.getParcialAmount();
+	}
+	
+	public void totalAmountUpdateCancel(OrderDetail od){
+		this.totalAmount=this.getTotalAmount()-od.getParcialAmount();
+	}
+
 	public void setDetails(ArrayList<OrderDetail> details) {
 		this.details = details;
 	}
 
 	public void setOrderState(boolean b) {
 		this.orderState=b;
+	}
+
+	public void updateOrderDetailsNumbers() {
+		int aux=1;
+		
+		ArrayList<OrderDetail> d = new ArrayList<OrderDetail>();
+		
+		for (int i = 0; i < this.getDetails().size() ; i++) {
+			
+			OrderDetail od = this.getDetails().get(i);
+			
+			od.setOrderDetailNumber(aux);
+			
+			d.add(od);
+			
+			aux++;
+		}
+		this.setDetails(d);
 	}
 	
 }

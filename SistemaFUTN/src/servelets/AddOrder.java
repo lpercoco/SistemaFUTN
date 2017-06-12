@@ -18,6 +18,7 @@ import entidades.Order;
 import entidades.OrderDetail;
 import entidades.User;
 import negocio.CtrlOrders;
+import negocio.CtrlUsers;
 import utils.ApplicationException;
 
 
@@ -48,32 +49,23 @@ public class AddOrder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {			    
-		CtrlOrders ctrl=new CtrlOrders();
-		ArrayList<OrderDetail> orderDetails= new ArrayList<OrderDetail>();
-		User student;
-		
-		orderDetails=(ArrayList<OrderDetail>) request.getSession().getAttribute("orderDetails");
-		student= (User)request.getSession().getAttribute("userAuthenticated");
-		
-		//si quiere entrar al jsp de addteachingmaterialtoorder no estando logiado
-		//mostrar mensaje y/o login
-		
-		//validar cada vez que agrega un apunte si le alcanza el credito????
-		
+		CtrlOrders ctrlOrders=new CtrlOrders();
+		CtrlUsers ctrlUsers=new CtrlUsers();
 
-		try {
-			ctrl.newOrder(orderDetails,student);
-		} catch (ApplicationException e) {
-
-			//si no esta logiado, muestra mensaje y login
-			//si no tiene items, muestra mensaje 
-			
-			e.printStackTrace();
-		}
+		Order order=(Order)request.getSession().getAttribute("order");
+		
+		ctrlOrders.addOrder(order);
+		
+		ctrlUsers.makePayment(order);
+		
+		//actualiza el credito del usuario logiado
+		request.getSession().setAttribute("userAuthenticated", order.getStudentOrder());
 		
 		//eliminar datos de la session
-		request.getSession().setAttribute("orderDetails",null);
-		request.getSession().setAttribute("copyPrice", null);
+		request.getSession().setAttribute("order", null);
+		request.getSession().setAttribute("message","Order added successfully");
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("copyPrice", null); //necesario?
 		
 		request.getRequestDispatcher("Home.jsp").forward(request, response); // orden registrada pantalla
 	}
