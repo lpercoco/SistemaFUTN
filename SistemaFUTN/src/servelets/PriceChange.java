@@ -55,13 +55,12 @@ public class PriceChange extends HttpServlet {
 	    //registra nuevo precio copias
 	    try {
 			ctrl.add(newCopyPrice);
+			request.getSession().setAttribute("message","Price change successfully");
+
 		} catch (ApplicationException e) {
-
-			//pagina muestra mensaje error
-			
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());	
+		}finally {
+		    request.getRequestDispatcher("Home.jsp").forward(request, response);
 		}    
-
-	    request.getRequestDispatcher("PriceChange.jsp").forward(request, response);
 	}
-
 }

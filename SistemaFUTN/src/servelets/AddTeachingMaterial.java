@@ -12,6 +12,7 @@ import entidades.Subject;
 import entidades.TeachingMaterial;
 import negocio.CtrlSubjects;
 import negocio.CtrlTeachingMaterial;
+import utils.ApplicationException;
 
 
 /**
@@ -42,26 +43,35 @@ public class AddTeachingMaterial extends HttpServlet {
 		request.getSession().setAttribute("exceptionMessage",null);	
 		request.getSession().setAttribute("message",null);
 		
-		CtrlTeachingMaterial ctrlTM=new CtrlTeachingMaterial();
-		CtrlSubjects ctrlS=new CtrlSubjects();
-		TeachingMaterial tm=new TeachingMaterial();
-		Subject ms=new Subject();
+		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
+		CtrlSubjects ctrlSubject=new CtrlSubjects();
+		TeachingMaterial teachingMaterial=new TeachingMaterial();
+		Subject subject=new Subject();
 		
 				
-		tm.setTitle(request.getParameter("title"));
-		tm.setAuthor(request.getParameter("author"));
-		tm.setDescription(request.getParameter("description"));
-		tm.setEdition(request.getParameter("edition"));
-		tm.setNumberOfPages(Integer.parseInt(request.getParameter("numberOfPages")));
-		tm.setPublicationYear(request.getParameter("PublicationYear"));
+		teachingMaterial.setTitle(request.getParameter("title"));
+		teachingMaterial.setAuthor(request.getParameter("author"));
+		teachingMaterial.setDescription(request.getParameter("description"));
+		teachingMaterial.setEdition(request.getParameter("edition"));
+		teachingMaterial.setNumberOfPages(Integer.parseInt(request.getParameter("numberOfPages")));
 		
-	    ms.setName(request.getParameter("subject"));
+		subject.setName(request.getParameter("subject"));
 		
-		tm.setMaterialSubject(ctrlS.getByName(ms)); //excepcion en caso de ingreso de subject inexistente 
+	    try {
+			subject=ctrlSubject.getByName(subject);
+			
+		    teachingMaterial=ctrlTeachingMaterial.setMaterialSubject(teachingMaterial,subject);
 		
-		ctrlTM.add(tm); //excepcion en caso de que no se pueda agregar?
-	
-	    request.getRequestDispatcher("AddTeachingMaterial.jsp").forward(request, response); //pagina donde se redirige 
+		    ctrlTeachingMaterial.add(teachingMaterial);
+		    
+			request.getSession().setAttribute("message","Teaching material added successfully");
+
+		    request.getRequestDispatcher("Home.jsp").forward(request, response);  
+
+	    } catch (ApplicationException e) {
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());
+		    request.getRequestDispatcher("AddTeachingMaterial.jsp").forward(request, response);
+	    }    		
 	}
 
 }

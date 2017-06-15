@@ -19,16 +19,15 @@ public class TeachingMaterialData {
 
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into teachingMaterials (title,numberOfPages,edition,author,publicationYear,description,subjectCode)"
-							+ " values(?,?,?,?,?,?,?,?)");
+					"insert into teachingMaterials (title,numberOfPages,edition,author,description,subjectCode)"
+							+ " values(?,?,?,?,?,?)");
 
 			stmt.setString(1, tm.getTitle());
 			stmt.setInt(2, tm.getNumberOfPages());
-			stmt.setString(4, tm.getEdition());
-			stmt.setString(5, tm.getAuthor());
-			stmt.setString(6, tm.getPublicationYear());
-			stmt.setString(7, tm.getDescription());
-			stmt.setInt(8, tm.getMaterialSubject().getCode());
+			stmt.setString(3, tm.getEdition());
+			stmt.setString(4, tm.getAuthor());
+			stmt.setString(5, tm.getDescription());
+			stmt.setInt(6, tm.getMaterialSubject().getCode());
 
 			stmt.execute();
 
@@ -84,7 +83,7 @@ public class TeachingMaterialData {
 				tm.setDescription(rs.getString("tm.description"));
 				tm.setEdition(rs.getString("tm.edition"));
 				tm.setNumberOfPages(rs.getInt("tm.numberOfPages"));
-				tm.setPublicationYear(rs.getString("tm.publicationYear"));
+				//tm.setPublicationYear(rs.getString("tm.publicationYear"));
 				tm.setTitle(rs.getString("tm.title"));
 
 				s.setCode(rs.getInt("tm.subjectCode"));
@@ -140,7 +139,7 @@ public class TeachingMaterialData {
 				tm.setDescription(rs.getString("description"));
 				tm.setEdition(rs.getString("edition"));
 				tm.setNumberOfPages(rs.getInt("numberOfPages"));
-				tm.setPublicationYear(rs.getString("publicationYear"));
+				//tm.setPublicationYear(rs.getString("publicationYear"));
 				tm.setTitle(rs.getString("title"));
 
 			}

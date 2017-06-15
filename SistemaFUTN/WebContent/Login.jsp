@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -22,16 +25,26 @@
 
 				<h2 class="form-signin-heading">Please sign in</h2>
 
-				<label for="legajoLogin" class="sr-only">Legajo</label>
-				<input type="text" name="legajoLogin" class="form-control" placeholder="Legajo" required autofocus> 
-				<label for="passwordLogin" class="sr-only">Password</label>
-				<input type="password" name="passwordLogin" class="form-control" placeholder="Password" required> 
-				<input type="submit" name="login" class="btn btn-lg btn-primary btn-block">
+				<label for="legajoLogin" class="sr-only">Legajo</label> <input
+					type="text" name="legajoLogin" class="form-control"
+					placeholder="Legajo" required autofocus> <label
+					for="passwordLogin" class="sr-only">Password</label> <input
+					type="password" name="passwordLogin" class="form-control"
+					placeholder="Password" required> <input type="submit"
+					name="login" class="btn btn-lg btn-primary btn-block">
 			</form>
 		</div>
-		
+
+		<c:if test="${exceptionMessage !=null}">
+
+			<div class="alert alert-warning">
+				<c:out value="${exceptionMessage}" />
+			</div>
+
+		</c:if>
+
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
-		
+
 	</div>
 
 </body>

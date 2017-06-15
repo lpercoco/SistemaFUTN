@@ -56,15 +56,12 @@ public class UserAdd extends HttpServlet {
 		
 		try {
 			ctrlUser.add(student);
+			request.getSession().setAttribute("message","User added successfully");
+			request.getRequestDispatcher("/Home.jsp").forward(request, response); 
+			
 		} catch (ApplicationException e) {
-			e.printStackTrace();
-			//mostrar mensaje de de error usuario ya registrado
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());
+			request.getRequestDispatcher("UserAdd.jsp").forward(request, response); 
 		} 
-		
-		//mostrar cartel usuario registrado
-		// si no hay error redirigir a home
-		
-		doGet(request, response);
 	}
-
 }

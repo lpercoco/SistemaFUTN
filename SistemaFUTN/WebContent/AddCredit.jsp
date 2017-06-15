@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -42,6 +45,15 @@
 					<input class="btn btn-primary" type="submit" name="Add" value="Add">
 
 				</form>
+
+				<c:if test="${exceptionMessage !=null}">
+
+					<div class="alert alert-warning">
+						<c:out value="${exceptionMessage}" />
+					</div>
+
+				</c:if>
+
 			</div>
 		</div>
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.SubjectData;
 import entidades.Subject;
+import utils.ApplicationException;
 
 public class CtrlSubjects {
 	private SubjectData data;
@@ -18,7 +19,7 @@ public class CtrlSubjects {
 		return(data.getSubjects());
 	}
 	
-	public Subject getByName(Subject s){
+	public Subject getByName(Subject s) throws ApplicationException{
 		return(data.getByName(s));
 	}
 

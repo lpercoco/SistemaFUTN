@@ -7,8 +7,7 @@ public class TeachingMaterial {
 	private String edition;
 	private String author; 
 	private String description; 
-	private Subject materialSubject; // esta bien?
-	private String publicationYear;
+	private Subject materialSubject; 
 	
 	public TeachingMaterial(String string) {
 		this.code=Integer.valueOf(string);
@@ -57,11 +56,4 @@ public class TeachingMaterial {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getPublicationYear() {
-		return publicationYear;
-	}
-	public void setPublicationYear(String publicationYear) {
-		this.publicationYear = publicationYear;
-	}
-	
 }

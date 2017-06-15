@@ -55,15 +55,11 @@ public class Login extends HttpServlet {
 		    request.getSession().setAttribute("userAuthenticated",user);
 
 			request.getRequestDispatcher("/Home.jsp").forward(request, response); 
-
-			
+	
 		} catch (ApplicationException e) {
-			e.printStackTrace();
-			//si es contraseña incorrecta volver a mostrar pagina login con mensaje
-			//si no existe usuario con ese legajo mostrar mensaje ir a facultar a registrarse
-		}
-		
-		
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());	
+			request.getRequestDispatcher("Login.jsp").forward(request, response); 
+		}		
 	}
 
 }

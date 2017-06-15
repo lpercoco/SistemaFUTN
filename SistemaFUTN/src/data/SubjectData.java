@@ -49,7 +49,7 @@ public class SubjectData {
 		return subjects;
 	}
 	
-	public Subject getByName(Subject ms){
+	public Subject getByName(Subject ms) throws ApplicationException{
 		Subject s= new Subject();		
 		
 		PreparedStatement stmt=null;
@@ -64,11 +64,11 @@ public class SubjectData {
 				s.setCode(rs.getInt("subjectCode"));
 				s.setLevel(rs.getInt("subjectLevel"));
 				s.setName(rs.getString("subjectName"));
+			}else{
+				throw new ApplicationException("There isn't a subject with that name");
 			}
 			 
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		finally {

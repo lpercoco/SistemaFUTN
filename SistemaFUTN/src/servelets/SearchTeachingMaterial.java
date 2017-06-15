@@ -60,7 +60,7 @@ public class SearchTeachingMaterial extends HttpServlet {
 		teachingMaterialSearch.setTitle(request.getParameter("title"));
 		subjectSearch.setName(request.getParameter("subject")); 
 		
-		teachingMaterialSearch.setMaterialSubject(ctrlSubject.getByName(subjectSearch));
+		//teachingMaterialSearch.setMaterialSubject(ctrlSubject.getByName(subjectSearch));
 		
 		teachingMaterialArray=ctrlTeachingMaterial.getTeachingMaterials(teachingMaterialSearch);
 		

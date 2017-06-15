@@ -42,31 +42,25 @@ public class AddCredit extends HttpServlet {
 
 		CtrlUsers ctrl=new CtrlUsers();
 		User s=new User();
-		double total=0;
+        
+		Double creditToAdd=Double.parseDouble(request.getParameter("credit"));
 		
 		s.setLegajo(request.getParameter("legajo"));
 		
 		try {
 			s=ctrl.getByLegajo(s);
 			
-			total=s.getCredit()+Double.parseDouble(request.getParameter("credit"));
-			s.setCredit(total);
+			ctrl.addCredit(s,creditToAdd);
 			
-			try {
-				ctrl.update(s);
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-				//que hacer en el caso de que no se pueda registrar en la actualizacion
-			}
-				
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-			//que hacer en caso de no exista student con ese legajo
-		}
-		
-	    request.getRequestDispatcher("AddCredit.jsp").forward(request, response); // a donde dirigir?
+			request.getSession().setAttribute("message","Credit added successfully");
+			request.getRequestDispatcher("Home.jsp").forward(request, response);
 
-		doGet(request, response);
+		} catch (ApplicationException e) {
+			//no existe alumno
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());
+		    request.getRequestDispatcher("AddCredit.jsp").forward(request, response);
+		}
+
 	}
 
 }

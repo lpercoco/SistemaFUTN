@@ -27,12 +27,20 @@
 					<p>UTN FRRO copy center</p>
 				</div>
 
-				<c:if test="${message !=null}">
-
-					<div class="alert alert-success">
-						<c:out value="${message}" />
-					</div>
-
+				<c:if test = "${exceptionMessage !=null}">
+				 
+				   <div class="alert alert-warning">
+                      <c:out value="${exceptionMessage}" />
+                   </div>
+				 
+				</c:if>
+				
+				<c:if test = "${message !=null}">
+				 
+				   <div class="alert alert-success">
+                      <c:out value="${message}" />
+                   </div>
+				 
 				</c:if>
 
 			</div>

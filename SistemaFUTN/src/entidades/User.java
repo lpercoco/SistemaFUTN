@@ -84,5 +84,8 @@ public class User {
 		this.credit=this.getCredit()+od.getParcialAmount();
 		
 	}
+	public void addCredit(Double creditToAdd) {
+		this.credit=this.credit+creditToAdd;	
+	}
 	
 }

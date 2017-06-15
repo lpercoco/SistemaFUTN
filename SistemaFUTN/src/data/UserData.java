@@ -2,6 +2,9 @@ package data;
 
 
 import java.sql.*;
+
+import com.sun.javafx.scene.control.skin.TreeTableRowSkin;
+
 import entidades.*;
 import utils.ApplicationException;
 
@@ -11,7 +14,7 @@ public class UserData {
 	//ver que onda con el password al guardar nuevo estudiante
 	
 	
-	public void add(User u){
+	public void add(User u)throws ApplicationException{
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
 		
@@ -34,9 +37,10 @@ public class UserData {
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			e.printStackTrace();
+			if(e.getErrorCode() == 1062 ){
+				//codigo de error de clave primaria repetida hardcodiada
+		       throw new ApplicationException("There is already a user with that Legajo");
+		    }
 		}finally {
 			try {
 				if(rs!=null) rs.close();
@@ -77,9 +81,8 @@ public class UserData {
 	}
 
 	
-	public User getByLegajo(User u){
+	public User getByLegajo(User u) throws ApplicationException{
 		User user= new User();
-		
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -100,13 +103,12 @@ public class UserData {
 				user.setMail(rs.getString("mail"));	
 				user.setCredit(rs.getDouble("credit"));
 				user.setScholar(rs.getBoolean("scholar"));
-				user.setPassword(rs.getString("password")); //es necesario para la validacion?
-				                                            //es correcto?
+				user.setPassword(rs.getString("password")); 
+			}else{
+				throw new ApplicationException("There isnt a user with that Legajo");
 			}
 			 
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 		finally {
@@ -116,17 +118,15 @@ public class UserData {
 				FactoryConexion.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			} catch (ApplicationException e) {
-				e.printStackTrace();
+			}catch (ApplicationException e2) {
+				e2.printStackTrace();
 			}
 		}
 		return user;
 	}
 	
 	
-	//hacer un metodo para agregar credito aparte?
-	//ver caso cambio de contraseña
-	public void update(User u){ 
+	public void update(User u) { 
 		PreparedStatement stmt=null;
 		
 		try {

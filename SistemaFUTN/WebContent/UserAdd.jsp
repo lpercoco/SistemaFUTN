@@ -1,3 +1,4 @@
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -112,18 +113,29 @@
 							placeholder="Confirm password" required>
 					</div>
 
+					<div class="form-group">
 					<input type="submit" class="btn btn-primary" name="Add" id="Add"
 						value="Add">
+                    </div>
 
 				</form>
 
+				<c:if test="${exceptionMessage !=null}">
+
+					<div class="alert alert-warning">
+						<c:out value="${exceptionMessage}" />
+					</div>
+
+				</c:if>
+
 			</div>
+
 		</div>
-		
+
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
-		
+
 	</div>
 	<!-- /container -->
-	
+
 </body>
 </html>

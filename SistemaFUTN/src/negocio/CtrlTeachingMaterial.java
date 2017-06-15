@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 
 import data.TeachingMaterialData;
+import entidades.Subject;
 import entidades.TeachingMaterial;
 
 public class CtrlTeachingMaterial {
@@ -42,5 +43,10 @@ public class CtrlTeachingMaterial {
 		}
 		
 		return teachingMaterials;
+	}
+
+	public TeachingMaterial setMaterialSubject(TeachingMaterial tm, Subject materialSubject) {
+		tm.setMaterialSubject(materialSubject);
+		return tm;
 	}
 }
