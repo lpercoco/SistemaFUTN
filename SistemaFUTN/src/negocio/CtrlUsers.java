@@ -21,30 +21,13 @@ public class CtrlUsers {
 		userData.add(u);
 	}
 	
-	//se puede borrar un admin?
-	//si es solo un usuario admin, NO
-	public void delete(User u) throws ApplicationException{
-		User user;
-		user=userData.getByLegajo(u);
-		if(user!=null){
-			userData.delete(u);
-		}else{
-			throw new ApplicationException("There isnt a user with that Legajo");
-		}
-	}
 	
 	public User getByLegajo(User u) throws ApplicationException{
 		
 		return userData.getByLegajo(u);
 		
 	}
-	
-	//se pueden modificar los datos de admin?
-	// si se puede,considerando que los admin no hacer ordenes, no mostrar para modificar el credito
-	//en el html?
-	public void update(User u) throws ApplicationException{
-			userData.update(u);
-	}
+
 	
 	public boolean areEqual(User uLogin,User uSearch){
 		if((uLogin.getLegajo().equals(uSearch.getLegajo())) && (uLogin.getPassword().equals(uSearch.getPassword()))){
@@ -80,5 +63,16 @@ public class CtrlUsers {
 		userData.update(s);
 		
 	}
+
+	public User update(User userLogged, User userNewValues) {
+		
+		 userLogged=userLogged.changePersonalData(userNewValues);
+		
+		 userData.update(userLogged);
+		 
+		 return userLogged;
+	}
+
+
 	 
 }

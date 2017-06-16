@@ -10,8 +10,7 @@
 		<div>
 			<div class="navbar-right">
 				<div class="form">
-					<form class="navbar-form" action="Logout" method="get">
-						<!-- falta implementar logout -->
+					<form name="logOutForm" class="navbar-form" action="LogOut" method="get">
 						<button type="submit" class="btn btn-success">Sign out</button>
 					</form>
 				</div>

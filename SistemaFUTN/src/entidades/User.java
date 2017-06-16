@@ -12,8 +12,7 @@ public class User {
 	private double credit;
 	private boolean scholar;
 	
-	
-	
+
 	public String getLegajo() {
 		return legajo;
 	}
@@ -86,6 +85,25 @@ public class User {
 	}
 	public void addCredit(Double creditToAdd) {
 		this.credit=this.credit+creditToAdd;	
+	}
+	
+	public User changePersonalData(User userNewValues) {
+
+		this.setAdress(userNewValues.getAdress());
+		this.setMail(userNewValues.getMail());
+		this.setPhone1(userNewValues.getPhone1());;
+		
+		if(userNewValues.getPhone2()!=null){
+			this.setPhone2(userNewValues.getPhone2());
+		}else{
+			this.setPhone2("");
+		}
+		
+		if(userNewValues.getPassword()!=null){
+			this.setPassword(userNewValues.getPassword());
+		}
+		
+		return this;
 	}
 	
 }

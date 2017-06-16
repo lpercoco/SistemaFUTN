@@ -29,7 +29,7 @@
 	    <!-- si no es admin  -->
 	         	
 	      <a class="list-group-item" href="AddTeachingMaterialToOrder.jsp">Add teaching material to order</a>	      
-	      <a class="list-group-item" href="#">Profile</a> <!-- student crud -->
+	      <a class="list-group-item" href="UserRUD.jsp">Profile</a> 
 	    
 		<c:if test = "${fn:length(order.details) gt 0}">
 	      <a class="list-group-item" href="Cart.jsp">Cart</a>   	
@@ -40,7 +40,7 @@
 		<% 
 			}
 		%>
-		<a class="list-group-item" href="#">Se muestra siempre</a>
+		<a class="list-group-item" href="#">Se muestra siempre/prueba</a>
 	</div>
 
 </div>

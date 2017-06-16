@@ -17,13 +17,13 @@ import utils.ApplicationException;
 @WebServlet("/UserRUD")
 public class UserRUD extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserRUD() {
-        super();
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserRUD() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,59 +39,27 @@ public class UserRUD extends HttpServlet {
 
 		request.getSession().setAttribute("exceptionMessage",null);	
 		request.getSession().setAttribute("message",null);
-		
+
 		CtrlUsers ctrlUser=new CtrlUsers();
 
-		// hacer un servelet por aca boton?
+		User userLogged = (User)request.getSession().getAttribute("userAuthenticated");
+		User userNewValues =new User();
 
-		User s= new User();
-				
-		if(request.getParameter("search") != null){
-			User sSearch= new User();
-			sSearch.setLegajo(request.getParameter("legajo"));
-			try {
-				s=ctrlUser.getByLegajo(sSearch);
-			} catch (ApplicationException e) {
-                //excepcion cuando no encuentra legajo
-				e.printStackTrace();
-			}
-			if(s!=null){
-			    request.getSession().setAttribute("User", s );
-			    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
-			}	
-		}
+		userNewValues.setMail(request.getParameter("mail"));
+		userNewValues.setPhone1(request.getParameter("phone1"));
+		userNewValues.setPhone2(request.getParameter("phone2"));
+		userNewValues.setAdress(request.getParameter("adress"));
+		userNewValues.setPassword(request.getParameter("password"));
 		
+		userLogged=ctrlUser.update(userLogged,userNewValues);
 		
-		if(request.getParameter("delete") != null){
-			s=(User)(request.getSession().getAttribute("User"));
-			try {
-				ctrlUser.delete(s);
-				request.getSession().removeAttribute("User");
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response);
+		request.getSession().setAttribute("userAuthenticated",userLogged);	
+		request.getSession().setAttribute("message","User information changed successfully");
 
-		}
-		if(request.getParameter("update") != null){
-			s=(User)(request.getSession().getAttribute("User"));
-			s.setMail(request.getParameter("mail"));
-			s.setPhone1(request.getParameter("phone1"));
-			s.setPhone2(request.getParameter("phone2"));
-			s.setAdress(request.getParameter("adress"));
-			try {
-				ctrlUser.update(s);
-				request.getSession().removeAttribute("User");
-			} catch (ApplicationException e) {
-				// excepcion no puede  actualizar
-				e.printStackTrace();
-			}
-		    request.getRequestDispatcher("UserRUD.jsp").forward(request, response); //direccion al terminal
-
-		}
+		request.getRequestDispatcher("Home.jsp").forward(request, response);
 		
-		doGet(request, response);
-	}
-
+		//request.getRequestDispatcher("UserRUD.jsp").forward(request, response); //direccion al terminal
+	}		
 }
+
+
