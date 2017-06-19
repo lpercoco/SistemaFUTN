@@ -12,13 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script
-	src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-<script
-	src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/additional-methods.js"></script>
-
-
-<script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
 	type="text/javascript"></script>
 
@@ -37,25 +30,6 @@
 }
 </STYLE>
 
-<script>
-	$(document).ready(function() {
-
-		$('#form').validate({
-			rules : {
-				subject : {
-					require_from_group : [ 1, '.group' ]
-				},
-				title : {
-					require_from_group : [ 1, '.group' ]
-				}
-			},
-			groups : {
-				mygroup : "subject title"
-			}
-		});
-
-	});
-</script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -105,7 +79,7 @@
 					<div class="form-group">
 						<label for="subject" class="sr-only">Subject</label> <input
 							type="text" class="group" name="subject" id="subject"
-							placeholder="Subject" autofocus>
+							placeholder="Subject" required autofocus>
 					</div>
 
 					<div class="form-group">
@@ -118,13 +92,9 @@
 
 				</form>
 
-
-				<c:if test="${tmArray !=null}">
+				<c:if test="${not empty tmArray and tmArray.size()!=0 }">
 
 					<h2>Select what do you want to print</h2>
-
-
-					<div>
 
 						<form name="AddTMForm" action="AddTeachingMaterialToOrder"
 							method="post">

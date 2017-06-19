@@ -23,8 +23,6 @@
 
 			<div class="col-12 col-md-9">
 
-				<!-- modificable -->
-
 				<h2>order in process</h2>
 
 				<table class="table">

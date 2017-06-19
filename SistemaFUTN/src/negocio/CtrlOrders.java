@@ -10,11 +10,11 @@ import utils.ApplicationException;
 
 public class CtrlOrders {
 	private OrderData data;
-	
+
 	public CtrlOrders() {
 		data=new OrderData();
 	}
-	
+
 	public void addOrder(Order o) {
 		data.add(o);
 	}
@@ -32,11 +32,11 @@ public class CtrlOrders {
 		return order;
 	}
 
-	
+
 	public Order setOrderDetail(Order order, OrderDetail od) throws ApplicationException {
 
 		double aux=order.getTotalAmount() + od.getParcialAmount();
-		
+
 		if(order.getStudentOrder().getCredit()>=aux){
 			order.setDetail(od);
 			return order;
@@ -49,14 +49,30 @@ public class CtrlOrders {
 
 		ArrayList<OrderDetail> details = o.getDetails();
 		OrderDetail od=null;
-		
+
 		for (int i=0; i < details.size() ; i++) {	
 			if(details.get(i).getOrderDetailNumber()==odNumber){
-			  od=details.get(i);
-			  break;
+				od=details.get(i);
+				break;
 			}
 		}
 		return od;
 	}
-		
+
+	public ArrayList<Order> getOrders(User user) {
+		return data.getOrders(user);
+	}
+
+	public Order getOrder(ArrayList<Order> orders, int orderNumber) {
+		Order o = null;
+
+		for (int i = 0; i < orders.size(); i++) {
+			if(orders.get(i).equals(orderNumber)){
+				o=orders.get(i);
+				break;
+			}
+		}
+		return o;
+	}
+
 }

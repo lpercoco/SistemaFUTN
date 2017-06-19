@@ -12,7 +12,7 @@ public class Order{
 	private Date deliveryDate;
 	private Date finishDate;// date en que se imprimieron todo los MDE del encargue
 	private double totalAmount;
-	private boolean orderState;
+	private boolean orderState; //true if all details are printed
 	private User studentOrder;
 	private ArrayList<OrderDetail> details;
 	
@@ -24,10 +24,33 @@ public class Order{
 		this.setTotalAmount(0);
 		this.details = new ArrayList<OrderDetail>();
 	}
+	
+	public Order() {
+		// TODO Auto-generated constructor stub
+	}
 
-	private void setTotalAmount(int i) {
-		this.totalAmount=i;
-		
+    public boolean equals(int orderNumber) {
+        return (this.orderNumber==orderNumber);
+    }
+	
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public void setEstimatedDeliveryDate(Date estimatedDeliveryDate) {
+		this.estimatedDeliveryDate = estimatedDeliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 	public int getAmountOfDetails(){

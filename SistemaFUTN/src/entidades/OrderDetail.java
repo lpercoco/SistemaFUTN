@@ -21,6 +21,8 @@ public class OrderDetail {
 	}
 	
 	
+	public OrderDetail() {
+	}
 	public TeachingMaterial getItem() {
 		return item;
 	}
@@ -76,5 +78,10 @@ public class OrderDetail {
 
 	public void setOrderDetailNumber(int orderDetailNumber) {
 		this.orderDetailNumber = orderDetailNumber;
+	}
+
+
+	public void setParcialAmount(double double1) {
+		this.parcialAmount=double1;
 	}
 }

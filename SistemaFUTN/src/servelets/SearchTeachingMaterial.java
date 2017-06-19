@@ -14,6 +14,7 @@ import entidades.Subject;
 import entidades.TeachingMaterial;
 import negocio.CtrlSubjects;
 import negocio.CtrlTeachingMaterial;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class SearchTeachingMaterial
@@ -47,22 +48,22 @@ public class SearchTeachingMaterial extends HttpServlet {
 		request.getSession().setAttribute("message",null);
 		
 		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
-		CtrlSubjects ctrlSubject=new CtrlSubjects();
 		
 		TeachingMaterial teachingMaterialSearch=new TeachingMaterial();
 		Subject subjectSearch=new Subject();
-		ArrayList <TeachingMaterial> teachingMaterialArray=new ArrayList();
+		ArrayList <TeachingMaterial> teachingMaterialArray=new ArrayList<TeachingMaterial>();
 		
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);	
-
-		
+			
 		teachingMaterialSearch.setTitle(request.getParameter("title"));
 		subjectSearch.setName(request.getParameter("subject")); 
 		
-		//teachingMaterialSearch.setMaterialSubject(ctrlSubject.getByName(subjectSearch));
-		
-		teachingMaterialArray=ctrlTeachingMaterial.getTeachingMaterials(teachingMaterialSearch);
+		teachingMaterialSearch.setMaterialSubject(subjectSearch);
+				
+		try {
+			teachingMaterialArray=ctrlTeachingMaterial.getTeachingMaterials(teachingMaterialSearch);
+		} catch (ApplicationException e) {
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());
+		}
 		
 		request.getSession().setAttribute("tmArray",teachingMaterialArray);
 		

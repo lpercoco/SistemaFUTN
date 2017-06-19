@@ -9,6 +9,10 @@ import com.mysql.jdbc.Statement;
 
 import entidades.Order;
 import entidades.OrderDetail;
+import entidades.Subject;
+import entidades.TeachingMaterial;
+import entidades.User;
+import negocio.CtrlTeachingMaterial;
 import utils.ApplicationException;
 
 public class OrderData {
@@ -94,6 +98,126 @@ public class OrderData {
 			}			
 		}
 		
+	}
+
+	public ArrayList<Order> getOrders(User user) {
+
+		ArrayList<Order> orders = new ArrayList<Order>();
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,"+
+			        "o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState"+
+			        " from orders o"+
+			        " where o.studentLegajo=?");
+			stmt.setString(1,user.getLegajo());
+			rs= stmt.executeQuery();
+			
+			
+			while(rs!=null && rs.next()){
+				
+				Order o=new Order();
+				
+				o.setOrderNumber(rs.getInt("orderNumber"));
+				o.setOrderDate(rs.getDate("orderDate"));
+				o.setDeliveryDate(rs.getDate("deliveryDate"));
+				o.setFinishDate(rs.getDate("finishDate"));
+				o.setEstimatedDeliveryDate(rs.getDate("estimatedDeliveryDate"));
+				o.setTotalAmount(rs.getDouble("totalAmount"));
+				o.setOrderState(rs.getBoolean("orderState"));
+								
+				orders.add(o);
+			}
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//prueba
+		for (int i = 0; i < orders.size(); i++) {
+			orders.get(i).setDetails(getDetails(orders.get(i)));
+		}
+		
+		return orders;
+	}
+
+	private ArrayList<OrderDetail> getDetails(Order o) {
+		
+		TeachingMaterialData tmData=new TeachingMaterialData(); 
+		
+		ArrayList<OrderDetail> ordersDetails = new ArrayList<OrderDetail>();
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"select od.orderDetailNumber,od.teachingMaterialCode,od.numberOfCopies,od.state,od.parcialAmount,od.duplex"+			
+                    " from orderDetails od"+
+					" where od.orderNumber= ?");
+			stmt.setInt(1,o.getOrderNumber());
+			rs= stmt.executeQuery();
+			
+			while(rs!=null && rs.next()){
+				
+				OrderDetail od=new OrderDetail();
+				TeachingMaterial tmSearch=new TeachingMaterial();
+				
+				tmSearch.setCode(rs.getInt("teachingMaterialCode"));
+				
+				od.setItem(tmSearch);
+				
+				od.setOrderDetailNumber(rs.getInt("orderDetailNumber"));
+				od.setParcialAmount(rs.getDouble("parcialAmount"));
+				od.setState(rs.getBoolean("state"));
+				od.setDuplex(rs.getBoolean("duplex"));
+				od.setNumberOfCopies(rs.getInt("numberOfCopies"));
+				
+				ordersDetails.add(od);
+			}
+			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs!=null)rs.close();
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i = 0; i < ordersDetails.size(); i++) {
+			
+			TeachingMaterial tm = new TeachingMaterial();
+			
+			tm=ordersDetails.get(i).getItem();
+			
+			ordersDetails.get(i).setItem(tmData.getTeachingMaterial(tm));
+			
+		}
+		
+		return ordersDetails;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import data.TeachingMaterialData;
 import entidades.Subject;
 import entidades.TeachingMaterial;
+import utils.ApplicationException;
 
 public class CtrlTeachingMaterial {
 	private TeachingMaterialData data;
@@ -19,7 +20,7 @@ public class CtrlTeachingMaterial {
 		data.add(tm);
 	}
 	
-	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch){
+	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch) throws ApplicationException{
 		//devuelve teachingmaterials con  titulo similar o por materia o =materia y titulo similar
 		//falta excepcion no devuelve nada
 		

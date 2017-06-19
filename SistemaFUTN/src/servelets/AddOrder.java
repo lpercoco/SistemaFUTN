@@ -54,12 +54,22 @@ public class AddOrder extends HttpServlet {
 
 		Order order=(Order)request.getSession().getAttribute("order");
 		
+		ArrayList<Order> orders =(ArrayList<Order>) request.getSession().getAttribute("orders") ;
+
+		
 		ctrlOrders.addOrder(order);
 		
 		ctrlUsers.makePayment(order);
 		
+		orders.add(order);
+		
 		//actualiza el credito del usuario logiado
 		request.getSession().setAttribute("userAuthenticated", order.getStudentOrder());
+		
+		//agrega la orden en la coleccion de ordenes en session
+		
+		request.getSession().setAttribute("orders", orders);
+
 		
 		//eliminar datos de la session
 		request.getSession().setAttribute("order", null);
