@@ -45,18 +45,8 @@ public class CtrlOrders {
 		}		
 	}
 
-	public OrderDetail getOrderDetail(Order o, int odNumber) {
-
-		ArrayList<OrderDetail> details = o.getDetails();
-		OrderDetail od=null;
-
-		for (int i=0; i < details.size() ; i++) {	
-			if(details.get(i).getOrderDetailNumber()==odNumber){
-				od=details.get(i);
-				break;
-			}
-		}
-		return od;
+	public OrderDetail getOrderDetail(Order o, int odNumber) {		
+		return o.getOrderDetail(odNumber);
 	}
 
 	public ArrayList<Order> getOrders(User user) {
@@ -73,6 +63,73 @@ public class CtrlOrders {
 			}
 		}
 		return o;
+	}
+
+	public ArrayList<Order> getUnreadyAndUndeliveryOrders() {	
+		return data.getUnreadyAndUndeliveyOrders();
+	}
+
+	public Order recordOrderDetailAsPrinted(Order order, int orderDetailNumber) {
+
+		order = order.markAsPrinted(orderDetailNumber);
+
+		order.updateOrderState();
+
+		data.saveOrderDetailAsPrinted(order,orderDetailNumber);
+
+		if(order.isOrderState()){
+			data.saveOrderAsReady(order);
+		}
+		return order;
+	}
+
+	public int getNumberOfOrdersToPrint(ArrayList<Order> orders) {
+
+		int aux=0;
+
+		for (int i = 0; i < orders.size(); i++) {
+
+			if(!orders.get(i).isOrderState()){
+				aux++;
+			}
+
+		}	
+		return aux;
+	}
+
+	public ArrayList<Order> getOrdersToDeliver(User student) throws ApplicationException {
+
+		ArrayList<Order> orders= data.getOrders(student);
+
+		ArrayList<Order> ordersToDelete = new ArrayList<Order>();
+
+		for (Order order : orders) {
+
+			if((!order.isOrderState()) || (order.getDeliveryDate()!=null) ){
+				ordersToDelete.add(order);
+			}
+		}
+
+		orders.removeAll(ordersToDelete);
+
+
+		if(orders.size()==0){
+			throw new ApplicationException("The student have any order ready");
+		}
+
+		return orders;
+	}
+
+	public ArrayList<Order> deliverOrder(ArrayList<Order> ordersToDeliver, int orderNumberToDeliver) {
+
+		Order orderToDeliver= getOrder(ordersToDeliver, orderNumberToDeliver);
+		
+		data.saveOrderAsDelivered(orderToDeliver);
+		
+		ordersToDeliver.remove(orderToDeliver);
+		
+		return ordersToDeliver;
+		
 	}
 
 }

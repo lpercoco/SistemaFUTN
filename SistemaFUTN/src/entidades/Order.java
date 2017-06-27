@@ -15,24 +15,23 @@ public class Order{
 	private boolean orderState; //true if all details are printed
 	private User studentOrder;
 	private ArrayList<OrderDetail> details;
-	
-	
-	
+
+
+
 	public Order(User student) {
 		this.setStudentOrder(student);
 		this.setOrderState(false);
 		this.setTotalAmount(0);
 		this.details = new ArrayList<OrderDetail>();
 	}
-	
+
 	public Order() {
-		// TODO Auto-generated constructor stub
 	}
 
-    public boolean equals(int orderNumber) {
-        return (this.orderNumber==orderNumber);
-    }
-	
+	public boolean equals(int orderNumber) {
+		return (this.orderNumber==orderNumber);
+	}
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
@@ -56,37 +55,43 @@ public class Order{
 	public int getAmountOfDetails(){
 		return this.getDetails().size();
 	}
-	
+
 	public boolean isOrderState() {
 		return orderState;
 	}
-	
-	//cambiar nombre por actualizar?
-	public void setOrderState() {
+
+	public void updateOrderState() {
+
+		int counter=0;
+
 		for (int i = 0; i < details.size(); i++) {
-			if(!details.get(i).isState()){
-				this.orderState=false;
+			if(details.get(i).isState()){
+				counter++;
+			}else{
 				break;
 			}
 		}
-		
+
+		if(counter==details.size()){
+			this.orderState=true;
+		}
 	}
-	
+
 	public int getOrderNumber() {
 		return orderNumber;
 	}
 	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	
+
 	public Date getOrderDate() {
 		return orderDate;
 	}
-	
+
 	public Date getEstimatedDeliveryDate() {
 		return estimatedDeliveryDate;
 	}
-	
+
 	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
@@ -94,40 +99,40 @@ public class Order{
 	public Date getFinishDate() {
 		return finishDate;
 	}
-	
+
 	public void setFinishDate() {
 		this.finishDate=Calendar.getInstance().getTime();
 
 	}
-	
+
 	public double getTotalAmount() {
 		return totalAmount;
 	}
-	
+
 	public User getStudentOrder() {
 		return studentOrder;
 	}
-	
+
 	public void setStudentOrder(User studentOrder) {
 		this.studentOrder = studentOrder;
 	}
-	
+
 	public ArrayList<OrderDetail> getDetails() {
 		return details;
 	}
 	public void setDetail(OrderDetail od){
 		int newOrderDetailNumber=this.getAmountOfDetails()+1;
-		
+
 		od.setOrderDetailNumber(newOrderDetailNumber);
 		this.details.add(od);
 		this.totalAmountUpdateAdd(od);
 		this.studentOrder.creditUpdateAdd(od);
 	}
-	
+
 	public void totalAmountUpdateAdd(OrderDetail od) {
 		this.totalAmount=this.getTotalAmount()+od.getParcialAmount();
 	}
-	
+
 	public void totalAmountUpdateCancel(OrderDetail od){
 		this.totalAmount=this.getTotalAmount()-od.getParcialAmount();
 	}
@@ -142,20 +147,43 @@ public class Order{
 
 	public void updateOrderDetailsNumbers() {
 		int aux=1;
-		
+
 		ArrayList<OrderDetail> d = new ArrayList<OrderDetail>();
-		
+
 		for (int i = 0; i < this.getDetails().size() ; i++) {
-			
+
 			OrderDetail od = this.getDetails().get(i);
-			
+
 			od.setOrderDetailNumber(aux);
-			
+
 			d.add(od);
-			
+
 			aux++;
 		}
 		this.setDetails(d);
 	}
-	
+
+	public OrderDetail getOrderDetail(int odNumber) {
+		OrderDetail od=null;
+
+		for (int i=0; i < this.details.size() ; i++) {	
+			if(details.get(i).getOrderDetailNumber()==odNumber){
+				od=details.get(i);
+				break;
+			}
+		}
+		return od;
+	}
+
+	public Order markAsPrinted(int orderDetailNumber) {
+
+		for (int i=0; i < this.details.size() ; i++) {	
+			if(details.get(i).getOrderDetailNumber()==orderDetailNumber){
+				details.get(i).setState(true);
+				break;
+			}
+		}		
+		return this;
+	}
+
 }

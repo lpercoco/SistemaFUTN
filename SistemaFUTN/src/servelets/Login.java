@@ -52,6 +52,8 @@ public class Login extends HttpServlet {
 		User u=new User();
 		User user;
 		
+		int numberOfOrdersToPrint;
+		
 		ArrayList<Order> orders ;
 		
 		u.setLegajo(request.getParameter("legajoLogin"));
@@ -64,8 +66,20 @@ public class Login extends HttpServlet {
 
 		    if(!user.isScholar()){
 		    	orders=ctrlOrders.getOrders(user);
-				request.getSession().setAttribute("orders",orders);
+		    }else{
+		    	orders=ctrlOrders.getUnreadyAndUndeliveryOrders();
+				
+		    	//esto esta mal?
+		    	numberOfOrdersToPrint=ctrlOrders.getNumberOfOrdersToPrint(orders);
+				request.getSession().setAttribute("numberOfOrdersToPrint",numberOfOrdersToPrint);
+				
+				if(numberOfOrdersToPrint==0){
+					request.getSession().setAttribute("exceptionMessage","There are no orders to print");	
+				}
 		    }
+		    
+			request.getSession().setAttribute("orders",orders);
+
 		    
 			request.getRequestDispatcher("/Home.jsp").forward(request, response); 
 	

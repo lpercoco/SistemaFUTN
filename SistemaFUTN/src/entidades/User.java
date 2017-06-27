@@ -13,6 +13,12 @@ public class User {
 	private boolean scholar;
 	
 
+	public User(String legajo) {
+		this.legajo=legajo;
+	}
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getLegajo() {
 		return legajo;
 	}
