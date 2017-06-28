@@ -15,12 +15,12 @@
 	<div class="container">
 
 		<div class="jumbotron">
-			<h1>FUTN</h1>
-			<p>UTN FRRO copy center</p>
+			<h1 class="text-center">FUTN</h1>
+			<p class="text-center">UTN FRRO copy center</p>
 		</div>
 
-		<div class="login-body">
-			<form class="form-signin" action="Login" method="post">
+		<div class="col-md-4 col-md-offset-4">
+			<form class="form-login" action="Login" method="post">
 
 				<h2 class="form-signin-heading">Please sign in</h2>
 
@@ -30,17 +30,20 @@
 					for="passwordLogin" class="sr-only">Password</label> <input
 					type="password" name="passwordLogin" class="form-control"
 					placeholder="Password" required> <input type="submit"
-					name="login" class="btn btn-lg btn-primary btn-block">
+					value="Login" name="login" class="btn btn-lg btn-primary btn-block">
 			</form>
+
+			<c:if test="${exceptionMessage !=null}">
+
+				<div class="alert alert-warning">
+					<p class="text-center">
+						<c:out value="${exceptionMessage}" />
+					</p>
+				</div>
+
+			</c:if>
+
 		</div>
-
-		<c:if test="${exceptionMessage !=null}">
-
-			<div class="alert alert-warning">
-				<c:out value="${exceptionMessage}" />
-			</div>
-
-		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 
