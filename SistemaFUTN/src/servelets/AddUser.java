@@ -14,14 +14,14 @@ import utils.ApplicationException;
 /**
  * Servlet implementation class UserAdd
  */
-@WebServlet("/UserAdd")
-public class UserAdd extends HttpServlet {
+@WebServlet("/AddUser")
+public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserAdd() {
+    public AddUser() {
         super();
     }
 
@@ -61,7 +61,7 @@ public class UserAdd extends HttpServlet {
 			
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("exceptionMessage",e.getMessage());
-			request.getRequestDispatcher("UserAdd.jsp").forward(request, response); 
+			request.getRequestDispatcher("AddUser.jsp").forward(request, response); 
 		} 
 	}
 }

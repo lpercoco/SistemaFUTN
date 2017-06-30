@@ -1,11 +1,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
 
-<title>FUTN-Add credit</title>
+<title>FUTN-Add credit to a student</title>
 
 <jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
 
@@ -33,13 +32,10 @@
 							required autofocus>
 					</div>
 
-					<!-- buscar legajo y mostrar saldo actual tambien en esta pagina? -->
-
 					<div class="form-group">
 						<label for="credit" class="sr-only">Credit</label> <input
 							type="number" name="credit" id="credit" step="1" min="0"
 							placeholder="credit to add" required>
-						<!-- minimo para agregar credito 10$? paso de 1$?  -->
 					</div>
 
 					<input class="btn btn-primary" type="submit" name="Add" value="Add">
@@ -47,11 +43,7 @@
 				</form>
 
 				<c:if test="${exceptionMessage !=null}">
-
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
-
+					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
 
 			</div>

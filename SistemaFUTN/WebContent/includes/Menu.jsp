@@ -9,14 +9,14 @@
 
 			<c:if test="${userAuthenticated.scholar }">
 				<!-- si es admin -->
-				<a class="list-group-item" href="PriceChange.jsp">Copy price
-					change</a>
-				<a class="list-group-item" href="UserAdd.jsp">Add a new student</a>
+				<a class="list-group-item" href="PriceChange.jsp">Copy price change</a>
+				<a class="list-group-item" href="AddUser.jsp">Add a new student</a>
 				<a class="list-group-item" href="AddTeachingMaterial.jsp">Add a
 					new teaching material</a>
 				<a class="list-group-item" href="AddCredit.jsp">Add credit to a
 					student</a>
 				<a class="list-group-item" href="OrdersGrid.jsp">Orders to print</a>
+				<a class="list-group-item" href="RetireOrder.jsp">Deliver orders</a>
 			</c:if>
 
 			<c:if test="${!userAuthenticated.scholar }">

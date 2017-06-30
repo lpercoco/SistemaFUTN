@@ -71,7 +71,7 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 		if(objCopyPrice!=null){
 			copyPrice=(CopyPrice) objCopyPrice;
 		}else{
-			copyPrice=ctrlFutn.getActualCopyPrice();
+			copyPrice=ctrlFutn.getCurrentCopyPrice();
 			request.getSession().setAttribute("copyPrice",copyPrice);
 		}
 

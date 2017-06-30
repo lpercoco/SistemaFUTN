@@ -34,13 +34,7 @@
 			</form>
 
 			<c:if test="${exceptionMessage !=null}">
-
-				<div class="alert alert-warning">
-					<p class="text-center">
-						<c:out value="${exceptionMessage}" />
-					</p>
-				</div>
-
+				<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 			</c:if>
 
 		</div>

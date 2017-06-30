@@ -2,7 +2,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -86,8 +85,7 @@
 
 									<td>
 
-										<form name="deliveredForm" action="DeliverOrder"
-											method="post">
+										<form name="deliveredForm" action="DeliverOrder" method="post">
 											<div class="form-group">
 												<input type="hidden" name="orderNumber"
 													value="${o.orderNumber}" />
@@ -108,11 +106,10 @@
 					</table>
 				</c:if>
 
-				<c:if test="${exceptionMessage != null}">
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
+				<c:if test="${exceptionMessage !=null}">
+					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
+
 			</div>
 		</div>
 

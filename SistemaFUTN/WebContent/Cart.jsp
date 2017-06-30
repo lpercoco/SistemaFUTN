@@ -54,15 +54,16 @@
 
 										<div class="form-group">
 											<input type="submit" class="btn btn-primary"
-												name="Cancel order" value="cancelOrder">
+												name="CancelItem" value="Cancel item">
 										</div>
 
 									</form>
 								</td>
 							</tr>
+						
 						</c:forEach>
 						    <tr>
-						    <!-- esto esta mal -->
+						    <!-- ? -->
 						        <td>TOTAL</td>
 						        <td></td>
 						        <td></td>

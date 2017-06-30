@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Order;
 import entidades.OrderDetail;
 import entidades.User;
+import futn.CopyPrice;
+import negocio.CtrlFutn;
 import negocio.CtrlOrders;
 import negocio.CtrlUsers;
 import utils.ApplicationException;
@@ -49,6 +51,7 @@ public class Login extends HttpServlet {
 		
 		CtrlUsers ctrlUsers = new CtrlUsers();
 		CtrlOrders ctrlOrders = new CtrlOrders();
+		
 		User u=new User();
 		User user;
 		
@@ -67,11 +70,18 @@ public class Login extends HttpServlet {
 		    if(!user.isScholar()){
 		    	orders=ctrlOrders.getOrders(user);
 		    }else{
+				CtrlFutn ctrlFutn = new CtrlFutn();
+
+				CopyPrice currentCopyPrice = ctrlFutn.getCurrentCopyPrice();
+
+				request.getSession().setAttribute("currentCopyPrice",currentCopyPrice);
+
 		    	orders=ctrlOrders.getUnreadyAndUndeliveryOrders();
 				
 		    	//esto esta mal?
 		    	numberOfOrdersToPrint=ctrlOrders.getNumberOfOrdersToPrint(orders);
 				request.getSession().setAttribute("numberOfOrdersToPrint",numberOfOrdersToPrint);
+				
 				
 				if(numberOfOrdersToPrint==0){
 					request.getSession().setAttribute("exceptionMessage","There are no orders to print");	

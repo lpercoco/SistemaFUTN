@@ -8,47 +8,7 @@
 
 <jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
 
-<script src="http://code.jquery.com/jquery-1.7.js"
-	type="text/javascript"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-	type="text/javascript"></script>
-<link
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
-	rel="stylesheet" type="text/css" />
-
-<STYLE TYPE="text/css" media="all">
-.ui-autocomplete {
-	position: absolute;
-	cursor: default;
-	height: 200px;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-</STYLE>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("input#subject").autocomplete({
-			source : function(request, response) {
-				$.ajax({
-					url : "AjaxRequest",
-					dataType : "json",
-					data : request,
-					success : function(data, textStatus, jqXHR) {
-						console.log(data);
-						var items = data;
-						response(items);
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(textStatus);
-					}
-				});
-			}
-
-		});
-	});
-</script>
+<jsp:include page="/JS/autocompleteSubject.jsp"></jsp:include>
 
 </head>
 
@@ -111,11 +71,7 @@
 				</form>
 
 				<c:if test="${exceptionMessage !=null}">
-
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
-
+					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
 
 			</div>

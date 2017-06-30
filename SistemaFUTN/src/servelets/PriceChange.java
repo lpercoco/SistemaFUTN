@@ -56,6 +56,8 @@ public class PriceChange extends HttpServlet {
 	    try {
 			ctrl.add(newCopyPrice);
 			request.getSession().setAttribute("message","Price change successfully");
+			request.getSession().setAttribute("currentCopyPrice",newCopyPrice);
+
 
 		} catch (ApplicationException e) {
 			request.getSession().setAttribute("exceptionMessage",e.getMessage());	

@@ -1,8 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@page import="futn.CopyPrice"%>
-<%@page import="negocio.CtrlFutn"%>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -10,13 +7,6 @@
 <title>FUTN-Copy price change</title>
 
 <jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
-
-<%
-	CtrlFutn ctrl = new CtrlFutn();
-	CopyPrice actualCopyPrice = ctrl.getActualCopyPrice();
-%>
-<!-- realizar validacion front end de que haya cambiado los precios-->
-
 
 </head>
 <body>
@@ -36,24 +26,15 @@
 				<h3>Current copy price</h3>
 
 				<p>
-					Begin date:
-					<%
-					out.println(actualCopyPrice.getBeginDate());
-				%>
+					Begin date: ${currentCopyPrice.beginDate}
 				</p>
 
 				<p>
-					Simple copy:
-					<%
-					out.println(actualCopyPrice.getSimplePrice());
-				%>
+					Simple copy: ${currentCopyPrice.simplePrice}
 				</p>
 
 				<p>
-					Duplex copy:
-					<%
-					out.println(actualCopyPrice.getDuplexPrice());
-				%>
+					Duplex copy: ${currentCopyPrice.duplexPrice}
 				</p>
 
 				<h3>New copy price</h3>
@@ -63,13 +44,13 @@
 					<div class="form-group">
 						<label for="simple">Simple</label> <input type="number"
 							name="simple" id="simple" step="0.01" min="0"
-							value="<%=actualCopyPrice.getSimplePrice()%>" required autofocus>
+							value="${currentCopyPrice.simplePrice}" required autofocus>
 					</div>
 
 					<div class="form-group">
 						<label for="duplex">Duplex</label> <input type="number"
 							name="duplex" id="duplex" step="0.01" min="0"
-							value="<%=actualCopyPrice.getDuplexPrice()%>" required>
+							value="${currentCopyPrice.duplexPrice}" required>
 					</div>
 
 					<input type="submit" name="Save" value="Save"
@@ -78,11 +59,7 @@
 				</form>
 
 				<c:if test="${exceptionMessage !=null}">
-
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
-
+					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
 
 			</div>

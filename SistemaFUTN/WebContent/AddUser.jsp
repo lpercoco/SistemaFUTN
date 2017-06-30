@@ -9,36 +9,9 @@
 
 <jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-<script type="text/javascript">
-	window.onload = function() {
-		var password = document.getElementById("password"), confirmPassword = document
-				.getElementById("confirmPassword");
-
-		function validatePassword() {
-			password.setCustomValidity('');
-
-			if ($("#password").val().length < 6) {
-				password
-						.setCustomValidity("Password need at least 6 character long");
-			} else {
-				if (password.value != confirmPassword.value) {
-					confirmPassword.setCustomValidity("Passwords Don't Match");
-				} else {
-					confirmPassword.setCustomValidity('');
-				}
-			}
-		}
-
-		password.onchange = validatePassword;
-		confirmPassword.onkeyup = validatePassword;
-
-	}
-</script>
+<jsp:include page="/JS/passwordValidation.jsp"></jsp:include>
 
 </head>
-
 
 <body>
 
@@ -54,7 +27,7 @@
 
 				<h2>Add a new student</h2>
 
-				<form name="UserAddForm" action="UserAdd" method="post">
+				<form name="UserAddForm" action="AddUser" method="post">
 
 					<div class="form-group">
 						<label for="legajo" class="sr-only">Legajo</label> <input
@@ -121,11 +94,7 @@
 				</form>
 
 				<c:if test="${exceptionMessage !=null}">
-
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
-
+					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
 
 			</div>

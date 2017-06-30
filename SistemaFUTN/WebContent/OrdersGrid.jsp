@@ -1,6 +1,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html lang="en">
 <head>
@@ -93,10 +93,9 @@
 				<c:if
 					test="${(numberOfOrdersToPrint==0 && userAuthenticated.scholar )}">
 
-					<div class="alert alert-warning">
-						<c:out value="${exceptionMessage}" />
-					</div>
-
+					<c:if test="${exceptionMessage !=null}">
+						<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+					</c:if>
 
 					<form name="refreshForm" action="refreshOrdersToPrint" method="get">
 						<div class="form-group">

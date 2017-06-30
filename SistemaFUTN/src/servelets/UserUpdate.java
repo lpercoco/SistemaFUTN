@@ -14,14 +14,14 @@ import utils.ApplicationException;
 /**
  * Servlet implementation class UserRUD
  */
-@WebServlet("/UserRUD")
-public class UserRUD extends HttpServlet {
+@WebServlet("/UserUpdate")
+public class UserUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserRUD() {
+	public UserUpdate() {
 		super();
 	}
 
@@ -50,15 +50,13 @@ public class UserRUD extends HttpServlet {
 		userNewValues.setPhone2(request.getParameter("phone2"));
 		userNewValues.setAdress(request.getParameter("adress"));
 		userNewValues.setPassword(request.getParameter("password"));
-		
+
 		userLogged=ctrlUser.update(userLogged,userNewValues);
-		
+
 		request.getSession().setAttribute("userAuthenticated",userLogged);	
 		request.getSession().setAttribute("message","User information changed successfully");
 
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
-		
-		//request.getRequestDispatcher("UserRUD.jsp").forward(request, response); //direccion al terminal
 	}		
 }
 

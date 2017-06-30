@@ -14,7 +14,7 @@ public class CtrlFutn {
 	//lanza excepcion si ya se cambio el precio en el mismo dia
 	//prueba
 	public void add(CopyPrice cp) throws ApplicationException{
-		CopyPrice cpAux=fData.getActualCopyPrice();
+		CopyPrice cpAux=fData.getCurrentCopyPrice();
 		
 		int response;
 		
@@ -36,8 +36,8 @@ public class CtrlFutn {
 		}
 	}
 
-	public CopyPrice getActualCopyPrice(){
-		return fData.getActualCopyPrice(); 
+	public CopyPrice getCurrentCopyPrice(){
+		return fData.getCurrentCopyPrice(); 
 	}
 	
 }

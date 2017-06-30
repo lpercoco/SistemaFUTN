@@ -8,7 +8,7 @@ import utils.ApplicationException;
 
 public class FutnData {
 	
-	public CopyPrice getActualCopyPrice(){
+	public CopyPrice getCurrentCopyPrice(){
 		CopyPrice cp=new CopyPrice();
 		
 		PreparedStatement stmt=null;
