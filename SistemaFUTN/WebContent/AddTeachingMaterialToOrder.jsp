@@ -117,7 +117,7 @@
 
 						<div class="form-group col-xs-6">
 							<form action="Cart.jsp" method="get">
-								<input type="submit" class="btn btn-primary" value="Cart"
+								<input type="submit" class="btn btn-primary pull-left" value="Cart"
 									name="Submit" />
 							</form>
 						</div>
@@ -125,7 +125,7 @@
 
 						<div class="form-group col-xs-6">
 							<form name="CheckOutForm" action="AddOrder" method="post">
-								<input type="submit" class="btn btn-primary" name="CheckOut"
+								<input type="submit" class="btn btn-primary pull-right" name="CheckOut"
 									value="CheckOut">
 							</form>
 						</div>

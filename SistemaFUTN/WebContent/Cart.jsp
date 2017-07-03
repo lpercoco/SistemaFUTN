@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html lang="en">
 <head>
@@ -23,74 +23,86 @@
 
 			<div class="col-12 col-md-9">
 
-				<h2>order in process</h2>
+				<c:if test="${fn:length(order.details) gt 0}">
 
-				<table class="table">
-					<thead>
-						<tr>
-							<td width="10%">Title</td>
-							<td width="10%">Number of copies</td>
-							<td width="10%">Duplex</td>
-							<td width="10%">Subtotal</td>
-							<td width="10%"></td>
-						</tr>
-					</thead>
+					<h2>Order in process</h2>
 
-					<tbody>
-
-						<c:forEach items="${order.details}" var="od">
+					<table class="table">
+						<thead>
 							<tr>
-								<td align="left">${od.item.title}</td>
-								<td align="left">${od.numberOfCopies}</td>
-								<td align="left">${od.duplex}</td>
-								<td align="left">${od.parcialAmount}</td>
-								<td align="left">
-									<form name="CancelItemForm" action="CancelItem" method="post">
-
-										<div class="form-group">
-											<input type="hidden" name="orderDetailToDelate"
-												value="${od.orderDetailNumber}" />
-										</div>
-
-										<div class="form-group">
-											<input type="submit" class="btn btn-primary"
-												name="CancelItem" value="Cancel item">
-										</div>
-
-									</form>
-								</td>
+								<td width="10%">Title</td>
+								<td width="10%">Number of copies</td>
+								<td width="10%">Duplex</td>
+								<td width="10%">Subtotal</td>
+								<td width="10%"></td>
 							</tr>
-						
-						</c:forEach>
-						    <tr>
-						    <!-- ? -->
-						        <td>TOTAL</td>
-						        <td></td>
-						        <td></td>
-						        <td align="left">${order.totalAmount}</td>
-						        <td></td> 
-						    </tr>
-					</tbody>
-				</table>
+						</thead>
 
-				<c:if test = "${fn:length(order.details) gt 0}">
+						<tbody>
+
+							<c:forEach items="${order.details}" var="od">
+								<tr>
+									<td align="left">${od.item.title}</td>
+									<td align="left">${od.numberOfCopies}</td>
+									<td align="left">${od.duplex}</td>
+									<td align="left">${od.parcialAmount}</td>
+									<td align="left">
+										<form name="CancelItemForm" action="CancelItem" method="post">
+
+											<div class="form-group">
+												<input type="hidden" name="orderDetailToDelate"
+													value="${od.orderDetailNumber}" />
+											</div>
+
+											<div class="form-group">
+												<input type="submit" class="btn btn-primary pull-right"
+													name="CancelItem" value="Cancel item">
+											</div>
+
+										</form>
+									</td>
+								</tr>
+
+							</c:forEach>
+							<tr>
+								<!-- ? -->
+								<td>TOTAL</td>
+								<td></td>
+								<td></td>
+								<td align="left">${order.totalAmount}</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+
 					<div class="row">
 
 						<div class="form-group col-xs-6">
 							<form action="AddTeachingMaterialToOrder.jsp" method="get">
-								<input type="submit" class="btn btn-primary" value="Add other"
-									name="Submit" />
+								<input type="submit" class="btn btn-primary pull-left"
+									value="Add other" name="Submit" />
 							</form>
 						</div>
 
 						<div class="form-group col-xs-6">
 							<form name="CheckOutForm" action="AddOrder" method="post">
-								<input type="submit" class="btn btn-primary" name="CheckOut"
-									value="CheckOut">
+								<input type="submit" class="btn btn-primary pull-right"
+									name="CheckOut" value="CheckOut">
 							</form>
 						</div>
 
 					</div>
+				</c:if>
+
+				<c:if test="${fn:length(order.details) == 0 || order==null}">
+
+					<div class="alert alert-warning">
+						<p class="text-center">
+							There are no items in the current order
+						</p>
+					</div>
+
 				</c:if>
 
 			</div>

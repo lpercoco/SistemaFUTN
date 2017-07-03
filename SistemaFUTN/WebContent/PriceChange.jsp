@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>FUTN-Copy price change</title>
+<title>FUTN-Change the price of the copy</title>
 
 <jsp:include page="/includes/bootstrapLinks.jsp"></jsp:include>
 
@@ -21,7 +21,7 @@
 
 			<div class="col-12 col-md-9">
 
-				<h1>Copy price change</h1>
+				<h1>Change the price of the copy</h1>
 
 				<h3>Current copy price</h3>
 
