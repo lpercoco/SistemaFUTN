@@ -32,8 +32,6 @@ public class recordOrderDetailAsPrinted extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -43,25 +41,23 @@ public class recordOrderDetailAsPrinted extends HttpServlet {
 
 		CtrlOrders ctrlOrders = new CtrlOrders();
 		ArrayList<Order> orders = new ArrayList<Order>();
-		int  numberOfOrdersToPrint;
-		
+
 		int orderDetailNumber= Integer.parseInt(request.getParameter("orderDetailNumber"));
 		Order order = (Order)request.getSession().getAttribute("orderToShow");
 
 		order=ctrlOrders.recordOrderDetailAsPrinted(order,orderDetailNumber);
 
-		orders=ctrlOrders.getUnreadyAndUndeliveryOrders();
+		//esta bien?
+		orders=ctrlOrders.getUnprintedOrders();
 
-		numberOfOrdersToPrint=ctrlOrders.getNumberOfOrdersToPrint(orders);
-		
 		request.getSession().setAttribute("orderToShow",order);
 		request.getSession().setAttribute("orders",orders);
-		request.getSession().setAttribute("numberOfOrdersToPrint",numberOfOrdersToPrint);
 
-		if(numberOfOrdersToPrint==0){
+		if(orders.size()==0){
 			request.getSession().setAttribute("exceptionMessage","There are no orders to print");	
 		}
 
+		
 		if(order.isOrderState()){
 			request.getRequestDispatcher("OrdersGrid.jsp").forward(request, response); 
 			//mostrar mensaje?
@@ -69,7 +65,6 @@ public class recordOrderDetailAsPrinted extends HttpServlet {
 			request.getRequestDispatcher("OrderDetailsGrid.jsp").forward(request, response); 
 
 		}
-
 	}
 }
 

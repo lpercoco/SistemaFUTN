@@ -19,126 +19,137 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right active">
+		<c:if test="${userAuthenticated!=null}">
 
-			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+			<div class="row row-offcanvas row-offcanvas-right active">
 
-			<div class="col-12 col-md-9">
+				<jsp:include page="/includes/Menu.jsp"></jsp:include>
 
-				<h1>Make your order</h1>
+				<c:if test="${userAuthenticated.scholar==false}">
 
-				<h2>Search a teaching material</h2>
+					<div class="col-12 col-md-9">
 
+						<h1>Make your order</h1>
 
-				<form name="SearchTeachingMaterialForm" id="form"
-					action="SearchTeachingMaterial" method="post">
-
-					<div class="form-group">
-						<label for="subject" class="sr-only">Subject</label> <input
-							type="text" class="group" name="subject" id="subject"
-							placeholder="Subject" required autofocus>
-					</div>
-
-					<div class="form-group">
-						<label for="title" class="sr-only">Title</label> <input
-							type="text" class="group" name="title" id="title"
-							placeholder="Title">
-					</div>
-
-					<input type="submit" class="btn btn-primary" value="Search">
-
-				</form>
-
-				<c:if test="${not empty tmArray and tmArray.size()!=0 }">
-
-					<h2>Select what do you want to print</h2>
-
-					<form name="AddTMForm" action="AddTeachingMaterialToOrder"
-						method="post">
-
-						<table class="table">
-							<thead>
-								<tr>
-									<td width="1%"></td>
-									<td width="10%">Area</td>
-									<td width="10%">Subject</td>
-									<td width="10%">Title</td>
-									<td width="10%">Description</td>
-									<td width="10%">Edition</td>
-									<td width="10%">Author</td>
-									<td width="10%">Pages</td>
-									<td width="1%">Quantity</td>
-									<td width="1%">Duplex</td>
-									<td width="1%">Simple</td>
-								</tr>
-							</thead>
-
-							<tbody>
-
-								<c:forEach items="${tmArray}" var="tm">
-									<tr>
-										<td align="center"><input type="checkbox"
-											name="checkboxgroup" value="${tm.code}" /></td>
-										<td align="left">${tm.materialSubject.area}</td>
-										<td align="left">${tm.materialSubject.name}</td>
-										<td align="left">${tm.title}</td>
-										<td align="left">${tm.description}</td>
-										<td align="left">${tm.edition}</td>
-										<td align="left">${tm.author}</td>
-										<td align="left">${tm.numberOfPages}</td>
-										<td align="left"><input type="number"
-											style="max-width: 5em;" name="qty${tm.code}" value="1"
-											step="1" min="1"></td>
-										<td align="left"><input type="radio"
-											name="duplex${tm.code}" value="true" checked></td>
-										<td align="left"><input type="radio"
-											name="duplex${tm.code}" value="false"></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-
-						<input type="submit" class="btn btn-primary" name="Add"
-							value="Add to Order">
-					</form>
-				</c:if>
-
-				<c:if test="${exceptionMessage !=null}">
-					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
-				</c:if>
+						<h2>Search a teaching material</h2>
 
 
-				<c:if test="${message !=null}">
-					<jsp:include page="/includes/message.jsp"></jsp:include>
-				</c:if>
+						<form name="SearchTeachingMaterialForm" id="form"
+							action="SearchTeachingMaterial" method="get">
 
-				<c:if test="${fn:length(order.details) gt 0}">
-					<div class="row">
+							<div class="form-group">
+								<label for="subject" class="sr-only">Subject</label> <input
+									type="text" class="group" name="subject" id="subject"
+									placeholder="Subject" required autofocus>
+							</div>
 
-						<div class="form-group col-xs-6">
-							<form action="Cart.jsp" method="get">
-								<input type="submit" class="btn btn-primary pull-left" value="Cart"
-									name="Submit" />
+							<div class="form-group">
+								<label for="title" class="sr-only">Title</label> <input
+									type="text" class="group" name="title" id="title"
+									placeholder="Title">
+							</div>
+
+							<input type="submit" class="btn btn-primary" value="Search">
+
+						</form>
+
+						<c:if test="${not empty tmArray and tmArray.size()!=0 }">
+
+							<h2>Select what do you want to print</h2>
+
+							<form name="AddTMForm" action="AddTeachingMaterialToOrder"
+								method="post">
+
+								<table class="table">
+									<thead>
+										<tr>
+											<td width="1%"></td>
+											<td width="10%">Area</td>
+											<td width="10%">Subject</td>
+											<td width="10%">Title</td>
+											<td width="10%">Description</td>
+											<td width="10%">Edition</td>
+											<td width="10%">Author</td>
+											<td width="10%">Pages</td>
+											<td width="1%">Quantity</td>
+											<td width="1%">Duplex</td>
+											<td width="1%">Simple</td>
+										</tr>
+									</thead>
+
+									<tbody>
+
+										<c:forEach items="${tmArray}" var="tm">
+											<tr>
+												<td align="center"><input type="checkbox"
+													name="checkboxgroup" value="${tm.code}" /></td>
+												<td align="left">${tm.materialSubject.area}</td>
+												<td align="left">${tm.materialSubject.name}</td>
+												<td align="left">${tm.title}</td>
+												<td align="left">${tm.description}</td>
+												<td align="left">${tm.edition}</td>
+												<td align="left">${tm.author}</td>
+												<td align="left">${tm.numberOfPages}</td>
+												<td align="left"><input type="number"
+													style="max-width: 5em;" name="qty${tm.code}" value="1"
+													step="1" min="1"></td>
+												<td align="left"><input type="radio"
+													name="duplex${tm.code}" value="true" checked></td>
+												<td align="left"><input type="radio"
+													name="duplex${tm.code}" value="false"></td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+
+								<input type="submit" class="btn btn-primary" name="Add"
+									value="Add to Order">
 							</form>
-						</div>
+						</c:if>
+
+						<c:if test="${exceptionMessage !=null}">
+							<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+						</c:if>
 
 
-						<div class="form-group col-xs-6">
-							<form name="CheckOutForm" action="AddOrder" method="post">
-								<input type="submit" class="btn btn-primary pull-right" name="CheckOut"
-									value="CheckOut">
-							</form>
-						</div>
+						<c:if test="${message !=null}">
+							<jsp:include page="/includes/message.jsp"></jsp:include>
+						</c:if>
+
+						<c:if test="${fn:length(order.details) gt 0}">
+							<div class="row">
+
+								<div class="form-group col-xs-6">
+									<form action="Cart.jsp" method="get">
+										<input type="submit" class="btn btn-primary pull-left"
+											value="Cart" name="Submit" />
+									</form>
+								</div>
+
+
+								<div class="form-group col-xs-6">
+									<form name="CheckOutForm" action="AddOrder" method="post">
+										<input type="submit" class="btn btn-primary pull-right"
+											name="CheckOut" value="CheckOut">
+									</form>
+								</div>
+							</div>
+						</c:if>
+
 					</div>
+
 				</c:if>
 
 			</div>
 
+		</c:if>
 
-		</div>
+		<c:if
+			test="${userAuthenticated==null || userAuthenticated.scholar==true}">
+			<jsp:include page="/includes/permissionMessage.jsp"></jsp:include>
+		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
-
 	</div>
 
 

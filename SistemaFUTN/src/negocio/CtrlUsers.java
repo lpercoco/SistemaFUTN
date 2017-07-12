@@ -10,27 +10,28 @@ public class CtrlUsers {
 	private UserData userData;
 	
 	public CtrlUsers(){
+		
 		userData=new UserData();
+	
 	}
 	
-	//faltan casos especiales?
-	
-	//actualmente no se pueden agregar admin
-	//sentencia sql crea estudiantes por defecto
-	public void add(User u) throws ApplicationException{
+
+	public void addNewStudent(User u) throws ApplicationException{
+		
 		userData.add(u);
+	
 	}
 	
 	
-	public User getByLegajo(User u) throws ApplicationException{
+	public User getByLegajo(int legajo) throws ApplicationException{	
 		
-		return userData.getByLegajo(u);
-		
+		return userData.getByLegajo(legajo);	
+	
 	}
 
-	
-	public boolean areEqual(User uLogin,User uSearch){
-		if((uLogin.getLegajo().equals(uSearch.getLegajo())) && (uLogin.getPassword().equals(uSearch.getPassword()))){
+	private boolean areEqual(User uLogin,User uSearch){
+		
+		if( (uLogin.getLegajo()==uSearch.getLegajo()) && (uLogin.getPassword().equals(uSearch.getPassword()))){
 			return true;
 		}else{
 		   return false;
@@ -39,8 +40,10 @@ public class CtrlUsers {
 
 	
 	public User validateLogin(User uLogin) throws ApplicationException {
+		
 		User uSearch;
-		uSearch=userData.getByLegajo(uLogin);
+		
+		uSearch=userData.getByLegajo(uLogin.getLegajo());
 
 		if(areEqual(uLogin,uSearch)){
 			return uSearch;
@@ -56,7 +59,9 @@ public class CtrlUsers {
 	
 	}
 
-	public void addCredit(User s, Double creditToAdd) throws ApplicationException {
+	public void addCredit(int legajo, Double creditToAdd) throws ApplicationException {
+		
+		User s=getByLegajo(legajo);
 		
 		s.addCredit(creditToAdd);
 		

@@ -11,9 +11,8 @@ public class CtrlFutn {
 		fData=new FutnData();
 	}
 		
-	//lanza excepcion si ya se cambio el precio en el mismo dia
-	//prueba
-	public void add(CopyPrice cp) throws ApplicationException{
+	//cant change copy price twice a day
+	public void changeCopyPrice(CopyPrice cp) throws ApplicationException{
 		CopyPrice cpAux=fData.getCurrentCopyPrice();
 		
 		int response;

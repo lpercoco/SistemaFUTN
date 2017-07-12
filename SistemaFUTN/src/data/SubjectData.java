@@ -49,7 +49,7 @@ public class SubjectData {
 		return subjects;
 	}
 	
-	public Subject getByName(Subject ms) throws ApplicationException{
+	public Subject getByName(String subjectName) throws ApplicationException{
 		Subject s= new Subject();		
 		
 		PreparedStatement stmt=null;
@@ -57,7 +57,7 @@ public class SubjectData {
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"select subjectCode,subjectName,subjectLevel,subjectArea from subjects where subjectName=?");
-			stmt.setString(1, ms.getName());
+			stmt.setString(1,subjectName);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				s.setArea(rs.getString("subjectArea"));

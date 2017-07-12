@@ -14,40 +14,18 @@ public class CtrlTeachingMaterial {
 		data=new TeachingMaterialData();
 	}
 
-	public void add(TeachingMaterial tm){
-		//excepcion ya existe?
-		
+	public void add(TeachingMaterial tm){		
 		data.add(tm);
 	}
 	
-	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch) throws ApplicationException{
-		//devuelve teachingmaterials con  titulo similar o por materia o =materia y titulo similar
-		//falta excepcion no devuelve nada
-		
+	public ArrayList<TeachingMaterial> getTeachingMaterials(TeachingMaterial tmSearch) throws ApplicationException{		
+		//return tm's by subject or (subject and similar title)
 		return data.getTeachingMaterials(tmSearch);
 	}
 
-	public TeachingMaterial getTeachingMaterial(TeachingMaterial tm) {
-		//excepcion  no existe ?
-		
+	public TeachingMaterial getTeachingMaterial(TeachingMaterial tm) {		
+		//return tm by tm code
 		return data.getTeachingMaterial(tm);
 	}
 
-	public ArrayList<TeachingMaterial> getTeachingMaterials(String[] tmCodesArray) {
-		//busca cada uno de los tm a traves de su codigo y lo devuelve
-		//no haria falta excepcion
-		
-		ArrayList<TeachingMaterial> teachingMaterials = new ArrayList<>();
-		
-		for (int i = 0; i < tmCodesArray.length; i++) {
-			teachingMaterials.add(data.getTeachingMaterial(new TeachingMaterial(tmCodesArray[i])));
-		}
-		
-		return teachingMaterials;
-	}
-
-	public TeachingMaterial setMaterialSubject(TeachingMaterial tm, Subject materialSubject) {
-		tm.setMaterialSubject(materialSubject);
-		return tm;
-	}
 }

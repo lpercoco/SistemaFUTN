@@ -16,29 +16,37 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right active">
+		<c:if test="${userAuthenticated!=null}">
 
-			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+			<div class="row row-offcanvas row-offcanvas-right active">
 
-			<div class="col-12 col-md-9">
+				<jsp:include page="/includes/Menu.jsp"></jsp:include>
 
-				<div class="jumbotron">
-					<h1>FUTN</h1>
-					<p>UTN FRRO copy center</p>
+				<div class="col-12 col-md-9">
+
+					<div class="jumbotron">
+						<h1>FUTN</h1>
+						<p>UTN FRRO copy center</p>
+					</div>
+
+					<c:if test="${exceptionMessage !=null}">
+						<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+					</c:if>
+
+
+					<c:if test="${message !=null}">
+						<jsp:include page="/includes/message.jsp"></jsp:include>
+					</c:if>
+
 				</div>
-
-				<c:if test="${exceptionMessage !=null}">
-					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
-				</c:if>
-
-
-				<c:if test="${message !=null}">
-					<jsp:include page="/includes/message.jsp"></jsp:include>
-				</c:if>
 
 			</div>
 
-		</div>
+		</c:if>
+
+		<c:if test="${userAuthenticated==null}">
+			<jsp:include page="/includes/permissionMessage.jsp"></jsp:include>
+		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 

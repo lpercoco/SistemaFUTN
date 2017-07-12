@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Order;
 import negocio.CtrlOrders;
+import utils.ApplicationException;
 
 /**
  * Servlet implementation class DeliverOrder
@@ -39,10 +40,10 @@ public class DeliverOrder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);	
 		
+		request.getSession().setAttribute("exceptionMessage",null);
+		request.getSession().setAttribute("message",null);
+
 		CtrlOrders ctrlOrders = new CtrlOrders();
 		
 		ArrayList<Order> ordersToDeliver;
@@ -51,14 +52,17 @@ public class DeliverOrder extends HttpServlet {
 		
 		ordersToDeliver=(ArrayList<Order>) request.getSession().getAttribute("ordersToDeliver");
 		
-		ordersToDeliver=ctrlOrders.deliverOrder(ordersToDeliver,orderNumberToDeliver);
-		
-		request.getSession().setAttribute("orderNumber",null);
-		request.getSession().setAttribute("ordersToDeliver",null);
-		
-		request.getRequestDispatcher("Home.jsp").forward(request, response); 
+		try {
+			ordersToDeliver=ctrlOrders.deliverOrder(ordersToDeliver,orderNumberToDeliver);
+			
+			request.getSession().setAttribute("message","Order delivered");
+		} catch (ApplicationException e) {
 
-		//mostrar mensaje de que se registro la entrega?
+			request.getSession().setAttribute("exceptionMessage",e.getMessage());
+			
+		}finally{
+			request.getSession().setAttribute("ordersToDeliver",ordersToDeliver);
+			request.getRequestDispatcher("DeliverOrder.jsp").forward(request, response); 
+		}
 	}
-
 }

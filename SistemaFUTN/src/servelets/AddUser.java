@@ -37,14 +37,11 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);
-		
 		CtrlUsers ctrlUser=new CtrlUsers();
 		
 		User student=new User();
 		
-		student.setLegajo(request.getParameter("legajo"));
+		student.setLegajo(Integer.parseInt(request.getParameter("legajo")));
 		student.setFirstName(request.getParameter("firstName"));
 		student.setLastName(request.getParameter("lastName"));
 		student.setMail(request.getParameter("mail"));
@@ -55,7 +52,7 @@ public class AddUser extends HttpServlet {
 		student.setPassword(request.getParameter("password"));
 		
 		try {
-			ctrlUser.add(student);
+			ctrlUser.addNewStudent(student);
 			request.getSession().setAttribute("message","User added successfully");
 			request.getRequestDispatcher("/Home.jsp").forward(request, response); 
 			

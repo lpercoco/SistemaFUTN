@@ -5,7 +5,11 @@ import java.util.Calendar;
 import java.sql.*;
 import java.util.Date;
 
-public class Order{ 
+public class Order{
+
+	static final int ESTIMATED_DAYS_TO_PRINT=3;
+
+
 	private int orderNumber;
 	private Date orderDate;
 	private Date estimatedDeliveryDate;
@@ -17,6 +21,9 @@ public class Order{
 	private ArrayList<OrderDetail> details;
 
 
+	static public int getEstimatedDays(){
+		return ESTIMATED_DAYS_TO_PRINT;
+	}
 
 	public Order(User student) {
 		this.setStudentOrder(student);
@@ -52,7 +59,7 @@ public class Order{
 		this.totalAmount = totalAmount;
 	}
 
-	public int getAmountOfDetails(){
+	public int getDetailsQuantity(){
 		return this.getDetails().size();
 	}
 
@@ -120,8 +127,9 @@ public class Order{
 	public ArrayList<OrderDetail> getDetails() {
 		return details;
 	}
+	
 	public void setDetail(OrderDetail od){
-		int newOrderDetailNumber=this.getAmountOfDetails()+1;
+		int newOrderDetailNumber=this.getDetailsQuantity()+1;
 
 		od.setOrderDetailNumber(newOrderDetailNumber);
 		this.details.add(od);
@@ -185,5 +193,4 @@ public class Order{
 		}		
 		return this;
 	}
-
 }

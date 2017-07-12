@@ -37,26 +37,20 @@ public class AddCredit extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);	
-
 		CtrlUsers ctrl=new CtrlUsers();
-		User s=new User();
         
-		Double creditToAdd=Double.parseDouble(request.getParameter("credit"));
-		
-		s.setLegajo(request.getParameter("legajo"));
+		Double creditToAdd=Double.parseDouble(request.getParameter("credit"));		
+		int legajo = Integer.parseInt(request.getParameter("legajo"));
 		
 		try {
-			s=ctrl.getByLegajo(s);
 			
-			ctrl.addCredit(s,creditToAdd);
+			ctrl.addCredit(legajo,creditToAdd);
 			
 			request.getSession().setAttribute("message","Credit added successfully");
 			request.getRequestDispatcher("Home.jsp").forward(request, response);
 
 		} catch (ApplicationException e) {
-			//no existe alumno
+			//student not found
 			request.getSession().setAttribute("exceptionMessage",e.getMessage());
 		    request.getRequestDispatcher("AddCredit.jsp").forward(request, response);
 		}

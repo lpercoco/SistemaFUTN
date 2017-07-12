@@ -42,7 +42,6 @@ public class AddOrder extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -60,25 +59,25 @@ public class AddOrder extends HttpServlet {
 		ctrlUsers.makePayment(order);
 
 		
-		//trae todas las ordenes para actualizar la session
-		//(incluida la recientemente agregada)
-		ArrayList<Order> orders = ctrlOrders.getOrders(order.getStudentOrder());
+		//get ALL orders
+		ArrayList<Order> orders = ctrlOrders.getUndeliveredAndUnprintedOrders(order.getStudentOrder());
 		
-		//actualiza el credito del usuario logiado
+		//update user credit session
 		request.getSession().setAttribute("userAuthenticated", order.getStudentOrder());
 		
-		//agrega la orden en la coleccion de ordenes en session
+		//add new order to session
 		
 		request.getSession().setAttribute("orders", orders);
 
-		
-		//eliminar datos de la session
-		request.getSession().setAttribute("order", null);
+		//message
 		request.getSession().setAttribute("message","Order added successfully");
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("copyPrice", null); //necesario?
 		
-		request.getRequestDispatcher("Home.jsp").forward(request, response); // orden registrada pantalla
+		//Clean session
+		request.getSession().setAttribute("order", null);
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("copyPrice", null); 
+		
+		request.getRequestDispatcher("Home.jsp").forward(request, response); 
 	}
 
 }

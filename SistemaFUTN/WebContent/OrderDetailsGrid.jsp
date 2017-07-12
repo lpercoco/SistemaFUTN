@@ -17,100 +17,109 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right active">
+		<c:if test="${userAuthenticated!=null}">
 
-			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+			<div class="row row-offcanvas row-offcanvas-right active">
 
-			<div class="col-12 col-md-9">
+				<jsp:include page="/includes/Menu.jsp"></jsp:include>
 
-				<h2>Order: ${orderToShow.orderNumber}</h2>
+				<div class="col-12 col-md-9">
 
-				<p>
-					<strong>Order state:</strong> ${orderToShow.orderState}
-				</p>
+					<h2>Order: ${orderToShow.orderNumber}</h2>
 
-				<p>
-					<strong>Order date:</strong> ${orderToShow.orderDate}
-				</p>
+					<p>
+						<strong>Order state:</strong> ${orderToShow.orderState}
+					</p>
 
-				<p>
-					<strong>Estimate delivery date:</strong>
-					${orderToShow.deliveryDate}
-				</p>
+					<p>
+						<strong>Order date:</strong> ${orderToShow.orderDate}
+					</p>
 
-				<p>
-					<strong>Finished date:</strong> ${orderToShow.finishDate}
-				</p>
+					<p>
+						<strong>Estimate delivery date:</strong>
+						${orderToShow.deliveryDate}
+					</p>
 
-				<p>
-					<strong>Delivey date:</strong> ${orderToShow.deliveryDate}
-				</p>
+					<p>
+						<strong>Finished date:</strong> ${orderToShow.finishDate}
+					</p>
 
-				<p>
-					<strong>Total amount:</strong> ${orderToShow.totalAmount}
-				</p>
+					<p>
+						<strong>Delivey date:</strong> ${orderToShow.deliveryDate}
+					</p>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<c:if test="${userAuthenticated.scholar}">
-								<td width="10%">TM code</td>
-							</c:if>
-							<td width="10%">Title</td>
-							<td width="10%">Number of copies</td>
-							<td width="10%">Duplex</td>
-							<td width="10%">Printed</td>
-							<td width="10%">Parcial amount</td>
-							<c:if test="${userAuthenticated.scholar}">
-								<td width="10%"></td>
-							</c:if>
-						</tr>
-					</thead>
+					<p>
+						<strong>Total amount:</strong> ${orderToShow.totalAmount}
+					</p>
 
-					<tbody>
-						<c:forEach items="${orderToShow.details}" var="od">
+					<table class="table">
+						<thead>
 							<tr>
 								<c:if test="${userAuthenticated.scholar}">
-									<td align="left">${od.item.code}</td>
+									<td width="10%">TM code</td>
 								</c:if>
-
-								<td align="left">${od.item.title}</td>
-								<td align="left">${od.numberOfCopies}</td>
-								<td align="left">${od.duplex}</td>
-								<td align="left">${od.state}</td>
-								<td align="left">${od.parcialAmount}</td>
-								<c:if test="${userAuthenticated.scholar && !od.state}">
-									<td>
-										<form name="recordItemAsPrintedForm"
-											action="recordOrderDetailAsPrinted" method="post">
-											<div class="form-group">
-												<input type="hidden" name="orderDetailNumber"
-													value="${od.orderDetailNumber}" />
-											</div>
-
-											<div class="form-group">
-												<input type="submit" class="btn btn-primary"
-													name="btnPrinted" value="Printed">
-											</div>
-										</form>
-									</td>
+								<td width="10%">Title</td>
+								<td width="10%">Number of copies</td>
+								<td width="10%">Duplex</td>
+								<td width="10%">Printed</td>
+								<td width="10%">Parcial amount</td>
+								<c:if test="${userAuthenticated.scholar}">
+									<td width="10%"></td>
 								</c:if>
 							</tr>
-						</c:forEach>
+						</thead>
 
-					</tbody>
-				</table>
+						<tbody>
+							<c:forEach items="${orderToShow.details}" var="od">
+								<tr>
+									<c:if test="${userAuthenticated.scholar}">
+										<td align="left">${od.item.code}</td>
+									</c:if>
 
-				<c:if test="${empty orders}">
+									<td align="left">${od.item.title}</td>
+									<td align="left">${od.numberOfCopies}</td>
+									<td align="left">${od.duplex}</td>
+									<td align="left">${od.state}</td>
+									<td align="left">${od.parcialAmount}</td>
+									<c:if test="${userAuthenticated.scholar && !od.state}">
+										<td>
+											<form name="recordItemAsPrintedForm"
+												action="recordOrderDetailAsPrinted" method="post">
+												<div class="form-group">
+													<input type="hidden" name="orderDetailNumber"
+														value="${od.orderDetailNumber}" />
+												</div>
 
-					<div class="alert alert-warning">
-						<c:out value="There are no pending orders" />
-					</div>
+												<div class="form-group">
+													<input type="submit" class="btn btn-primary"
+														name="btnPrinted" value="Printed">
+												</div>
+											</form>
+										</td>
+									</c:if>
+								</tr>
+							</c:forEach>
 
-				</c:if>
+						</tbody>
+					</table>
+
+					<c:if test="${empty orders}">
+
+						<div class="alert alert-warning">
+							<c:out value="There are no pending orders" />
+						</div>
+
+					</c:if>
+
+				</div>
 
 			</div>
-		</div>
+
+		</c:if>
+
+		<c:if test="${userAuthenticated==null}">
+			<jsp:include page="/includes/permissionMessage.jsp"></jsp:include>
+		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 

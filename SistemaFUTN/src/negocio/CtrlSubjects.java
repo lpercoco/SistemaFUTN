@@ -12,19 +12,13 @@ public class CtrlSubjects {
 	public CtrlSubjects(){
 		data= new SubjectData();
 	}
-	
-	//faltan excepciones
-	
+		
 	public ArrayList<Subject> getSubjects(){
 		return(data.getSubjects());
 	}
 	
-	public Subject getByName(Subject s) throws ApplicationException{
-		return(data.getByName(s));
-	}
-
-	public Subject getbyCode(Subject s) {
-		return (data.getbyCode(s));
+	public Subject getByName(String subjectName) throws ApplicationException{
+		return data.getByName(subjectName);
 	}
 
 }

@@ -19,16 +19,15 @@ public class CtrlOrders {
 		data.add(o);
 	}
 
-	public Order cancelItem(Order order, OrderDetail od) {
-
-		for (int i = 0; i < order.getDetails().size(); i++) {
-			if(order.getDetails().get(i).equals(od)){
-				order.totalAmountUpdateCancel(order.getDetails().get(i));
-				order.getStudentOrder().creditUpdateCancel(od);
-				order.getDetails().remove(i);
-			}
-			order.updateOrderDetailsNumbers();
-		}
+	public Order cancelItem(Order order, int odNumber) {
+		
+		OrderDetail od=order.getDetails().get(odNumber-1);
+				
+		order.totalAmountUpdateCancel(od);
+		order.getStudentOrder().creditUpdateCancel(od);
+		order.getDetails().remove(odNumber-1);		
+		order.updateOrderDetailsNumbers();
+		
 		return order;
 	}
 
@@ -49,8 +48,8 @@ public class CtrlOrders {
 		return o.getOrderDetail(odNumber);
 	}
 
-	public ArrayList<Order> getOrders(User user) {
-		return data.getOrders(user);
+	public ArrayList<Order> getUndeliveredAndUnprintedOrders(User user) {
+		return data.getUndeliveredAndUnprintedOrders(user);
 	}
 
 	public Order getOrder(ArrayList<Order> orders, int orderNumber) {
@@ -65,8 +64,8 @@ public class CtrlOrders {
 		return o;
 	}
 
-	public ArrayList<Order> getUnreadyAndUndeliveryOrders() {	
-		return data.getUnreadyAndUndeliveyOrders();
+	public ArrayList<Order> getUnprintedOrders() {	
+		return data.getUnprintedOrders();
 	}
 
 	public Order recordOrderDetailAsPrinted(Order order, int orderDetailNumber) {
@@ -83,23 +82,9 @@ public class CtrlOrders {
 		return order;
 	}
 
-	public int getNumberOfOrdersToPrint(ArrayList<Order> orders) {
-
-		int aux=0;
-
-		for (int i = 0; i < orders.size(); i++) {
-
-			if(!orders.get(i).isOrderState()){
-				aux++;
-			}
-
-		}	
-		return aux;
-	}
-
 	public ArrayList<Order> getOrdersToDeliver(User student) throws ApplicationException {
 
-		ArrayList<Order> orders= data.getOrders(student);
+		ArrayList<Order> orders= data.getUndeliveredAndUnprintedOrders(student);
 
 		ArrayList<Order> ordersToDelete = new ArrayList<Order>();
 
@@ -120,13 +105,17 @@ public class CtrlOrders {
 		return orders;
 	}
 
-	public ArrayList<Order> deliverOrder(ArrayList<Order> ordersToDeliver, int orderNumberToDeliver) {
+	public ArrayList<Order> deliverOrder(ArrayList<Order> ordersToDeliver, int orderNumberToDeliver) throws ApplicationException {
 
 		Order orderToDeliver= getOrder(ordersToDeliver, orderNumberToDeliver);
 		
 		data.saveOrderAsDelivered(orderToDeliver);
 		
 		ordersToDeliver.remove(orderToDeliver);
+		
+		if(ordersToDeliver.size()==0){
+			throw new ApplicationException("This student does not have any orders ready");
+		}
 		
 		return ordersToDeliver;
 		

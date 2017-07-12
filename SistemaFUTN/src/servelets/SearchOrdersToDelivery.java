@@ -35,32 +35,30 @@ public class SearchOrdersToDelivery extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);	
 		request.getSession().setAttribute("ordersToDeliver",null);
 		
 		CtrlUsers ctrlUsers=new CtrlUsers();
 		CtrlOrders ctrlOrders=new CtrlOrders();
 
-		ArrayList<Order> orders;
+		ArrayList<Order> ordersToDeliver;
 		User student=new User();
 
-		student.setLegajo(request.getParameter("legajo"));
+		int legajo=(Integer.parseInt(request.getParameter("legajo")));
 
 		try {
-			student=ctrlUsers.getByLegajo(student);
+			student=ctrlUsers.getByLegajo(legajo);
 
-			orders = ctrlOrders.getOrdersToDeliver(student);
+			ordersToDeliver = ctrlOrders.getOrdersToDeliver(student);
 			
 
-			request.getSession().setAttribute("ordersToDeliver",orders);
+			request.getSession().setAttribute("ordersToDeliver",ordersToDeliver);
 
 		} catch (ApplicationException e) {
 
 			request.getSession().setAttribute("exceptionMessage",e.getMessage());	
 
 		}finally {
-			request.getRequestDispatcher("RetireOrder.jsp").forward(request, response); 
+			request.getRequestDispatcher("DeliverOrder.jsp").forward(request, response); 
 		}	
 	}
 

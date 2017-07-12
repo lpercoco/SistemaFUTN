@@ -55,11 +55,9 @@ public class Login extends HttpServlet {
 		User u=new User();
 		User user;
 		
-		int numberOfOrdersToPrint;
-		
 		ArrayList<Order> orders ;
 		
-		u.setLegajo(request.getParameter("legajoLogin"));
+		u.setLegajo(Integer.parseInt(request.getParameter("legajoLogin")));
 		u.setPassword(request.getParameter("passwordLogin"));
 		
 		try {
@@ -68,7 +66,7 @@ public class Login extends HttpServlet {
 		    request.getSession().setAttribute("userAuthenticated",user);
 
 		    if(!user.isScholar()){
-		    	orders=ctrlOrders.getOrders(user);
+		    	orders=ctrlOrders.getUndeliveredAndUnprintedOrders(user);
 		    }else{
 				CtrlFutn ctrlFutn = new CtrlFutn();
 
@@ -76,14 +74,9 @@ public class Login extends HttpServlet {
 
 				request.getSession().setAttribute("currentCopyPrice",currentCopyPrice);
 
-		    	orders=ctrlOrders.getUnreadyAndUndeliveryOrders();
-				
-		    	//esto esta mal?
-		    	numberOfOrdersToPrint=ctrlOrders.getNumberOfOrdersToPrint(orders);
-				request.getSession().setAttribute("numberOfOrdersToPrint",numberOfOrdersToPrint);
-				
-				
-				if(numberOfOrdersToPrint==0){
+		    	orders=ctrlOrders.getUnprintedOrders();
+							
+				if(orders.size()==0){
 					request.getSession().setAttribute("exceptionMessage","There are no orders to print");	
 				}
 		    }

@@ -41,23 +41,19 @@ public class CancelItem extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);
-		
 		CtrlOrders ctrl=new CtrlOrders();
-		OrderDetail od;
 		
 		Order order= (Order)request.getSession().getAttribute("order");
 		
 		int odNumber= Integer.parseInt(request.getParameter("orderDetailToDelate"));
-		
-		od=ctrl.getOrderDetail(order,odNumber);
-		
-		order=ctrl.cancelItem(order,od);
+			
+		order=ctrl.cancelItem(order,odNumber);
 
 		request.getSession().setAttribute("order",order);
 		request.getSession().setAttribute("orderDetailToDelate",null);
-
+		
+		request.getSession().setAttribute("exceptionMessage",null);	
+		request.getSession().setAttribute("message",null);
 
 		request.getRequestDispatcher("Cart.jsp").forward(request, response); 
 	}

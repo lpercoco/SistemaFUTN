@@ -39,15 +39,12 @@ public class AddTeachingMaterial extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);
 		
 		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
 		CtrlSubjects ctrlSubject=new CtrlSubjects();
 		TeachingMaterial teachingMaterial=new TeachingMaterial();
-		Subject subject=new Subject();
 		
+		String subjectName=request.getParameter("subject");
 				
 		teachingMaterial.setTitle(request.getParameter("title"));
 		teachingMaterial.setAuthor(request.getParameter("author"));
@@ -55,12 +52,9 @@ public class AddTeachingMaterial extends HttpServlet {
 		teachingMaterial.setEdition(request.getParameter("edition"));
 		teachingMaterial.setNumberOfPages(Integer.parseInt(request.getParameter("numberOfPages")));
 		
-		subject.setName(request.getParameter("subject"));
 		
 	    try {
-			subject=ctrlSubject.getByName(subject);
-			
-		    teachingMaterial=ctrlTeachingMaterial.setMaterialSubject(teachingMaterial,subject);
+		    teachingMaterial.setMaterialSubject(ctrlSubject.getByName(subjectName));
 		
 		    ctrlTeachingMaterial.add(teachingMaterial);
 		    

@@ -13,21 +13,20 @@ import utils.ApplicationException;
 
 public class TeachingMaterialData {
 	
-	static final String QUERRY_GET_TM="select teachingMaterialCode,numberOfPages,title,edition,description,author from teachingMaterials where subjectCode=?";
+	static final String QUERRY_GET_TM_BY_SUBJECT_CODE="SELECT teachingMaterialCode,numberOfPages,title,edition,description,author from teachingMaterials where subjectCode=?";
 
-	static final String QUERRY_GET_TM_WITH_TITLE="select teachingMaterialCode,numberOfPages,title,edition,description,author from teachingMaterials where subjectCode=? and title like ?";
+	static final String QUERRY_GET_TM_BY_SUBJECT_CODE_AND_TITLE="SELECT teachingMaterialCode,numberOfPages,title,edition,description,author from teachingMaterials where subjectCode=? and title like ?";
 
-	static final String QUERRY_GET_TM_BY_CODE="select teachingMaterialCode,numberOfPages,title,edition,description,author,subjectCode from teachingMaterials where teachingMaterialCode=? ";
+	static final String QUERRY_GET_TM_BY_CODE="SELECT teachingMaterialCode,numberOfPages,title,edition,description,author,subjectCode from teachingMaterials where teachingMaterialCode=? ";
 
+	static final String QUERRY_ADD_TM="INSERT INTO teachingMaterials (title,numberOfPages,edition,author,description,subjectCode)  VALUES(?,?,?,?,?,?) ";
 	
 	public void add(TeachingMaterial tm) {
 		ResultSet rs = null;
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into teachingMaterials (title,numberOfPages,edition,author,description,subjectCode)"
-							+ " values(?,?,?,?,?,?)");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(QUERRY_ADD_TM);
 
 			stmt.setString(1, tm.getTitle());
 			stmt.setInt(2, tm.getNumberOfPages());
@@ -68,16 +67,16 @@ public class TeachingMaterialData {
 
 		Subject subject = new Subject();
 
-		//busca materia, lanza excepcion si no existe
+		//get subject of tm
 
-		subject=subjectData.getByName(tmSearch.getMaterialSubject());
+		subject=subjectData.getByName(tmSearch.getMaterialSubject().getName());
 
 		try{
 
 			if(tmSearch.getTitle()==""){
-				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(QUERRY_GET_TM);
+				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(QUERRY_GET_TM_BY_SUBJECT_CODE);
 			}else{
-				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(QUERRY_GET_TM_WITH_TITLE);
+				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(QUERRY_GET_TM_BY_SUBJECT_CODE_AND_TITLE);
 				stmt.setString(2, "%" + tmSearch.getTitle() + "%");
 			}
 			stmt.setInt(1, subject.getCode());
@@ -98,7 +97,6 @@ public class TeachingMaterialData {
 
 				tmArray.add(tm);
 			}
-
 
 			if(tmArray.isEmpty()){
 				throw new ApplicationException("No results were found for your search");
@@ -142,9 +140,7 @@ public class TeachingMaterialData {
 
 			rs = stmt.executeQuery();
 
-			while (rs != null && rs.next()) {
-				
-				s.setCode(rs.getInt("subjectCode"));
+			while (rs != null && rs.next()) {		
 				
 				tm.setCode(rs.getInt("TeachingMaterialCode"));
 				tm.setAuthor(rs.getString("author"));
@@ -153,7 +149,7 @@ public class TeachingMaterialData {
 				tm.setNumberOfPages(rs.getInt("numberOfPages"));
 				tm.setTitle(rs.getString("title"));
 				
-				tm.setMaterialSubject(s);
+				s.setCode(rs.getInt("subjectCode"));
 
 			}
 		} catch (SQLException e) {
@@ -174,7 +170,7 @@ public class TeachingMaterialData {
 			}
 		}
 		
-		s=subjectData.getbyCode(tm.getMaterialSubject());
+		s=subjectData.getbyCode(s);
 		
 		tm.setMaterialSubject(s);
 		

@@ -16,7 +16,7 @@
 					<div class="form">
 
 						<form name="logOutForm" class="navbar-form" action="LogOut"
-							method="get">
+							method="post">
 							<button type="submit" class="btn btn-danger">Logout</button>
 						</form>
 

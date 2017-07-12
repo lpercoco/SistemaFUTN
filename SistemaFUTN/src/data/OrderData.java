@@ -9,13 +9,16 @@ import com.mysql.jdbc.Statement;
 
 import entidades.Order;
 import entidades.OrderDetail;
-import entidades.Subject;
 import entidades.TeachingMaterial;
 import entidades.User;
-import negocio.CtrlTeachingMaterial;
 import utils.ApplicationException;
 
 public class OrderData {
+	
+	static final String GET_UNPRINTED_ORDERS_QUERRY="SELECT o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,"
+                                                    +"o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState,o.studentLegajo "
+                                                    +"FROM orders o "
+                                                    +"WHERE finishDate IS NULL";
 	
 	static final String RECORD_ORDERDETAIL_AS_PRINTED="UPDATE orderDetails SET state=TRUE WHERE orderNumber=? AND orderDetailNumber=?";
 
@@ -23,27 +26,33 @@ public class OrderData {
 
 	static final String RECORD_ORDER_AS_DELIVER="UPDATE orders SET deliveryDate=CURRENT_DATE where orderNumber=?";
 	
+	static final String RECORD_NEW_ORDER="INSERT INTO orders (totalAmount,orderState,orderDate,estimatedDeliveryDate,studentLegajo) VALUES (?,?,CURRENT_DATE,DATE_ADD(CURRENT_DATE, INTERVAL ? DAY),?) ";
+
+	static final String RECORD_ORDER_DETAILS="INSERT INTO orderDetails (orderNumber,orderDetailNumber,teachingMaterialCode,numberOfCopies,state,parcialAmount,duplex) VALUES(?,?,?,?,?,?,?)";
+
+	static final String UNPRINTED_UNDELIVERD_ORDERS_BY_USER="SELECT o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState"
+                                                           +"FROM orders o "
+                                                           +"WHERE o.studentLegajo=? AND (o.deliveryDate IS NULL OR o.finishDate IS NULL) ";
+
 	public void add(Order o){
 		ResultSet rs=null;
+		ResultSet primaryKeyOfOrder=null;
 		PreparedStatement stmt=null;
 
-
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into orders (totalAmount,orderState,orderDate,estimatedDeliveryDate,studentLegajo)"+
-							" values(?,?,CURRENT_DATE,DATE_ADD(CURRENT_DATE, INTERVAL ? DAY),?) ",Statement.RETURN_GENERATED_KEYS);
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(RECORD_NEW_ORDER,Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setDouble(1, o.getTotalAmount());
 			stmt.setBoolean(2, o.isOrderState());
-			stmt.setInt(3, 3); //  fijo o calculable?
-			stmt.setString(4, o.getStudentOrder().getLegajo());
+			stmt.setInt(3, Order.getEstimatedDays()); //fijo
+			stmt.setInt(4, o.getStudentOrder().getLegajo());
 
 			stmt.execute();
 			
-			//donde ubicarlo? considerar excepcion
-			ResultSet gk=stmt.getGeneratedKeys();
-			if(gk.next()){
-				o.setOrderNumber(gk.getInt(1));
+			
+			primaryKeyOfOrder=stmt.getGeneratedKeys();
+			if(primaryKeyOfOrder.next()){
+				o.setOrderNumber(primaryKeyOfOrder.getInt(1));
 			}
 
 		} catch (SQLException e) {
@@ -55,15 +64,18 @@ public class OrderData {
 				if(rs!=null) rs.close();
 				if(stmt!=null)stmt.close();
 				FactoryConexion.getInstancia().releaseConn();
-				addOrderDetails(o); //esta bien ubicado?  hacer loop aca?
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}			
 		}
+		
+		addOrderDetails(o); 
+
 	}
 
+	
 	private void addOrderDetails(Order o) {
 		ResultSet rs=null;
 		PreparedStatement stmt=null;
@@ -71,10 +83,8 @@ public class OrderData {
 
 		try {
 
-			for(int i=0;i<o.getDetails().size();i++){
-				stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-						"insert into orderDetails (orderNumber,orderDetailNumber,teachingMaterialCode,numberOfCopies,state,parcialAmount,duplex)"+
-						" values(?,?,?,?,?,?,?)");
+			for(int i=0;i<od.size();i++){
+				stmt=FactoryConexion.getInstancia().getConn().prepareStatement(RECORD_ORDER_DETAILS);
 
 				stmt.setInt(1,o.getOrderNumber());
 				stmt.setInt(2, od.get(i).getOrderDetailNumber());
@@ -104,19 +114,15 @@ public class OrderData {
 
 	}
 
-	public ArrayList<Order> getOrders(User user) {
+	public ArrayList<Order> getUndeliveredAndUnprintedOrders(User user) {
 
 		ArrayList<Order> orders = new ArrayList<Order>();
 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,"+
-							"o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState"+
-							" from orders o"+
-					" where o.studentLegajo=?");
-			stmt.setString(1,user.getLegajo());
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(UNPRINTED_UNDELIVERD_ORDERS_BY_USER);
+			stmt.setInt(1,user.getLegajo());
 			rs= stmt.executeQuery();
 
 
@@ -131,7 +137,10 @@ public class OrderData {
 				o.setDeliveryDate(rs.getDate("deliveryDate"));
 				}
 				
+				if(rs.getDate("finishDate")!=null){
 				o.setFinishDate(rs.getDate("finishDate"));
+				}
+				
 				o.setEstimatedDeliveryDate(rs.getDate("estimatedDeliveryDate"));
 				o.setTotalAmount(rs.getDouble("totalAmount"));
 				o.setOrderState(rs.getBoolean("orderState"));
@@ -156,6 +165,7 @@ public class OrderData {
 			}
 		}
 
+		//sacar afuera?
 		for (int i = 0; i < orders.size(); i++) {
 			orders.get(i).setDetails(getDetails(orders.get(i)));
 		}
@@ -227,13 +237,8 @@ public class OrderData {
 		return ordersDetails;
 	}
 
-	static final String GET_UNREADY_AND_UNDELIVERY_ORDERS_QUERRY="SELECT o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,"
-			                                                     +"o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState,"
-			                                                     +"o.studentLegajo"
-			                                                     +" FROM orders o"
-			                                                     +" WHERE o.deliveryDate IS NULL OR o.finishDate IS NULL ";
 	
-	public ArrayList<Order> getUnreadyAndUndeliveyOrders(){
+	public ArrayList<Order> getUnprintedOrders(){
 
 		ArrayList<Order> orders = new ArrayList<Order>();
 
@@ -242,13 +247,13 @@ public class OrderData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_UNREADY_AND_UNDELIVERY_ORDERS_QUERRY);
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_UNPRINTED_ORDERS_QUERRY);
 			rs= stmt.executeQuery();
 
 			while(rs!=null && rs.next()){
 
 				Order o = new Order();
-				User u = new User(rs.getString("StudentLegajo"));
+				User u = new User(rs.getInt("StudentLegajo"));
 
 				o.setStudentOrder(u);
 				o.setOrderNumber(rs.getInt("orderNumber"));
@@ -285,7 +290,7 @@ public class OrderData {
 			
 			User u=orders.get(i).getStudentOrder();
 			try {
-				orders.get(i).setStudentOrder(userData.getByLegajo(u));
+				orders.get(i).setStudentOrder(userData.getByLegajo(u.getLegajo()));
 			} catch (ApplicationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

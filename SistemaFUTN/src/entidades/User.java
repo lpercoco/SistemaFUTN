@@ -1,7 +1,7 @@
 package entidades;
 
 public class User {
-	private String legajo; 
+	private int legajo; 
 	private String firstName;
 	private String lastName;
 	private String adress;
@@ -13,16 +13,15 @@ public class User {
 	private boolean scholar;
 	
 
-	public User(String legajo) {
+	public User(int legajo) {
 		this.legajo=legajo;
 	}
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
-	public String getLegajo() {
+	public int getLegajo() {
 		return legajo;
 	}
-	public void setLegajo(String legajo) {
+	public void setLegajo(int legajo) {
 		this.legajo = legajo;
 	}
 	public String getFirstName() {
@@ -79,16 +78,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public void creditUpdateAdd(OrderDetail od) {
-
 		this.credit=this.getCredit()-od.getParcialAmount();
-		
 	}
+	
 	public void creditUpdateCancel(OrderDetail od) {
-
 		this.credit=this.getCredit()+od.getParcialAmount();
-		
 	}
+	
 	public void addCredit(Double creditToAdd) {
 		this.credit=this.credit+creditToAdd;	
 	}

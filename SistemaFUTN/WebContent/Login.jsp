@@ -25,7 +25,7 @@
 				<h2 class="form-signin-heading">Please sign in</h2>
 
 				<label for="legajoLogin" class="sr-only">Legajo</label> <input
-					type="text" name="legajoLogin" class="form-control"
+					type="text" pattern="[0-9]{5}" name="legajoLogin" class="form-control"
 					placeholder="Legajo" required autofocus> <label
 					for="passwordLogin" class="sr-only">Password</label> <input
 					type="password" name="passwordLogin" class="form-control"

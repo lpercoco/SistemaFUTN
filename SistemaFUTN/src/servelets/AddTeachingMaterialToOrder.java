@@ -34,9 +34,6 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);
 		
 		CtrlTeachingMaterial ctrlTM = new CtrlTeachingMaterial();
 		CtrlFutn ctrlFutn = new CtrlFutn();
@@ -47,27 +44,26 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 		Order order;
 		User student;
 
-		String[] tmCodesArray = request.getParameterValues("checkboxgroup"); //session?
+		String[] tmCodesArray = request.getParameterValues("checkboxgroup");
 		Object objOrder=request.getSession().getAttribute("order");
 		Object objCopyPrice=request.getSession().getAttribute("copyPrice");
-
-		request.getSession().setAttribute("exceptionMessage",null);
+		
+		//clean message's
 		request.getSession().setAttribute("message",null);	
-
-
-		//si no existe una orden en la session, instancia una nueva y la setea
-		//luego los guarda en la session
+		request.getSession().setAttribute("exceptionMessage",null);	
+		
+		//If there is no current order in session, create a  new one and set it to the session
+		
 		if(objOrder!=null){
 			order=(Order) objOrder;			
 		}else{
 			student= (User)request.getSession().getAttribute("userAuthenticated");
-			//considerar caso que no este logiado¿?
 			order= new Order(student);
 			request.getSession().setAttribute("order",order);
 		}
 
-
-		//si no existe copyPrice en la session, lo pide y lo guarda en la session
+		//If there is no current copy price in session, create a  new one and set it to the session
+		
 		if(objCopyPrice!=null){
 			copyPrice=(CopyPrice) objCopyPrice;
 		}else{
@@ -76,8 +72,7 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 		}
 
 
-		//crea cada uno de los nuevos orderdetails, valida que sea suficiente el credito
-		//y lo agrega a la orden
+		// add each order detail to the order
 		try {
 
 			for (int i = 0; i < tmCodesArray.length; i++) {   	    	
@@ -96,17 +91,17 @@ public class AddTeachingMaterialToOrder extends HttpServlet {
 				order=ctrlOrders.setOrderDetail(order,orderDetail);
 
 			}
-			//si alcanzo el credito y pudo agregar todos los apuntes
-			//guarda la orden en la session
+
+			//update order in session
 			request.getSession().setAttribute("order",order);
 			request.getSession().setAttribute("message","Items added successfully");	
 
 		} catch (ApplicationException e) {
-			//se lanza en el caso de que algun apunte supere el credito disponible
 			request.getSession().setAttribute("exceptionMessage",e.getMessage());	
 
 		}finally {
 
+			//clean selected tmS from the search in the session
 			request.getSession().setAttribute("tmArray",null);
 
 			request.getRequestDispatcher("AddTeachingMaterialToOrder.jsp").forward(request, response); // cambiar a que pagina redirige luego de registrar orden	

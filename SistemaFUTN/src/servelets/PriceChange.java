@@ -42,9 +42,6 @@ public class PriceChange extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().setAttribute("exceptionMessage",null);	
-		request.getSession().setAttribute("message",null);
-		
 		CtrlFutn ctrl=new CtrlFutn();
 	    CopyPrice newCopyPrice=new CopyPrice();
 
@@ -54,7 +51,7 @@ public class PriceChange extends HttpServlet {
 	    
 	    //registra nuevo precio copias
 	    try {
-			ctrl.add(newCopyPrice);
+			ctrl.changeCopyPrice(newCopyPrice);
 			request.getSession().setAttribute("message","Price change successfully");
 			request.getSession().setAttribute("currentCopyPrice",newCopyPrice);
 

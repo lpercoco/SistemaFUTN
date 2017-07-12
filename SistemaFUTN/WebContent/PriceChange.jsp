@@ -15,55 +15,63 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right active">
+		<c:if test="${userAuthenticated!=null}">
 
-			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+			<div class="row row-offcanvas row-offcanvas-right active">
 
-			<div class="col-12 col-md-9">
+				<jsp:include page="/includes/Menu.jsp"></jsp:include>
 
-				<h1>Change the price of the copy</h1>
+				<c:if test="${userAuthenticated.scholar==true}">
 
-				<h3>Current copy price</h3>
+					<div class="col-12 col-md-9">
 
-				<p>
-					Begin date: ${currentCopyPrice.beginDate}
-				</p>
+						<h1>Change the price of the copy</h1>
 
-				<p>
-					Simple copy: ${currentCopyPrice.simplePrice}
-				</p>
+						<h3>Current copy price</h3>
 
-				<p>
-					Duplex copy: ${currentCopyPrice.duplexPrice}
-				</p>
+						<p>Begin date: ${currentCopyPrice.beginDate}</p>
 
-				<h3>New copy price</h3>
+						<p>Simple copy: ${currentCopyPrice.simplePrice}</p>
 
-				<form name="PriceChangeForm" action="PriceChange" method="post">
+						<p>Duplex copy: ${currentCopyPrice.duplexPrice}</p>
 
-					<div class="form-group">
-						<label for="simple">Simple</label> <input type="number"
-							name="simple" id="simple" step="0.01" min="0"
-							value="${currentCopyPrice.simplePrice}" required autofocus>
+						<h3>New copy price</h3>
+
+						<form name="PriceChangeForm" action="PriceChange" method="post">
+
+							<div class="form-group">
+								<label for="simple">Simple</label> <input type="number"
+									name="simple" id="simple" step="0.01" min="0"
+									value="${currentCopyPrice.simplePrice}" required autofocus>
+							</div>
+
+							<div class="form-group">
+								<label for="duplex">Duplex</label> <input type="number"
+									name="duplex" id="duplex" step="0.01" min="0"
+									value="${currentCopyPrice.duplexPrice}" required>
+							</div>
+
+							<input type="submit" name="Save" value="Save"
+								class="btn btn-primary">
+
+						</form>
+
+						<c:if test="${exceptionMessage !=null}">
+							<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+						</c:if>
+
 					</div>
 
-					<div class="form-group">
-						<label for="duplex">Duplex</label> <input type="number"
-							name="duplex" id="duplex" step="0.01" min="0"
-							value="${currentCopyPrice.duplexPrice}" required>
-					</div>
-
-					<input type="submit" name="Save" value="Save"
-						class="btn btn-primary">
-
-				</form>
-
-				<c:if test="${exceptionMessage !=null}">
-					<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
 				</c:if>
 
 			</div>
-		</div>
+
+		</c:if>
+
+		<c:if
+			test="${userAuthenticated==null || userAuthenticated.scholar==false}">
+			<jsp:include page="/includes/permissionMessage.jsp"></jsp:include>
+		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 

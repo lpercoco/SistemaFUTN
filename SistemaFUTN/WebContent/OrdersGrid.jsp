@@ -18,95 +18,105 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right active">
+		<c:if test="${userAuthenticated!=null}">
 
-			<jsp:include page="/includes/Menu.jsp"></jsp:include>
+			<div class="row row-offcanvas row-offcanvas-right active">
 
-			<div class="col-12 col-md-9">
+				<jsp:include page="/includes/Menu.jsp"></jsp:include>
 
-				<c:if
-					test="${(numberOfOrdersToPrint gt 0 && userAuthenticated.scholar ) || (!userAuthenticated.scholar)}">
+				<div class="col-12 col-md-9">
 
-					<h2>Pending orders</h2>
+					<c:if
+						test="${(fn:length(orders) gt 0 && userAuthenticated.scholar ) || (!userAuthenticated.scholar)}">
 
-					<table class="table">
-						<thead>
-							<tr>
-								<td width="10%">Order number</td>
-								<td width="10%">Ready</td>
-								<td width="15%">Order date</td>
-								<td width="15%">Estimate delivery date</td>
+						<h2>Pending orders</h2>
 
-								<c:if test="${!userAuthenticated.scholar}">
-									<td width="15%">Finish date</td>
-								</c:if>
+						<table class="table">
+							<thead>
+								<tr>
+									<td width="10%">Order number</td>
+									<td width="10%">Ready</td>
+									<td width="15%">Order date</td>
+									<td width="15%">Estimate delivery date</td>
 
-								<td width="1%">Total amount</td>
-								<td width="10%"></td>
-							</tr>
-						</thead>
+									<c:if test="${!userAuthenticated.scholar}">
+										<td width="15%">Finish date</td>
+									</c:if>
 
-						<tbody>
+									<td width="1%">Total amount</td>
+									<td width="10%"></td>
+								</tr>
+							</thead>
 
-							<c:forEach items="${orders}" var="o">
+							<tbody>
 
-								<!-- si es becario, muestra ordenes con algun item pendiente  -->
-								<!-- si es estudiante, muestra ordenes que no se retiraron(terminadas o no) -->
+								<c:forEach items="${orders}" var="o">
 
-								<c:if
-									test="${(empty o.deliveryDate && ! userAuthenticated.scholar) || (userAuthenticated.scholar && !o.orderState)}">
-									<tr>
-										<td align="left">${o.orderNumber}</td>
-										<td align="left">${o.orderState}</td>
-										<td align="left">${o.orderDate}</td>
-										<td align="left">${o.estimatedDeliveryDate}</td>
+									<!-- si es becario, muestra ordenes con algun item pendiente  -->
+									<!-- si es estudiante, muestra ordenes que no se retiraron(terminadas o no) -->
 
-										<c:if test="${!userAuthenticated.scholar}">
-											<td align="left">${o.finishDate}</td>
-										</c:if>
+									<c:if
+										test="${(empty o.deliveryDate && ! userAuthenticated.scholar) || (userAuthenticated.scholar && !o.orderState)}">
+										<tr>
+											<td align="left">${o.orderNumber}</td>
+											<td align="left">${o.orderState}</td>
+											<td align="left">${o.orderDate}</td>
+											<td align="left">${o.estimatedDeliveryDate}</td>
 
-										<td align="left">${o.totalAmount}</td>
+											<c:if test="${!userAuthenticated.scholar}">
+												<td align="left">${o.finishDate}</td>
+											</c:if>
 
-										<td>
-											<form name="orderDetailsGridForm" action="OrderDetailGrid"
-												method="get">
-												<div class="form-group">
-													<input type="hidden" name="orderNumber"
-														value="${o.orderNumber}" />
-												</div>
+											<td align="left">${o.totalAmount}</td>
 
-												<div class="form-group">
-													<input type="submit" class="btn btn-primary"
-														name="checkOrder" value="Check order">
-												</div>
-											</form>
-										</td>
+											<td>
+												<form name="orderDetailsGridForm" action="OrderDetailGrid"
+													method="get">
+													<div class="form-group">
+														<input type="hidden" name="orderNumber"
+															value="${o.orderNumber}" />
+													</div>
 
-									</tr>
-								</c:if>
-							</c:forEach>
+													<div class="form-group">
+														<input type="submit" class="btn btn-primary"
+															name="checkOrder" value="Check order">
+													</div>
+												</form>
+											</td>
 
-						</tbody>
-					</table>
-				</c:if>
+										</tr>
+									</c:if>
+								</c:forEach>
 
-				<c:if
-					test="${(numberOfOrdersToPrint==0 && userAuthenticated.scholar )}">
-
-					<c:if test="${exceptionMessage !=null}">
-						<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+							</tbody>
+						</table>
 					</c:if>
 
-					<form name="refreshForm" action="refreshOrdersToPrint" method="get">
-						<div class="form-group">
-							<input type="submit" class="btn btn-primary" name="Refresh"
-								value="Refresh">
-						</div>
-					</form>
-				</c:if>
+					<c:if
+						test="${(fn:length(orders)==0 && userAuthenticated.scholar )}">
+
+						<c:if test="${exceptionMessage !=null}">
+							<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+						</c:if>
+
+						<form name="refreshForm" action="refreshOrdersToPrint"
+							method="get">
+							<div class="form-group">
+								<input type="submit" class="btn btn-primary" name="Refresh"
+									value="Refresh">
+							</div>
+						</form>
+					</c:if>
+
+				</div>
 
 			</div>
-		</div>
+
+		</c:if>
+
+		<c:if test="${userAuthenticated==null}">
+			<jsp:include page="/includes/permissionMessage.jsp"></jsp:include>
+		</c:if>
 
 		<jsp:include page="/includes/Footer.jsp"></jsp:include>
 

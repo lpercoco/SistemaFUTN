@@ -29,12 +29,8 @@ public class LinkToPage extends HttpServlet {
 
 		request.getSession().setAttribute("exceptionMessage",null);	
 		request.getSession().setAttribute("message",null);
-		
-		String url =request.getParameter("url");
-		
-		//url=url+".jsp";
-		
-		request.getRequestDispatcher(url).forward(request, response); 
+				
+		request.getRequestDispatcher(request.getParameter("url")).forward(request, response); 
 		
 	}
 
@@ -42,8 +38,7 @@ public class LinkToPage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }
