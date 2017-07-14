@@ -4,11 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import entidades.Subject;
 import entidades.TeachingMaterial;
-import negocio.CtrlSubjects;
 import utils.ApplicationException;
 
 public class TeachingMaterialData {

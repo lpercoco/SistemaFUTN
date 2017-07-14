@@ -10,6 +10,10 @@ import utils.ApplicationException;
 
 public class SubjectData {
 	
+	static final String GET_SUBJECTS_QUERRY="SELECT subjectCode,subjectName,subjectLevel,subjectArea FROM subjects";
+	static final String GET_SUBJECT_BY_NAME_QUERRY="SELECT subjectCode,subjectName,subjectLevel,subjectArea FROM subjects WHERE subjectName=?";
+	static final String GET_SUBJECT_BY_CODE="SELECT subjectCode,subjectName,subjectArea,subjectLevel FROM subjects WHERE subjectCode=?";
+	
 	public ArrayList<Subject> getSubjects(){		
 
 		ArrayList<Subject> subjects = new ArrayList<Subject>();
@@ -17,8 +21,7 @@ public class SubjectData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select subjectCode,subjectName,subjectLevel,subjectArea from subjects");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_SUBJECTS_QUERRY);
 			rs= stmt.executeQuery();
 			while(rs!=null && rs.next()){
 				Subject s=new Subject();
@@ -55,8 +58,7 @@ public class SubjectData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select subjectCode,subjectName,subjectLevel,subjectArea from subjects where subjectName=?");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_SUBJECT_BY_NAME_QUERRY);
 			stmt.setString(1,subjectName);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
@@ -91,10 +93,11 @@ public class SubjectData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select subjectCode,subjectName,subjectArea,subjectLevel from subjects where subjectCode=?");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_SUBJECT_BY_CODE);
 			stmt.setInt(1, ms.getCode());
+			
 			rs= stmt.executeQuery();
+			
 			if(rs!=null && rs.next()){
 				s.setArea(rs.getString("subjectArea"));
 				s.setCode(rs.getInt("subjectCode"));

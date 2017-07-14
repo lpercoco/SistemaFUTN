@@ -3,10 +3,14 @@ package data;
 
 import java.sql.*;
 
+
 import futn.CopyPrice;
 import utils.ApplicationException;
 
 public class FutnData {
+
+	static final String GET_CURRENT_COPY_PRICE="SELECT beginDate, duplexPrice, simplePrice FROM copyPrices WHERE beginDate = (select MAX(beginDate) from copyPrices)";
+	static final String ADD_NEW_PRICE="INSERT INTO copyPrices (beginDate,simplePrice,duplexPrice) values(?,?,?)";
 	
 	public CopyPrice getCurrentCopyPrice(){
 		CopyPrice cp=new CopyPrice();
@@ -14,10 +18,7 @@ public class FutnData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"SELECT beginDate, duplexPrice, simplePrice "
-					+"FROM copyPrices "
-					+"WHERE beginDate = (select MAX(beginDate) from copyPrices)");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_CURRENT_COPY_PRICE);
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				cp.setSimplePrice(rs.getDouble("simplePrice"));
@@ -52,9 +53,7 @@ public class FutnData {
 		
 		
 		try {
-			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into copyPrices (beginDate,simplePrice,duplexPrice)"+
-					" values(?,?,?)");
+			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(ADD_NEW_PRICE);
 			stmt.setDate(1, (java.sql.Date) cp.getBeginDate());
 			stmt.setDouble(2,cp.getSimplePrice());
 			stmt.setDouble(3,cp.getDuplexPrice());
