@@ -58,7 +58,6 @@ public class AddOrder extends HttpServlet {
 		
 		ctrlUsers.makePayment(order);
 
-		
 		//get ALL orders
 		ArrayList<Order> orders = ctrlOrders.getUndeliveredAndUnprintedOrders(order.getStudentOrder());
 		

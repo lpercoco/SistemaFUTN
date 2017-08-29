@@ -30,7 +30,7 @@ public class OrderData {
 
 	static final String RECORD_ORDER_DETAILS="INSERT INTO orderDetails (orderNumber,orderDetailNumber,teachingMaterialCode,numberOfCopies,state,parcialAmount,duplex) VALUES(?,?,?,?,?,?,?)";
 
-	static final String UNPRINTED_UNDELIVERD_ORDERS_BY_USER="SELECT o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState"
+	static final String UNPRINTED_UNDELIVERD_ORDERS_BY_USER="SELECT o.orderNumber,o.orderDate, o.deliveryDate,o.finishDate,o.estimatedDeliveryDate,o.totalAmount,o.studentLegajo,o.orderState "
                                                            +"FROM orders o "
                                                            +"WHERE o.studentLegajo=? AND (o.deliveryDate IS NULL OR o.finishDate IS NULL) ";
 

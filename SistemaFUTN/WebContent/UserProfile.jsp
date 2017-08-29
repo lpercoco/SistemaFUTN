@@ -58,15 +58,16 @@
 
 							<div class="form-group">
 								<label for="phone1" class="sr-only">Phone1</label> <input
-									type="text" name="phone1" id="phone1"
+									type="tel" name="phone1" id="phone1"
 									value="${userAuthenticated.phone1}" placeholder="Phone 1"
-									required>
+									pattern="[- \d]*" title="Enter a phone number" required>
 							</div>
 
 							<div class="form-group">
 								<label for="phone2" class="sr-only">Phone2</label> <input
-									type="text" name="phone2" id="phone2"
-									value="${userAuthenticated.phone2}" placeholder="Phone 2">
+									type="tel" name="phone2" id="phone2"
+									value="${userAuthenticated.phone2}" placeholder="Phone 2"
+									pattern="[- \d]*" title="Enter a phone number">
 							</div>
 
 							<div class="form-group">

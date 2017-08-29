@@ -60,12 +60,13 @@
 							<div class="form-group">
 								<label for="phone1" class="sr-only">Phone 1</label> <input
 									type="tel" name="phone1" id="phone1" placeholder="Phone"
-									required>
+									pattern="[- \d]*" title="Enter a phone number" required>
 							</div>
 
 							<div class="form-group">
 								<label for="phone2" class="sr-only">Phone 2</label> <input
-									type="tel" name="phone2" id="phone2" placeholder="Phone 2">
+									type="tel" name="phone2" id="phone2" placeholder="Phone 2"
+									pattern="[- \d]*" title="Enter a phone number">
 							</div>
 
 							<div class="form-group">
