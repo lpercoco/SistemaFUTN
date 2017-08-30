@@ -81,6 +81,10 @@
 													</div>
 
 													<div class="form-group">
+														<input type="hidden" name="type" value="printed" />
+													</div>
+
+													<div class="form-group">
 														<input type="submit" class="btn btn-primary"
 															name="checkOrder" value="Check order">
 													</div>

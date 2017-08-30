@@ -37,16 +37,20 @@
 
 					<p>
 						<strong>Estimate delivery date:</strong>
-						${orderToShow.deliveryDate}
+						${orderToShow.estimatedDeliveryDate}
 					</p>
 
-					<p>
-						<strong>Finished date:</strong> ${orderToShow.finishDate}
-					</p>
+					<c:if test="${not empty orderToShow.finishDate}">
+						<p>
+							<strong>Finished date:</strong> ${orderToShow.finishDate}
+						</p>
+					</c:if>
 
-					<p>
-						<strong>Delivey date:</strong> ${orderToShow.deliveryDate}
-					</p>
+					<c:if test="${not empty orderToShow.deliveryDate}">
+						<p>
+							<strong>Delivery date:</strong> ${orderToShow.deliveryDate}
+						</p>
+					</c:if>
 
 					<p>
 						<strong>Total amount:</strong> ${orderToShow.totalAmount}
@@ -60,8 +64,8 @@
 								</c:if>
 								<td width="10%">Title</td>
 								<td width="10%">Number of copies</td>
-								<td width="10%">Duplex</td>
-								<td width="10%">Printed</td>
+								<td width="10%">Print style</td>
+								<td width="10%">State</td>
 								<td width="10%">Parcial amount</td>
 								<c:if test="${userAuthenticated.scholar}">
 									<td width="10%"></td>
@@ -78,8 +82,26 @@
 
 									<td align="left">${od.item.title}</td>
 									<td align="left">${od.numberOfCopies}</td>
-									<td align="left">${od.duplex}</td>
-									<td align="left">${od.state}</td>
+									<td align="left">
+									<c:if test="${od.duplex}">
+									Duplex
+									</c:if>
+									
+									 <c:if test="${!od.duplex}">
+									Simple
+									</c:if>
+									</td>
+									<td align="left">
+									
+									<c:if test="${od.state}">
+									Printed
+									</c:if>
+									
+									 <c:if test="${!od.state}">
+									Unprinted
+									</c:if>
+									
+									</td>
 									<td align="left">${od.parcialAmount}</td>
 									<c:if test="${userAuthenticated.scholar && !od.state}">
 										<td>

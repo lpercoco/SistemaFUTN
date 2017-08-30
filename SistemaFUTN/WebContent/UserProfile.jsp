@@ -10,6 +10,8 @@
 
 <jsp:include page="/JS/passwordValidation.jsp"></jsp:include>
 
+<jsp:include page="/JS/showUserUpdate.jsp"></jsp:include>
+
 </head>
 
 <body>
@@ -28,71 +30,106 @@
 
 					<div class="col-12 col-md-9">
 
-						<h2>Update your profile</h2>
+						<h2>${userAuthenticated.firstName} ${userAuthenticated.lastName} profile</h2>
 
 						<p>
 							<strong> Legajo: </strong> ${userAuthenticated.legajo}
-						</p>
-
-						<p>
-							<strong>First name: </strong> ${userAuthenticated.firstName}
-						</p>
-
-						<p>
-							<strong>Last name: </strong> ${userAuthenticated.lastName}
-						</p>
+						</p>	
 
 						<p>
 							<strong>Credit: </strong> ${userAuthenticated.credit}
 						</p>
 
+						<p>
+							<strong>Adress: </strong> ${userAuthenticated.adress}
+						</p>
+
+						<p>
+							<strong>Phone 1: </strong> ${userAuthenticated.phone1}
+						</p>
+
+						<c:if test="${not empty userAuthenticated.phone2}">
+							<p>
+								<strong>Phone 2: </strong> ${userAuthenticated.phone2}
+							</p>
+						</c:if>
+
+						<p>
+							<strong>Email: </strong> ${userAuthenticated.mail}
+						</p>
+
+						<div class="row">
+
+							<div class=" col-xs-6">
+								<input type="submit" class="btn btn-primary pull-left"
+									value="Change personal data" name="personal"
+									onclick="showPersonalForm()" />
+							</div>
+
+
+							<div class=" col-xs-6">
+								<input type="submit" class="btn btn-primary pull-right"
+									name="password" value="Change password"
+									onclick="showPasswordForm()">
+							</div>
+
+						</div>
+
 						<form name="UserRudForm" action="UserUpdate" method="post">
 
-							<div class="form-group">
+							<div id="personalDataDiv" style="display: none;">
+							
+							<h3>Update your data</h3>
+							
+								<div class="form-group">
 
-								<label for="adress" class="sr-only">Adress</label> <input
-									type="text" name="adress" id="adress"
-									value="${userAuthenticated.adress}" placeholder="Adress"
-									required>
+									<label for="adress">Adress</label> <input type="text"
+										name="adress" id="adress" value="${userAuthenticated.adress}"
+										placeholder="Adress" required>
+								</div>
+
+								<div class="form-group">
+									<label for="phone1">Phone 1</label> <input type="tel"
+										name="phone1" id="phone1" value="${userAuthenticated.phone1}"
+										placeholder="Phone 1" pattern="[- \d]*"
+										title="Enter a phone number" required>
+								</div>
+
+								<div class="form-group">
+									<label for="phone2">Phone 2</label> <input type="tel"
+										name="phone2" id="phone2" value="${userAuthenticated.phone2}"
+										placeholder="Phone 2" pattern="[- \d]*"
+										title="Enter a phone number">
+								</div>
+
+								<div class="form-group">
+									<label for="mail">Email</label> <input type="text" name="mail"
+										id="mail" value="${userAuthenticated.mail}"
+										placeholder="Email" required>
+								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="phone1" class="sr-only">Phone1</label> <input
-									type="tel" name="phone1" id="phone1"
-									value="${userAuthenticated.phone1}" placeholder="Phone 1"
-									pattern="[- \d]*" title="Enter a phone number" required>
+							<div id="passwordDiv" style="display: none;">
+								<h3>Change your password</h3>
+
+								<div class="form-group">
+									<label for="password" class="sr-only">Password</label> <input
+										type="password" name="password" id="password"
+										placeholder="Password">
+								</div>
+
+								<div class="form-group">
+									<label for="confirmPassword" class="sr-only">Password</label> <input
+										type="password" name="confirmPassword" id="confirmPassword"
+										placeholder="Confirm password">
+								</div>
+
 							</div>
 
-							<div class="form-group">
-								<label for="phone2" class="sr-only">Phone2</label> <input
-									type="tel" name="phone2" id="phone2"
-									value="${userAuthenticated.phone2}" placeholder="Phone 2"
-									pattern="[- \d]*" title="Enter a phone number">
+							<div id="btnUpdate" style="display: none;">
+								<input type="submit" class="btn btn-primary" name="update"
+									value="Update">
 							</div>
-
-							<div class="form-group">
-								<label for="mail" class="sr-only">Mail</label> <input
-									type="text" name="mail" id="mail"
-									value="${userAuthenticated.mail}" placeholder="Mail" required>
-							</div>
-
-							<h2>Change your password if you want</h2>
-
-							<div class="form-group">
-								<label for="password" class="sr-only">Password</label> <input
-									type="password" name="password" id="password"
-									placeholder="Password">
-							</div>
-
-							<div class="form-group">
-								<label for="confirmPassword" class="sr-only">Password</label> <input
-									type="password" name="confirmPassword" id="confirmPassword"
-									placeholder="Confirm password">
-							</div>
-
-							<input type="submit" class="btn btn-primary" name="update"
-								value="Update">
-
 						</form>
 
 					</div>

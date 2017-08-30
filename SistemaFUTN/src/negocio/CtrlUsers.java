@@ -63,6 +63,10 @@ public class CtrlUsers {
 		
 		User s=getByLegajo(legajo);
 		
+		if(s.isScholar()){
+			throw new ApplicationException("You cant add credit to this user because  is not a student");
+		}
+		
 		s.addCredit(creditToAdd);
 		
 		userData.update(s);

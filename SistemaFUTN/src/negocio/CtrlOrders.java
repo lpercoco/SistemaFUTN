@@ -84,6 +84,10 @@ public class CtrlOrders {
 
 	public ArrayList<Order> getOrdersToDeliver(User student) throws ApplicationException {
 
+		if(student.isScholar()){
+			throw new ApplicationException("You cant get orders to deliver from this user because  is not a student");
+		}
+		
 		ArrayList<Order> orders= data.getUndeliveredAndUnprintedOrders(student);
 
 		ArrayList<Order> ordersToDelete = new ArrayList<Order>();
@@ -118,6 +122,12 @@ public class CtrlOrders {
 		}
 		
 		return ordersToDeliver;
+		
+	}
+
+	public Order getOrder(int orderNumber) {
+
+		return this.data.getOrder(orderNumber);
 		
 	}
 

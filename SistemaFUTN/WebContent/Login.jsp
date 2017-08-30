@@ -19,46 +19,38 @@
 			<p class="text-center">UTN FRRO copy center</p>
 		</div>
 
-		<div class="col-md-5 col-md-offset-5">
-			<form class="form-login" action="Login" method="post">
+		<form class="form-signin" action="Login" method="post">
 
-				<h2 class="form-signin-heading">Sing in</h2>
+			<h2 class="form-signin-heading text-center">Please sing in</h2>
 
-				<div class="row">
-					<div class="form-group col-xs-4">
-						<label for="legajoLogin" class="sr-only">Legajo</label> <input
-							type="text" pattern="[0-9]{5}" name="legajoLogin"
-							class="form-control" placeholder="Legajo" required autofocus>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="form-group col-xs-4 col-lg-1">
-						<label for="passwordLogin" class="sr-only">Password</label> <input
-							type="password" name="passwordLogin" class="form-control"
-							placeholder="Password" required>
-					</div>
-				</div>
+			<div class="form-group">
+				<label for="legajoLogin" class="sr-only">Legajo</label> <input
+					type="text" pattern="[0-9]{5}" name="legajoLogin"
+					class="form-control" placeholder="Legajo" required autofocus>
+			</div>
 
 
-				<div class="row">
-					<div class="form-group col-xs-4 col-lg-1">
-						<input type="submit" value="Login" name="login"
-							class="btn btn-lg btn-primary btn-block">
-					</div>
-				</div>
+			<div class="form-group">
+				<label for="passwordLogin" class="sr-only">Password</label> <input
+					type="password" name="passwordLogin" class="form-control"
+					placeholder="Password" required>
+			</div>
 
-			</form>
+			<div class="form-group ">
+				<input type="submit" value="Login" name="login"
+					class="btn btn-lg btn-primary btn-block">
+			</div>
 
-			<c:if test="${exceptionMessage !=null}">
-				<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
-			</c:if>
-
-		</div>
-
-		<jsp:include page="/includes/Footer.jsp"></jsp:include>
+		</form>
 
 	</div>
+
+	<c:if test="${exceptionMessage !=null}">
+		<jsp:include page="/includes/exceptionMessage.jsp"></jsp:include>
+	</c:if>
+
+	<jsp:include page="/includes/Footer.jsp"></jsp:include>
+
 
 </body>
 </html>

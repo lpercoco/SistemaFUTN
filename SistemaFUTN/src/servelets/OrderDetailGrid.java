@@ -38,10 +38,22 @@ public class OrderDetailGrid extends HttpServlet {
 		
 		int orderNumber = Integer.parseInt(request.getParameter("orderNumber"));
 		
-		ArrayList<Order> orders = (ArrayList<Order>) request.getSession().getAttribute("orders");
+		String typeOfSearch=request.getParameter("type");
 		
-		order = ctrlOrders.getOrder(orders,orderNumber);
+		if(typeOfSearch.equals("unprinted")){
+			
+			ArrayList<Order> orders = (ArrayList<Order>) request.getSession().getAttribute("orders");
+			
+			order = ctrlOrders.getOrder(orders,orderNumber);
 		
+		}else{
+			//is printed order
+			
+			order=ctrlOrders.getOrder(orderNumber);
+
+		}
+		
+
 		request.getSession().setAttribute("orderToShow",order);
 		
 		request.getRequestDispatcher("OrderDetailsGrid.jsp").forward(request, response); 
