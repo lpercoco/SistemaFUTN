@@ -30,11 +30,12 @@
 
 					<div class="col-12 col-md-9">
 
-						<h2>${userAuthenticated.firstName} ${userAuthenticated.lastName} profile</h2>
+						<h2>${userAuthenticated.firstName}
+							${userAuthenticated.lastName} profile</h2>
 
 						<p>
 							<strong> Legajo: </strong> ${userAuthenticated.legajo}
-						</p>	
+						</p>
 
 						<p>
 							<strong>Credit: </strong> ${userAuthenticated.credit}
@@ -78,9 +79,9 @@
 						<form name="UserRudForm" action="UserUpdate" method="post">
 
 							<div id="personalDataDiv" style="display: none;">
-							
-							<h3>Update your data</h3>
-							
+
+								<h3>Update your data</h3>
+
 								<div class="form-group">
 
 									<label for="adress">Adress</label> <input type="text"
