@@ -35,7 +35,7 @@
 							<thead>
 								<tr>
 									<td width="10%">Order number</td>
-									<td width="10%">Ready</td>
+									<td width="10%">State</td>
 									<td width="15%">Order date</td>
 									<td width="15%">Estimate delivery date</td>
 
@@ -59,7 +59,7 @@
 										test="${(empty o.deliveryDate && ! userAuthenticated.scholar) || (userAuthenticated.scholar && !o.orderState)}">
 										<tr>
 											<td align="left">${o.orderNumber}</td>
-											<td align="left">${o.orderState}</td>
+											<td align="left">${o.orderState ? 'Ready': 'Not ready'}</td>
 											<td align="left">${o.orderDate}</td>
 											<td align="left">${o.estimatedDeliveryDate}</td>
 

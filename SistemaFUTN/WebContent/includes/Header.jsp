@@ -5,7 +5,7 @@
 	<div class="container">
 
 		<div class="navbar-header">
-			<a class="navbar-brand" href="Home.jsp">FUTN</a>
+			<a class="navbar-brand" href="LinkToPage?url=Home.jsp">FUTN</a>
 		</div>
 
 		<div>

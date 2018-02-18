@@ -28,7 +28,7 @@
 					<h2>Order: ${orderToShow.orderNumber}</h2>
 
 					<p>
-						<strong>Order state:</strong> ${orderToShow.orderState}
+						<strong>Order state:</strong> ${orderToShow.orderState ? 'Ready': 'Not ready'}
 					</p>
 
 					<p>
@@ -82,26 +82,8 @@
 
 									<td align="left">${od.item.title}</td>
 									<td align="left">${od.numberOfCopies}</td>
-									<td align="left">
-									<c:if test="${od.duplex}">
-									Duplex
-									</c:if>
-									
-									 <c:if test="${!od.duplex}">
-									Simple
-									</c:if>
-									</td>
-									<td align="left">
-									
-									<c:if test="${od.state}">
-									Printed
-									</c:if>
-									
-									 <c:if test="${!od.state}">
-									Unprinted
-									</c:if>
-									
-									</td>
+									<td align="left">${od.duplex ? 'Duplex': 'Simple'}</td>							
+									<td align="left">${od.state ? 'Printed': 'Unprinted'}</td>
 									<td align="left">${od.parcialAmount}</td>
 									<c:if test="${userAuthenticated.scholar && !od.state}">
 										<td>

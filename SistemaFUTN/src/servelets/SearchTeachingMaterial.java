@@ -35,13 +35,16 @@ public class SearchTeachingMaterial extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		CtrlTeachingMaterial ctrlTeachingMaterial=new CtrlTeachingMaterial();
 
 		TeachingMaterial teachingMaterialSearch=new TeachingMaterial();
 		Subject subjectSearch=new Subject();
 		ArrayList <TeachingMaterial> teachingMaterialArray=new ArrayList<TeachingMaterial>();
 
+		//clean message's
+		request.getSession().setAttribute("message",null);	
+		request.getSession().setAttribute("exceptionMessage",null);	
 
 		teachingMaterialSearch.setTitle(request.getParameter("title"));
 		subjectSearch.setName(request.getParameter("subject")); 
