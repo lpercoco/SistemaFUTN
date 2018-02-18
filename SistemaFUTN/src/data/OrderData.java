@@ -39,6 +39,10 @@ public class OrderData {
 			+"FROM orders o "
 			+"WHERE o.orderNumber=?";
 
+	private static final String GET_ORDERS_DETAILS_BY_ORDERNUMBER = "SELECT od.orderDetailNumber,od.teachingMaterialCode,od.numberOfCopies,od.state,od.parcialAmount,od.duplex"
+	        +" FROM orderDetails od"
+			+" WHERE od.orderNumber= ?";
+	
 	public void add(Order o){
 		ResultSet rs=null;
 		ResultSet primaryKeyOfOrder=null;
@@ -170,7 +174,6 @@ public class OrderData {
 			}
 		}
 
-		//sacar afuera?
 		for (int i = 0; i < orders.size(); i++) {
 			orders.get(i).setDetails(getDetails(orders.get(i)));
 		}
@@ -187,10 +190,7 @@ public class OrderData {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select od.orderDetailNumber,od.teachingMaterialCode,od.numberOfCopies,od.state,od.parcialAmount,od.duplex"+			
-							" from orderDetails od"+
-					" where od.orderNumber= ?");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(GET_ORDERS_DETAILS_BY_ORDERNUMBER);
 			stmt.setInt(1,o.getOrderNumber());
 			rs= stmt.executeQuery();
 
@@ -229,7 +229,7 @@ public class OrderData {
 			}
 		}
 
-		//MAP
+		//MAP teaching materials
 		for (int i = 0; i < ordersDetails.size(); i++) {
 
 			TeachingMaterial tm = new TeachingMaterial();
@@ -243,12 +243,9 @@ public class OrderData {
 		return ordersDetails;
 	}
 
-
 	public ArrayList<Order> getUnprintedOrders(){
 
 		ArrayList<Order> orders = new ArrayList<Order>();
-
-		UserData userData = new UserData();        
 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -290,24 +287,33 @@ public class OrderData {
 			}
 		}
 
-		//hacer un metodo mapear od y usuario
+		//map orders
 		for (int i = 0; i < orders.size(); i++) {
-			orders.get(i).setDetails(getDetails(orders.get(i)));
-
-			User u=orders.get(i).getStudentOrder();
-			try {
-				orders.get(i).setStudentOrder(userData.getByLegajo(u.getLegajo()));
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			orders.set(i, mapOrder(orders.get(i)));
 		}
 
 		return orders;
 
 	}
-
+	
+	
+	private Order mapOrder(Order o){
+		
+		UserData userData=new UserData();
+		
+		int legajo=o.getStudentOrder().getLegajo();
+		
+		try {
+			o.setStudentOrder(userData.getByLegajo(legajo));
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+		
+		o.setDetails(getDetails(o));
+		
+		return o;
+	}
+	
 	public void saveOrderDetailAsPrinted(Order order, int orderDetailNumber) {
 
 		PreparedStatement stmt=null;
@@ -394,10 +400,7 @@ public class OrderData {
 
 	public Order getOrder(int orderNumber) {
 
-
 		Order order = new Order();
-
-		UserData userData = new UserData();        
 
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -439,15 +442,7 @@ public class OrderData {
 			}
 		}
 
-		order.setDetails(getDetails(order));
-
-		int legajo=order.getStudentOrder().getLegajo();
-		
-		try {
-			order.setStudentOrder(userData.getByLegajo(legajo));
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
+		order=mapOrder(order);
 		
 		return order;
 
