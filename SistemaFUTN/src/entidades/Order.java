@@ -2,7 +2,6 @@ package entidades;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.sql.*;
 import java.util.Date;
 
 public class Order{
