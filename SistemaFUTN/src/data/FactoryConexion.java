@@ -11,43 +11,43 @@ public class FactoryConexion {
 	private String pass="finaljava";
 	private String db="futnDB";
 	private String dbType="mysql";
-	
+
 	private Connection conn;
-    private int cantConn=0;
-    
+	private int cantConn=0;
+
 
 	private FactoryConexion() throws ApplicationException{
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			throw new ApplicationException("Error del Driver JDBC",e);
+			throw new ApplicationException("Driver JDBC error",e);
 		}
 	}
-	
+
 	private static FactoryConexion instancia;
-	
+
 	public static FactoryConexion getInstancia() throws ApplicationException{
 		if (instancia==null){
 			instancia = new FactoryConexion();
 		}
 		return instancia;
 	}
-	
+
 	public Connection getConn(){
 		try {
 			if(conn==null || conn.isClosed()){
-				   conn = DriverManager.getConnection(
+				conn = DriverManager.getConnection(
 						"jdbc:"+dbType+"://"+host+":"+port+"/"+
-						db+"?user="+user+"&password="+pass);
+								db+"?user="+user+"&password="+pass);
 				cantConn++;	
 			}
 		} catch (SQLException e) {
-			new ApplicationException("Error al conectar a la DB",e);
+			new ApplicationException("Error connecting to the DB",e);
 
 		}
 		return conn;
 	}
-	
+
 	public void releaseConn() throws ApplicationException{
 		try {
 			cantConn--;
@@ -55,9 +55,9 @@ public class FactoryConexion {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new ApplicationException("Error al cerrar conexión",e);
+			throw new ApplicationException("Error closing connection",e);
 		}
-		
-}
+
+	}
 }
 
